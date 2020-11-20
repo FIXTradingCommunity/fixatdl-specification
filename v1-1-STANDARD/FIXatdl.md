@@ -1,288 +1,4 @@
-![](media/image1.png){width="5.935416666666667in"
-height="8.250694444444445in"}
-
-**FIX Algorithmic Trading Definition Language (FIXatdl^SM^)**
-
-**Version 1.1 Specification with Errata 20101221**
-
-Includes Errata adjustments as of December 21, 2010
-
-**[Errata Purpose:]{.underline}**
-
-[This document includes a list of minor adjustments to the FIXatdl 1.1
-Specification document due to typographical errors or
-ambiguities.]{.underline}
-
-[The specific adjustments made to the original FIXatdl version 1.1
-specification as a result of the Errata can be seen and printed via
-Microsoft Word's revision feature of this document. A separate document
-with an itemized list of changes is available via the FIX
-website.]{.underline}
-
-December 21, 2010
-
-**Document History**
-
-+-------------+---------------+---------------+---+---------------+
-| Revison   | Date        | Author      |   | Comments      |
-+=============+===============+===============+===+===============+
-|             |               |               |   |               |
-+-------------+---------------+---------------+---+---------------+
-| Draft 1   | October 12, | Greg        |   | Original      |
-|             | 2009        |             |   | draft.        |
-|             |               |  Malatestinic |   |               |
-+-------------+---------------+---------------+---+---------------+
-|             |               |               |   |               |
-+-------------+---------------+---------------+---+---------------+
-| Draft 2   | November    | Greg        |   | Added element |
-|             | 16,         |             |   | hierarchy and |
-|             |               |  Malatestinic |   | sample code.  |
-|             |               |               |   | Deleted       |
-+-------------+---------------+---------------+---+---------------+
-|             | 2009        |               |   | schema        |
-|             |               |               |   | diagrams.     |
-+-------------+---------------+---------------+---+---------------+
-|             |               |               |   |               |
-+-------------+---------------+---------------+---+---------------+
-| Draft 3   | December    | Greg        |   | Added XML     |
-|             | 12, 2009    |             |   | element       |
-|             |               |  Malatestinic |   | descriptions. |
-|             |               |               |   | Replaced XML  |
-|             |               |               |   | Spy           |
-+-------------+---------------+---------------+---+---------------+
-|             |               |               |   | generated     |
-|             |               |               |   | attribute     |
-|             |               |               |   | tables with   |
-|             |               |               |   | custom table. |
-+-------------+---------------+---------------+---+---------------+
-|             |               |               |   |               |
-+-------------+---------------+---------------+---+---------------+
-| Draft 4   | December    | Greg        |   | Changes based |
-|             | 28, 2009    |             |   | on Scott      |
-|             |               |  Malatestinic |   | Atwell‟s      |
-|             |               |               |   | review. Added |
-|             |               |               |   | new           |
-+-------------+---------------+---------------+---+---------------+
-|             |               |               |   | tables for    |
-|             |               |               |   | extension     |
-|             |               |               |   | attributes    |
-|             |               |               |   | that include  |
-|             |               |               |   | attribute     |
-|             |               |               |   | type          |
-+-------------+---------------+---------------+---+---------------+
-|             |               |               |   | information.  |
-+-------------+---------------+---------------+---+---------------+
-|             |               |               |   |               |
-+-------------+---------------+---------------+---+---------------+
-| Draft 5   | January 12, | Greg        |   | Addition of   |
-|             | 2010        |             |   | Key Concepts  |
-|             |               |  Malatestinic |   | section.      |
-|             |               |               |   | Formatting    |
-|             |               |               |   | cleaned-      |
-+-------------+---------------+---------------+---+---------------+
-|             |               |               |   | up. Further   |
-|             |               |               |   | editing based |
-|             |               |               |   | on review of  |
-|             |               |               |   | Jan 6, 2010.  |
-+-------------+---------------+---------------+---+---------------+
-|             |               |               |   |               |
-+-------------+---------------+---------------+---+---------------+
-| Draft 6   | January 18, | Greg        |   | Added         |
-|             | 2010        |             |   | Paramet       |
-|             |               |  Malatestinic |   | er-to-Control |
-|             |               |               |   | binding and   |
-|             |               |               |   | Transport of  |
-+-------------+---------------+---------------+---+---------------+
-|             |               |               |   | Strategy      |
-|             |               |               |   | Parameters to |
-|             |               |               |   | Key Concepts  |
-|             |               |               |   | section.      |
-|             |               |               |   | Added         |
-+-------------+---------------+---------------+---+---------------+
-|             |               |               |   | comments to   |
-|             |               |               |   | the sample    |
-|             |               |               |   | instance.     |
-|             |               |               |   | More changes  |
-|             |               |               |   | based on      |
-+-------------+---------------+---------------+---+---------------+
-|             |               |               |   | Scott         |
-|             |               |               |   | Atwell‟s      |
-|             |               |               |   | review.       |
-+-------------+---------------+---------------+---+---------------+
-|             |               |               |   |               |
-+-------------+---------------+---------------+---+---------------+
-| Draft 7   | February 4, | Greg        |   | Changes made  |
-|             | 2010        |             |   | based on the  |
-|             |               |  Malatestinic |   | review by     |
-|             |               |               |   | Ryan Pierce.  |
-+-------------+---------------+---------------+---+---------------+
-|             |               |               |   |               |
-+-------------+---------------+---------------+---+---------------+
-| Draft 8   | February 8, | Scott       |   | Typographical |
-|             | 2010        | Atwell      |   | changes.      |
-|             |               |               |   | Added         |
-|             |               |               |   | Parameter     |
-|             |               |               |   | T             |
-|             |               |               |   | ype-Attribute |
-+-------------+---------------+---------------+---+---------------+
-|             |               |               |   | Matrix and    |
-|             |               |               |   | Control       |
-|             |               |               |   | T             |
-|             |               |               |   | ype-Attribute |
-|             |               |               |   | Matrix.       |
-+-------------+---------------+---------------+---+---------------+
-|             |               |               |   |               |
-+-------------+---------------+---------------+---+---------------+
-| Draft 9   | February    | Greg        |   | Updated to    |
-|             | 22, 2010    |             |   | reflect       |
-|             |               |  Malatestinic |   | changes made  |
-|             |               |               |   | to schema     |
-|             |               |               |   | after public  |
-+-------------+---------------+---------------+---+---------------+
-|             |               |               |   | comment       |
-|             |               |               |   | period.       |
-+-------------+---------------+---------------+---+---------------+
-|             |               |               |   |               |
-+-------------+---------------+---------------+---+---------------+
-| Final     | March 2,    |               |   | Draft 9       |
-|             | 2010        |               |   | approved by   |
-|             |               |               |   | GTC           |
-|             |               |               |   | Governance    |
-|             |               |               |   | Board         |
-+-------------+---------------+---------------+---+---------------+
-|             |               |               |   |               |
-+-------------+---------------+---------------+---+---------------+
-| Errata    | Dec 8, 2010 | Greg        |   | Corrections.  |
-|             |               |             |   |               |
-|             |               |  Malatestinic |   |               |
-+-------------+---------------+---------------+---+---------------+
-|             |               |               |   |               |
-+-------------+---------------+---------------+---+---------------+
-| Errata    | Dec 15,     | Steve       |   | Further       |
-|             | 2010        | Wilkinson   |   | corrections   |
-|             |               |               |   | from WG       |
-|             |               |               |   | review.       |
-+-------------+---------------+---------------+---+---------------+
-| Final     |               | Greg        |   |               |
-|             |               |             |   |               |
-|             |               |  Malatestinic |   |               |
-+-------------+---------------+---------------+---+---------------+
-|             |               |               |   |               |
-+-------------+---------------+---------------+---+---------------+
-| Errata    | Dec 21,     | Greg        |   | Further typos |
-|             | 2010        |             |   | corrected.    |
-|             |               |  Malatestinic |   |               |
-+-------------+---------------+---------------+---+---------------+
-| Final     |               |               |   |               |
-+-------------+---------------+---------------+---+---------------+
-| Published |               |               |   |               |
-+-------------+---------------+---------------+---+---------------+
-|             |               |               |   |               |
-+-------------+---------------+---------------+---+---------------+
-
-December 21, 2010 2 FIXatdl v1.1 with Errata 20101221
-
-DISCLAIMER
-
-THE INFORMATION CONTAINED HEREIN AND THE FINANCIAL INFORMATION EXCHANGE
-ALGORITHMIC TRADING DEFINITION LANGUAGE (COLLECTIVELY, THE \"FIXadtl^SM^
-SCHEMA\") ARE PROVIDED \"AS IS\" AND NO PERSON OR ENTITY ASSOCIATED WITH
-THE FIX PROTOCOL AND/OR THE FIXadtl SCHEMA MAKES ANY REPRESENTATION OR
-WARRANTY, EXPRESS OR IMPLIED, AS TO THE FIXadtl SCHEMA (OR THE RESULTS
-TO BE OBTAINED BY THE USE THEREOF) OR ANY OTHER MATTER AND EACH SUCH
-PERSON AND ENTITY SPECIFICALLY DISCLAIMS ANY WARRANTY IN RELATION TO THE
-SAME, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF ORIGINALITY,
-FREEDOM FROM INFRINGEMENT, ACCURACY, COMPLETENESS, MERCHANTABILITY,
-SATISFACTORY QUALITY OR FITNESS FOR A PARTICULAR PURPOSE. SUCH PERSONS
-AND ENTITIES DO NOT WARRANT THAT THE FIX PROTOCOL AND/OR THE FIXadtl
-SCHEMA WILL CONFORM TO ANY DESCRIPTION THEREOF OR BE FREE OF ERRORS. THE
-ENTIRE RISK OF ANY USE OF THE FIX PROTOCOL AND/OR THE FIXadtl SCHEMA IS
-ASSUMED BY THE USER.
-
-NO PERSON OR ENTITY ASSOCIATED WITH THE FIX PROTOCOL AND/OR FIXadtl
-SCHEMA SHALL HAVE ANY LIABILITY FOR DAMAGES OF ANY KIND ARISING IN ANY
-MANNER OUT OF OR IN CONNECTION WITH ANY USER\'S USE OF (OR ANY INABILITY
-TO USE) THE FIXadtl SCHEMA, WHETHER DIRECT, INDIRECT, INCIDENTAL,
-SPECIAL OR CONSEQUENTIAL (INCLUDING, WITHOUT LIMITATION, LOSS OF DATA,
-LOSS OF USE, CLAIMS OF THIRD PARTIES OR LOST PROFITS OR REVENUES OR
-OTHER ECONOMIC LOSS), WHETHER IN TORT (INCLUDING NEGLIGENCE AND STRICT
-LIABILITY), CONTRACT OR OTHERWISE, WHETHER OR NOT ANY SUCH PERSON OR
-ENTITY HAS BEEN ADVISED OF, OR OTHERWISE MIGHT HAVE ANTICIPATED THE
-POSSIBILITY OF, SUCH DAMAGES.
-
-All intellectual property rights vesting in the FIXadtl SCHEMA are
-strictly reserved to FIX Protocol Limited (\"FPL\"), its affiliates or
-its licensors. FIXatdl is a service mark of FPL. You do not acquire any
-ownership rights in the FIXatdl SCHEMA through your use of it. FPL
-grants you a non-exclusive right and licence to use the FIXadtl SCHEMA
-(but excluding the FIXatdl SCHEMA service mark) solely for reasonable
-internal use within your organisation and/or for the purpose of
-conducting your organisation\'s business. You are not permitted to
-modify or create derivative works of the FIXadtl SCHEMA for any other
-purpose.
-
-© Copyright 2010 FIX Protocol Limited, all rights reserved
-
-December 21, 2010 3 FIXatdl v1.1 with Errata 20101221
-
-**Contents**
-
-**[INTRODUCTION](#page5) [5](#page5)**
-
-[AUDIENCE](#page5) [5](#page5)
-
-**[FIXATDL SCHEMA FILES](#page6) [6](#page6)**
-
-**[KEY CONCEPTS](#page7) [7](#page7)**
-
-[ELEMENT HIERARCHY](#page7) [7](#page7)
-
-[PARAMETER DESCRIPTION](#page10) [10](#page10)
-
-[VALIDATION RULES](#page10) [10](#page10)
-
-[GUI LAYOUT DESCRIPTION](#page12) [12](#page12)
-
-[FLOW CONTROL RULES](#page14) [14](#page14)
-
-[PARAMETER-TO-CONTROL BINDINGS](#page16) [16](#page16)
-
-[TRANSPORT OF STRATEGY PARAMETERS](#page17) [17](#page17)
-
-**[ELEMENT DEFINITIONS](#page19) [19](#page19)**
-
-**[ATTRIBUTE DEFINITIONS](#page21) [21](#page21)**
-
-**[PARAMETER TYPE-ATTRIBUTE MATRIX](#page41)
-[[41]{.underline}~~40~~](#page41)**
-
-**[CONTROL TYPE-ATTRIBUTE MATRIX](#page42)
-[[42]{.underline}~~41~~](#page42)**
-
-**[TYPE DEFINITIONS](#page42) [[42]{.underline}~~41~~](#page42)**
-
-**[ABSTRACT ELEMENT EXTENSIONS](#page48)
-[[48]{.underline}~~47~~](#page48)**
-
-[PARAMETER ELEMENT EXTENSION](#page48)
-[[48]{.underline}~~47~~](#page48)
-
-[CONTROL ELEMENT EXTENSION](#page52) [[52]{.underline}~~51~~](#page52)
-
-**[DEPENDENCIES AND STRUCTURAL CONSTRAINTS BEYOND XML SCHEMA](#page54)
-[[54]{.underline}~~53~~](#page54)**
-
-**[A SAMPLE FIXATDL DOCUMENT](#page56)
-[[56]{.underline}~~55~~](#page56)**
-
-**[APPENDIX 1 - LOCALMKTTZ TYPE](#page60)
-[[60]{.underline}~~59~~](#page60)**
-
-December 21, 2010 4 FIXatdl v1.1 with Errata 20101221
-
-[]{#page5 .anchor}
-
-**Introduction**
+# Introduction
 
 This document serves as a specification of the FIX Algorithmic Trading
 Definition Language (FIXatdl), a markup language that works in
@@ -304,29 +20,21 @@ machine-readable format. It is envisioned that applications supporting
 this standard would be able to receive an XML document conforming to
 FIXatdl and, based on the information within this document, be able to:
 
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
-
-Dynamically display an order ticket containing algorithmic order
+- Dynamically display an order ticket containing algorithmic order
 parameters.
 
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
+- Change the visual state of GUI controls based on user input.
 
-Change the visual state of GUI controls based on user input.
-
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
-
-Validate the values entered into the ticket before an order is
+- Validate the values entered into the ticket before an order is
 transmitted.
 
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
-
-Create and transmit a FIX order message with the appropriate standard
+- Create and transmit a FIX order message with the appropriate standard
 and/or user-defined fields populated.
 
 These capabilities are achievable without the need for custom software
 development or subsequent product deployment.
 
-**Audience**
+# Audience
 
 This specification is intended for those interested in either: (1)
 developing applications with FIX order entry capabilities supporting
@@ -337,7 +45,7 @@ December 21, 2010 5 FIXatdl v1.1 with Errata 20101221
 
 []{#page6 .anchor}
 
-**FIXatdl Schema Files**
+# FIXatdl Schema Files
 
 A set of XML Schema files has been created to describe the structure
 of a FIXatdl document instance. These files can be used with
@@ -346,9 +54,7 @@ instance. They can also be used with XML data binding utilities to
 generate source code which maps classes to XML representations. The
 files are grouped into two functional categories:
 
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
-
-**Data Contract** -- Defines the wire-value interface of an
+- **Data Contract** -- Defines the wire-value interface of an
 algorithmic order. For each algorithm/strategy it defines the valid
 set of parameters and availability of the strategy for specific
 markets. For each parameter of an algorithm/strategy it defines the
@@ -357,9 +63,7 @@ values); whether it is optional or required; and value constraints
 based on certain conditions or the value of other parameters
 (validation rules).
 
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
-
-**GUI** -- Defines the recommended GUI controls that should be
+- **GUI** -- Defines the recommended GUI controls that should be
 rendered on the order entry screen and their location on the screen.
 Defines the rules that affect the state of a GUI control. Provides a
 mapping of the on screen controls with the parameters of the data
@@ -480,13 +184,9 @@ Schema files:
 |                        |   |   |                        |   |   |
 +------------------------+---+---+------------------------+---+---+
 
-December 21, 2010 6 FIXatdl v1.1 with Errata 20101221
+# Key Concepts
 
-[]{#page7 .anchor}
-
-**Key Concepts**
-
-**Element Hierarchy**
+## Element Hierarchy
 
 The FIXatdl schema provides a set of XML elements that are used to
 create a conforming FIXatdl document. These elements are described later
@@ -542,24 +242,22 @@ into the strategy definition we‟ll see that it follows the hierarchy:
 \<Strategy\>
 
 \<Parameter\>
->
-\<Parameter\>
->
-. . .
->
-\<Parameter\>
->
-\<StrategyEdit\>
->
-\<StrategyEdit\>
->
-. . .
->
-\<StrategyEdit\>
->
-\<StrategyLayout\>
 
-December 21, 2010 7 FIXatdl v1.1 with Errata 20101221
+\<Parameter\>
+
+. . .
+
+\<Parameter\>
+
+\<StrategyEdit\>
+
+\<StrategyEdit\>
+
+. . .
+
+\<StrategyEdit\>
+
+\<StrategyLayout\>
 
 \</Strategy\>
 
@@ -573,1305 +271,19 @@ group, are shaded. The elements, Parameter, StrategyLayout and
 StrategyEdit are somewhat complex; the hierarchy of their children is
 shown in figures 2 through 4.
 
-<table>
-<tbody>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>Strategies</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>0..1</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>1..inf</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>0..inf</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>Description</td>
-<td></td>
-<td></td>
-<td></td>
-<td>Strategy</td>
-<td></td>
-<td></td>
-<td></td>
-<td>Edit</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td>0..1</td>
-<td></td>
-<td></td>
-<td>0..1</td>
-<td></td>
-<td></td>
-<td><blockquote>
-<p>0..inf</p>
-</blockquote></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>0..1</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>0..1</td>
-<td></td>
-<td></td>
-<td>0..1</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Regions</td>
-<td></td>
-<td>Markets</td>
-<td></td>
-<td><blockquote>
-<p>Edit</p>
-</blockquote></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>Description</td>
-<td></td>
-<td></td>
-<td></td>
-<td>RepeatingGroup</td>
-<td></td>
-<td>SecurityTypes</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>1..3</td>
-<td></td>
-<td></td>
-<td>1..inf</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>1..inf</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Region</td>
-<td></td>
-<td>Market</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>0..1</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>1..inf</td>
-<td></td>
-<td>SecurityType</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>Description</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>Parameter</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td>0..inf</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Country</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td><blockquote>
-<p>0..inf</p>
-</blockquote></td>
-<td></td>
-<td>0..1</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>0..inf</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>Parameter</td>
-<td></td>
-<td></td>
-<td>StrategyLayout</td>
-<td></td>
-<td></td>
-<td>StrategyEdit</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-
-***Figure 1: Root Element Hierarchy***
+![Root Element Hierarchy](media/Strategies.png)
 
 The following figure gives the hierarchy of elements descending from the
 Parameter element.
 
-Parameter
->
-0..1
->
-Description
->
-0..inf
-
-EnumPair
-
-***Figure 2: Parameter Hierarchy***
+![Parameter Hierarchy](media/Parameter.png)
 
 The following figure gives the hierarchy of elements descending from the
 StrategyLayout element. This element is responsible for binding GUI
 controls to parameters and describing their arrangement on the
 order-entry screen.
 
-December 21, 2010 8 FIXatdl v1.1 with Errata 20101221
-
-<table>
-<tbody>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td>StrategyLayout</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td>StrategyPanel</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>or</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td><blockquote>
-<p>1..inf</p>
-</blockquote></td>
-<td></td>
-<td></td>
-<td></td>
-<td><blockquote>
-<p>1..inf</p>
-</blockquote></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><blockquote>
-<p>StrategyPanel</p>
-</blockquote></td>
-<td></td>
-<td></td>
-<td></td>
-<td><blockquote>
-<p>Control</p>
-</blockquote></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>0..1</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td><blockquote>
-<p>0..1</p>
-</blockquote></td>
-<td></td>
-<td></td>
-<td></td>
-<td><blockquote>
-<p>0..inf</p>
-</blockquote></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td>HelpText</td>
-<td></td>
-<td></td>
-<td>StateRule</td>
-<td></td>
-<td></td>
-<td>ListItem</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td>0..1</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>xor</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td>Description</td>
-<td></td>
-<td></td>
-<td><blockquote>
-<p>1</p>
-</blockquote></td>
-<td></td>
-<td></td>
-<td></td>
-<td>1</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>Edit</td>
-<td></td>
-<td></td>
-<td>EditRef</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-
-***Figure 3: StrategyLayout Hierarchy***
+![StrategyLayout Hierarchy](media/StrategyLayout.png)
 
 The following figure shows the StrategyEdit hierarchy. This element is
 used to describe validation rules which are applied to the values of a
@@ -1880,24 +292,9 @@ contain a single Edit element (may contain further nested Edit rules)
 which is used to describe a particular condition that must be met in
 order to pass validation.
 
-StrategyEdit
+![StrategyEdit Hierarchy](media/StrategyEdit.png)
 
-  ------------- ------ -- -- ------ -- -- --- --------- -- -- -- ---
-
-                                              xor                
-                0..1                      1                      1
-  Description                Edit             EditRef            
-
-
-  ------------- ------ -- -- ------ -- -- --- --------- -- -- -- ---
-
-***Figure 4: StrategyEdit Hierarchy***
-
-December 21, 2010 9 FIXatdl v1.1 with Errata 20101221
-
-[]{#page10 .anchor}
-
-**Parameter Description**
+##Parameter Description
 
 The interface of an algorithmic order type is described by a set of FIX
 messages, the required, optional and user-defined fields of those
@@ -1943,9 +340,9 @@ enumerated values expected to be transmitted over the wire. For example:
 
 \<Parameter name="Aggression" xsi:type="Char\_t" fixTag="8001"
 use="required"\\<EnumPair enumID="low" wireValue="L"/\>
->
+
 \<EnumPair enumID="medium" wireValue="M"/\>
->
+
 \<EnumPair enumID=‟high" wireValue="H"/\>
 
 \</Parameter\>
@@ -1962,19 +359,17 @@ similar to:
 
 ...35=D\|11=0001\|55=AXP\|44=77.25\| ... 8000=5\|8001=H ...
 
-**Validation Rules**
+## Validation Rules
 
 Validation rules are defined by use of the StrategyEdit element. This
 XML element enables the creation of complex and conditional rules which
 can be applied to the orders generated by an E/OMS. The goal of a
 validation rule is to process the
 
-December 21, 2010 10 FIXatdl v1.1 with Errata 20101221
-
 values of the strategy parameters after they have been entered by the
 user. Each validation rule consists of a condition and an error message.
 If the condition is true then the values of the parameters are valid. If
-the condition is false then the values of the parameters are invalid and
+the condition is false, then the values of the parameters are invalid and
 the provided error message should be displayed. That is to say,
 validation conditions are much like assertions. When an assertion has
 failed an error has occurred.
@@ -2016,15 +411,15 @@ use="optional"/\\<StrategyEdit errorMessage=\"If Participation Rate is
 entered it must be between 1 and 50\"\>
 
 \<Edit logicOperator="OR"\>
->
+
 \<Edit field=\"ParticipationRate\" operator=\"NX\"/\>
->
+
 \<Edit logicOperator="AND"\>
->
+
 \<Edit field=\"ParticipationRate\" operator=\"GE\" value=\"1\"/\>
->
+
 \<Edit field=\"ParticipationRate\" operator=\"LE\" value=\"50\"/\>
->
+
 \</Edit\>
 
 \</Edit\>
@@ -2051,10 +446,6 @@ statement will terminate after it is established that its first operand,
 statement that follows is never evaluated -- which is a good result
 since, if we had attempted to evaluate it, it is]{.underline}
 
-December 21, 2010 11 FIXatdl v1.1 with Errata 20101221
-
-[]{#page12 .anchor}
-
 [quite possible that a]{.underline} ["Null Reference"]{.underline}
 [error would occur.)]{.underline} That being the case, it is important
 that XML parsing or binding libraries maintain the order of the elements
@@ -2074,17 +465,17 @@ For example:
 
 \<StrategyEdit errorMessage=\"For IOC orders Participation Rate must
 be between 1 and 25\"\\<Edit logicOperator="OR"\>
->
+
 \<Edit field="FIX\_TimeInForce" operator="NX"/\>
->
+
 \<Edit field=\"FIX\_TimeInForce\" operator=\"NE\" value=\"3\"/\>
->
+
 \<Edit logicOperator="AND"\>
->
+
 \<Edit field=\"ParticipationRate\" operator=\"GE\" value=\"1\"/\>
->
+
 \<Edit field=\"ParticipationRate\" operator=\"LE\" value=\"25\"/\>
->
+
 \</Edit\>
 
 \</Edit\>
@@ -2097,7 +488,7 @@ are those that are sent over the wire. For example, TimeInForce is an
 enumeration of char values ranging from "1" to "7". So care must be
 taken to assure the corresponding operand, "value", is of a similar
 type. Support for these types of expressions is highly dependent on a
-vendor‟s implementation of FIXatdl. Not all standard tags may be
+vendor's implementation of FIXatdl. Not all standard tags may be
 available.
 
 In cases where the field attribute is not recognized or not supported,
@@ -2105,7 +496,7 @@ the rule containing the offending Edit element should be skipped-over by
 a vendor‟s application and should not cause a validation error. The
 end-result will be the same as if the condition of the rule were true.
 
-**GUI Layout Description**
+## GUI Layout Description
 
 In order to render a parameter within an order entry screen, an OMS must
 be able to pick an appropriate GUI control to display. For instance, a
@@ -2124,31 +515,21 @@ look-and-feel. It is designed to be platform neutral. The components
 that are provided are those typically found in .Net, Java and Web
 environments.
 
-December 21, 2010 12 FIXatdl v1.1 with Errata 20101221
-
 The layout schema allows GUI controls to be arranged by adding them to a
 container define by the StrategyPanel element. Controls within a panel
 may be arranged either vertically or horizontally. Panel themselves may
 be nested and arranged either vertically or horizontally as well. The
 attributes of the StrategyPanel element include
 
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
-
-**Title** -- a string representing the panel title which may or may
+- **Title** -- a string representing the panel title which may or may
 not be displayed
 
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
-
-**Collapsible** -- a Boolean value indicating whether the panel can be
+- **Collapsible** -- a Boolean value indicating whether the panel can be
 collapsed.
 
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
+- **Collapsed** -- a Boolean value indicating the panel‟s initial state.
 
-**Collapsed** -- a Boolean value indicating the panel‟s initial state.
-
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
-
-**Orientation** -- defines whether the panel‟s components should be
+- **Orientation** -- defines whether the panel‟s components should be
 vertically or horizontally aligned.
 
 An important aspect of the GUI description is that it is platform
@@ -2182,9 +563,9 @@ xsi:type="Float\_t" fixTag="8007" use="optional"/\\<Parameter
 name="Aggression" xsi:type="Char\_t" fixTag="8001" use="required"\>
 
 \<EnumPair enumID="e\_low" wireValue="L"/\>
->
+
 \<EnumPair enumID="e\_med" wireValue="M"/\>
->
+
 \<EnumPair enumID="e\_high" wireValue="H"/\>
 
 \</Parameter\>
@@ -2192,39 +573,35 @@ name="Aggression" xsi:type="Char\_t" fixTag="8001" use="required"\>
 \<StrategyLayout\>
 
 \<StrategyPanel orientation="HORIZONTAL"\>
->
+
 \<StrategyPanel title="Time Parameters" orientation="VERTICAL"\>
->
+
 \<Control ID="c\_ST" xsi:type="Clock\_t" label="Start Time"
 parameterRef="StartTime"/\\<Control ID="c\_ET" xsi:type="Clock\_t"
 label="End Time" parameterRef="EndTime"/\>
->
+
 \</StrategyPanel\>
->
+
 \<StrategyPanel title="Advanced" orientation="VERTICAL"\>
->
+
 \<Control ID="c\_PR" xsi:type="SingleSpinner" label="Partic. Rate"
 parameterRef="ParticipationRate"/\\<Control ID="c\_A"
 xsi:type="DropDownList\_t" label="Aggression"
 parameterRef="Aggression"\>
->
+
 \<ListItem enumID="e\_low" uiRep="Low"/\>
->
+
 \<ListItem enumID="e\_med" uiRep="Medium"/\>
->
+
 \<ListItem enumID="e\_high" uiRep="High"/\>
->
+
 \</Control\>
->
+
 \</StrategyPanel\>
->
+
 \</StrategyPanel\>
 
 \</StrategyLayout\>
-
-December 21, 2010 13 FIXatdl v1.1 with Errata 20101221
-
-[]{#page14 .anchor}
 
 Notice how the Parameter/\@name attributes match with the
 Control/\@parameterRef attributes. This creates the binding between
@@ -2242,10 +619,9 @@ on these platforms will have different appearances. So, a rendering of
 the controls described in the previous listing may look similar to the
 following image:
 
-![](media/image3.jpeg){width="3.622916666666667in"
-height="1.0618055555555554in"}
+![GUI Layout Example](media/LayoutExample.png)
 
-**Flow Control Rules**
+## Flow Control Rules
 
 Interdependencies among standard FIX tags affecting their applicability
 are quite common. For example, Price (44) is not applicable when OrdType
@@ -2287,8 +663,6 @@ that the action of a flow-control rule is performed when the condition
 it describes is true. This differs from validation rules, where the
 action of "raising an error" occurs when the condition is false.
 
-December 21, 2010 14 FIXatdl v1.1 with Errata 20101221
-
 To illustrate the description of a Flow-control rule consider the
 following code snippet. (Note how the highlighted Control/\@ID attribute
 matches the highlighted Edit/\@field attribute and how the highlighted
@@ -2307,33 +681,33 @@ use="required"\\<EnumPair enumID="e\_Annual" wireValue="1"/\>
 use="optional"/\\<StrategyLayout\>
 
 \<StrategyPanel orientation="HORIZONTAL"\>
->
+
 \<Control ID="c\_AlphaMode" xsi:type="DropDownList" label="Alpha
 Benchmark" parameterRef="AlphaMode"\\<ListItem enumID="e\_Annual"
 uiRep="Annual"/\>
->
+
 \<ListItem enumID="e\_Daily" uiRep="Daily"/\>
->
+
 \<ListItem enumID="e\_Custom" uiRep="Custom"/\>
->
+
 \</Control\>
->
+
 \<Control ID="c\_CustomValue" xsi:type="SingleSpinner\_t"
 label="Custom Alpha" parameterRef="CustomValue"\\<StateRule
 enabled="true"\>
->
+
 \<Edit field="c\_AlphaMode" operator="EQ" value="e\_Custom"/\>
->
+
 \</StateRule\>
->
+
 \<StateRule value="{NULL}"\>
->
+
 \<Edit field="c\_AlphaMode" operator="NE" value="e\_Custom"/\>
->
+
 \</StateRule\>
->
+
 \</Control\>
->
+
 \</StrategyPanel\>
 
 \</StrategyLayout\>
@@ -2373,10 +747,6 @@ iii. A StateRule that changes the value of a control when its condition
      condition becomes false. Provided the vale expressed in the
      StateRule element is not the special token "{NULL}".
 
-December 21, 2010 15 FIXatdl v1.1 with Errata 20101221
-
-[]{#page16 .anchor}
-
 iv. A StateRule that changes the value of a control to "{NULL}" when its
     condition becomes true will cause the control‟s value to revert
     back to its previous non-{NULL} value or its initial value.
@@ -2407,9 +777,9 @@ go out over the wire. This is why, in the previous listing, a second
 StateRule was required:
 
 \<StateRule value="{NULL}"\>
->
+
 \<Edit field="c\_AlphaMode" operator="NE" value="e\_Custom"/\>
->
+
 \</StateRule\>
 
 If this rule had not been provided, a "CustomValue" parameter (tag 8301)
@@ -2417,7 +787,7 @@ would be transmitted on the wire if the user had entered a value into
 the spinner and then selected "Daily" or "Annual" from the drop-down
 list.
 
-**Parameter-to-Control Bindings**
+## Parameter-to-Control Bindings
 
 In order for an E/OMS to generate an order message it must iterate
 through all the parameters, find the associated controls, retrieve the
@@ -2448,10 +818,6 @@ parameters. When this is the case, an attribute of the Parameter
 element, constValue, is used to indicate that the parameter is a
 constant and provides the value, as in the following listing.
 
-December 21, 2010 16 FIXatdl v1.1 with Errata 20101221
-
-[]{#page17 .anchor}
-
 \<Parameter name="ExecService" xsi:type="Char\_t" fixTag="9050"
 constValue="A"/\>
 
@@ -2470,9 +836,9 @@ initValue=false/\\<Control ID="CrossQty" xsi:type="SingleSpinner\_t"
 label="Cross Qty" parameterRef="CrossQty"\>
 
 \<StateRule enable="true"\>
->
+
 \<Edit field="EnableCross" operator="EQ" value="true"/\>
->
+
 \</StateRule\>
 
 \</Control\>
@@ -2481,7 +847,7 @@ For a strategy rendered from this description, the user would not be
 able to enter a value into the CrossQty spinner control unless the
 EnableCross checkbox is checked.
 
-**Transport of Strategy Parameters**
+## Transport of Strategy Parameters
 
 The FIX Protocol allows algorithmic order parameters to be transported
 between parties either by use of the StrategyParametersGrp repeating
@@ -2503,21 +869,21 @@ To illustrate, consider the following listing:
 versionIdentifierTag=\"7001\" tag957Support="true"\\<Strategy
 name=\"POV\" uiRep=\"POV\" wireValue=\"v\" version=\"1\"
 fixMsgType=\"D\"\>
->
+
 \<Parameter name="PctVol" xsi:type="Percentage\_t" fixTag="7002"
 use="required"/\\<Parameter name="FC" xsi:type="Boolean\_t"
 fixTag="7003" use="required"/\\<StrategyLayout\>
->
+
 \<StrategyPanel\>
->
+
 \<Control ID="c\_PctVol" xsi:type="SingleSpinner\_t" label="Pct of
 Volume" parameterRef="PctVol"/\\<Control ID="c\_FC"
 xsi:type="CheckBox\_t" label="Force Completion" parameterRef="FC"/\>
->
+
 \</StrategyPanel\>
->
+
 \</StrategyLayout\>
->
+
 \</Strategy\>
 
 \</Strategies\>
@@ -2528,21 +894,19 @@ that it supports receipt of these parameters via StrategyParametersGrp
 and via the custom tags, 7002 and 7003. So an E/OMS would be free to
 choose between the two methods when it transmits the parameters. If this
 
-December 21, 2010 17 FIXatdl v1.1 with Errata 20101221
-
 were to be rendered by an E/OMS and a user was to enter a PctVol value
 of 0.15 and check the Force Completion checkbox, then the order
 generated may contain a substring similar to:
->
+
 . . 35=D\|11=1234\|55=AXP\|. .
 \|7000=v\|7001=1\|957=2\|958=PctVol\|959=11\|960=0.15\|958=FC\|959=13\|960=Y
->
+
 In this case the E/OMS has decided to use the StrategyParametersGrp
 repeating group. If tag957Support were set to false then the E/OMS
 would be forced to use the UDFs, 7002 and 7003, as in:
->
+
 . . 35=D\|11=1234\|55=AXP\|. . \|7000=v\|7001=1\|7002=0.15\|7003=Y
->
+
 The general rule for determining which method to use is as follows.
 
 +--------------------+--------------------+---+--------------------+
@@ -2575,12 +939,8 @@ The general rule for determining which method to use is as follows.
 |                    |                    |   |                    |
 +--------------------+--------------------+---+--------------------+
 
-December 21, 2010 18 FIXatdl v1.1 with Errata 20101221
+# Element Definitions
 
-[]{#page19 .anchor}
-
-**Element Definitions**
->
 A high-level description of the elements is provided in the following
 table.
 
@@ -3009,10 +1369,6 @@ December 21, 2010 19 FIXatdl v1.1 with Errata 20101221
 |                  |                  |                              |
 +------------------+------------------+------------------------------+
 
-December 21, 2010 20 FIXatdl v1.1 with Errata 20101221
-
-[]{#page21 .anchor}
-
 +-------------+-------------+-------------+-------------+---+---+
 |             |             |           |             |   |   |
 |             |             |  Parameters |             |   |   |
@@ -3331,7 +1687,7 @@ December 21, 2010 20 FIXatdl v1.1 with Errata 20101221
 |             |             | must      |             |   |   |
 |             |             | contain   |             |   |   |
 +-------------+-------------+-------------+-------------+---+---+
-|             |             | ~~least~~ | exactly one |   |   |
+|             |             |             | exactly one |   |   |
 |             |             |             | st          |   |   |
 |             |             |             | rategyPanel |   |   |
 |             |             |             | as a child  |   |   |
@@ -3369,16 +1725,14 @@ December 21, 2010 20 FIXatdl v1.1 with Errata 20101221
 |             |             |             |             |   |   |
 +-------------+-------------+-------------+-------------+---+---+
 
-**Attribute Definitions**
->
+# Attribute Definitions
+
 The following table describes the attributes of all the FIXatdl XML
 elements. The format of the attribute name is
->
-December 21, 2010 21 FIXatdl v1.1 with Errata 20101221
 
 \<element name\>/@\<attribute\where the element is one of the XML
 elements defined by FIXatdl.
->
+
 Since some of the attributes are overloaded due to the way the
 Parameter and Control elements can be extended, types of certain
 attributes will depend on the type of the element. For these
@@ -5476,8 +3830,6 @@ height="8.122916666666667in"}
 </tbody>
 </table>
 
-December 21, 2010 23 FIXatdl v1.1 with Errata 20101221
-
 **Formatted:** No bullets or numbering
 
 **Formatted:** Font: Bold
@@ -6642,11 +4994,6 @@ The use of initValue also depends on the value of xsi:type.
 </tbody>
 </table>
 
-![](media/image6.png){width="2.7083333333333334e-2in"
-height="5.208880139982502e-3in"}
-
-December 21, 2010 24 FIXatdl v1.1 with Errata 20101221
-
 <table>
 <thead>
 <tr class="header">
@@ -7441,16 +5788,6 @@ December 21, 2010 24 FIXatdl v1.1 with Errata 20101221
 </tr>
 </tbody>
 </table>
-
-![](media/image7.jpeg){width="9.305555555555556e-2in"
-height="0.12291666666666666in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}
-
-December 21, 2010 25 FIXatdl v1.1 with Errata 20101221
 
 <table>
 <thead>
@@ -8329,24 +6666,6 @@ December 21, 2010 25 FIXatdl v1.1 with Errata 20101221
 </tbody>
 </table>
 
-![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}
-
-December 21, 2010 26 FIXatdl v1.1 with Errata 20101221
-
 +----------------+----------------+-----+---+----------------+---+
 |                |                |     |   | TextField\_t |   |
 +================+================+=====+===+================+===+
@@ -8555,15 +6874,6 @@ December 21, 2010 26 FIXatdl v1.1 with Errata 20101221
 |                |                |     |   |                |   |
 +----------------+----------------+-----+---+----------------+---+
 
-![](media/image8.jpeg){width="9.305555555555556e-2in"
-height="0.12430555555555556in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}
-
-December 21, 2010 27 FIXatdl v1.1 with Errata 20101221
-
 +----------------+------------+-----+---+----------------+---+
 |                |            |     |   | operands is    |   |
 |                |            |     |   | true.          |   |
@@ -8761,18 +7071,6 @@ December 21, 2010 27 FIXatdl v1.1 with Errata 20101221
 +----------------+------------+-----+---+----------------+---+
 |                |            |     |   |                |   |
 +----------------+------------+-----+---+----------------+---+
-
-![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}
-
-December 21, 2010 28 FIXatdl v1.1 with Errata 20101221
 
 <table>
 <thead>
@@ -9941,12 +8239,6 @@ December 21, 2010 29 FIXatdl v1.1 with Errata 20101221
 |                |           |     |                |              |
 +----------------+-----------+-----+----------------+--------------+
 
-![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}
-
-December 21, 2010 30 FIXatdl v1.1 with Errata 20101221
-
 <table>
 <thead>
 <tr class="header">
@@ -10769,8 +9061,6 @@ December 21, 2010 30 FIXatdl v1.1 with Errata 20101221
 </tr>
 </tbody>
 </table>
-
-December 21, 2010 31 FIXatdl v1.1 with Errata 20101221
 
 <table>
 <thead>
@@ -11806,17 +10096,6 @@ December 21, 2010 31 FIXatdl v1.1 with Errata 20101221
 </tbody>
 </table>
 
-![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}
-
-**Formatted:** No underline
-
-![](media/image9.png){width="3.178472222222222in"
-height="8.122916666666667in"}
-
-December 21, 2010 32 FIXatdl v1.1 with Errata 20101221
-
 +-------------+-------------+-----+---+-------------+---+---+---+
 |             |             |     |   | This        |   |   |   |
 |             |             |     |   | attribute   |   |   |   |
@@ -12114,12 +10393,6 @@ December 21, 2010 32 FIXatdl v1.1 with Errata 20101221
 +-------------+-------------+-----+---+-------------+---+---+---+
 |             |             |     |   |             |   |   |   |
 +-------------+-------------+-----+---+-------------+---+---+---+
-
-![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}
-
-December 21, 2010 33 FIXatdl v1.1 with Errata 20101221
 
 <table>
 <thead>
@@ -12914,8 +11187,6 @@ December 21, 2010 33 FIXatdl v1.1 with Errata 20101221
 </tbody>
 </table>
 
-December 21, 2010 34 FIXatdl v1.1 with Errata 20101221
-
 +-----------+----------+-----+-----------+---+-----------+---+---+---+
 |           |          |     | n       |   |           |   |   |   |
 |           |          |     | amespace, |   |           |   |   |   |
@@ -13109,14 +11380,6 @@ December 21, 2010 34 FIXatdl v1.1 with Errata 20101221
 +-----------+----------+-----+-----------+---+-----------+---+---+---+
 |           |          |     |           |   |           |   |   |   |
 +-----------+----------+-----+-----------+---+-----------+---+---+---+
-
-![](media/image10.png){width="2.779166666666667in"
-height="4.127777777777778in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}
-
-December 21, 2010 35 FIXatdl v1.1 with Errata 20101221
 
 +---------+---------+-----+---+---------+---------+---------+---+
 |         |         |     |   | element |         |         |   |
@@ -13503,8 +11766,6 @@ December 21, 2010 35 FIXatdl v1.1 with Errata 20101221
 +---------+---------+-----+---+---------+---------+---------+---+
 |         |         |     |   |         |         |         |   |
 +---------+---------+-----+---+---------+---------+---------+---+
-
-December 21, 2010 36 FIXatdl v1.1 with Errata 20101221
 
 <table>
 <thead>
@@ -15301,8 +13562,6 @@ December 21, 2010 37 FIXatdl v1.1 with Errata 20101221
 </tbody>
 </table>
 
-December 21, 2010 38 FIXatdl v1.1 with Errata 20101221
-
 <table>
 <thead>
 <tr class="header">
@@ -16818,17 +15077,7 @@ December 21, 2010 38 FIXatdl v1.1 with Errata 20101221
 </tbody>
 </table>
 
-![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}
-
-December 21, 2010 39 FIXatdl v1.1 with Errata 20101221
-
-December 21, 2010 40 FIXatdl v1.1 with Errata 20101221
-
-[]{#page41 .anchor}
-
-**Parameter Type-Attribute Matrix**
+# Parameter Type-Attribute Matrix
 
 <table>
 <thead>
@@ -18597,11 +16846,7 @@ December 21, 2010 40 FIXatdl v1.1 with Errata 20101221
 </tbody>
 </table>
 
-December 21, 2010 41 FIXatdl v1.1 with Errata 20101221
-
-[]{#page42 .anchor}
-
-**Control Type-Attribute Matrix**
+# Control Type-Attribute Matrix
 
 <table>
 <thead>
@@ -19594,8 +17839,8 @@ December 21, 2010 41 FIXatdl v1.1 with Errata 20101221
 </tbody>
 </table>
 
-**Type Definitions**
->
+# Type Definitions
+
 The types of the attribute listed in the previous table are defined
 here. Many of these datatypes have been leveraged from the FIXML
 schema file fixml-datatypes-5-0.xsd. Some come from the XML Schema
@@ -19615,8 +17860,6 @@ files.
 +-----------------+--------------+-----------------------------------+
 |                 |              |                                   |
 +-----------------+--------------+-----------------------------------+
-
-December 21, 2010 42 FIXatdl v1.1 with Errata 20101221
 
 <table>
 <thead>
@@ -20247,13 +18490,6 @@ December 21, 2010 42 FIXatdl v1.1 with Errata 20101221
 </tbody>
 </table>
 
-![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image2.jpeg){width="9.305555555555556e-2in"
-height="0.125in"}![](media/image11.png){width="9.305555555555556e-2in"
-height="0.26944444444444443in"}
-
-December 21, 2010 43 FIXatdl v1.1 with Errata 20101221
-
 +--------------------------+--------------+--------------------------+
 | LocalMktTz             | FIXatdl    | An enumeration type    |
 |                          |              | consisting of the      |
@@ -20442,8 +18678,6 @@ December 21, 2010 43 FIXatdl v1.1 with Errata 20101221
 |                          |              |                          |
 +--------------------------+--------------+--------------------------+
 
-December 21, 2010 44 FIXatdl v1.1 with Errata 20101221
-
 +---------------+---------+------------------------------------------+
 |               |         | YYYY indicates the year                |
 +===============+=========+==========================================+
@@ -20558,11 +18792,6 @@ December 21, 2010 44 FIXatdl v1.1 with Errata 20101221
 +---------------+---------+------------------------------------------+
 |               |         |                                          |
 +---------------+---------+------------------------------------------+
-
-![](media/image12.png){width="9.305555555555556e-2in"
-height="0.4097222222222222in"}
-
-December 21, 2010 45 FIXatdl v1.1 with Errata 20101221
 
 +----------------+---------+-----------------------------------------+
 |                |         | Yx = tenor expression for \"years\",  |
@@ -20682,15 +18911,9 @@ December 21, 2010 45 FIXatdl v1.1 with Errata 20101221
 |                |         |                                         |
 +----------------+---------+-----------------------------------------+
 
-December 21, 2010 46 FIXatdl v1.1 with Errata 20101221
-
 http://tycho.usno.navy.mil/leapsec.html)
 
-December 21, 2010 47 FIXatdl v1.1 with Errata 20101221
-
-[]{#page48 .anchor}
-
-**Abstract Element Extensions**
+# Abstract Element Extensions
 
 There are two elements in the schema that are defined as abstract. For
 example, they cannot be included in an ATDL document without being
@@ -20699,7 +18922,7 @@ instances of these elements must indicate a derived type that is not
 abstract via use of the attribute xsi:type defined in the namespace
 [[http://www.w3.org/2001/XMLSchema-instance]{.underline}.](http://www.w3.org/2001/XMLSchema-instance)
 
-**Parameter Element Extension**
+## Parameter Element Extension
 
 Custom parameters received by an algorithmic order recipient must be of
 a type known to the recipient. For example, if the recipient is
@@ -20716,33 +18939,19 @@ attribute xsi:type equal to the name of one of the FIXatdl parameter
 extension types. An abstract Parameter element has the following
 attributes (which are described in the section "Attribute Definitions"):
 
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
+- name
 
-name
+- fixTag
 
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
+- use
 
-fixTag
+- mutableOnCxlRpl
 
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
+- revertOnCxlRpl
 
-use
+- definedByFIX
 
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
-
-mutableOnCxlRpl
-
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
-
-revertOnCxlRpl
-
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
-
-definedByFIX
-
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
-
-xsi:type
+- xsi:type
 
 When the Parameter element is extended it gains several more attributes
 depending on the element to which it is extended.
@@ -20795,8 +19004,6 @@ specific parameter extension type.
 +----------------+----------------+----------------+----------------+
 |                |                |                |                |
 +----------------+----------------+----------------+----------------+
-
-December 21, 2010 48 FIXatdl v1.1 with Errata 20101221
 
                                                                       constValue                         boolean                                               
   -- ---------------------- -- ------------------- -- ------------ -- ----------------- ---------------- ------------------- ------------- ------------- -- -- --
@@ -20853,8 +19060,6 @@ December 21, 2010 48 FIXatdl v1.1 with Errata 20101221
 
                                                                       invertOnWire                       boolean                                               
 
-
-December 21, 2010 49 FIXatdl v1.1 with Errata 20101221
 
 <table>
 <thead>
@@ -21659,8 +19864,6 @@ December 21, 2010 49 FIXatdl v1.1 with Errata 20101221
 </tbody>
 </table>
 
-December 21, 2010 50 FIXatdl v1.1 with Errata 20101221
-
 +-------------------+----------------+--------------+---------------+
 | UTCDateOnly\_t  | UTCDateOnly  | minValue   | UTCDateOnly |
 +===================+================+==============+===============+
@@ -21750,11 +19953,7 @@ use="required" minValue="100"/\>]{.underline}
 [By setting xsi:type to Qty\_t we can now provide a value for
 minValue.]{.underline}
 
-December 21, 2010 51 FIXatdl v1.1 with Errata 20101221
-
-[]{#page52 .anchor}
-
-**Control Element Extension**
+## Control Element Extension
 
 As with extensions to Parameter, ATDL provides a set of elements that
 are derived from Control. Each of these elements inherits the attributes
@@ -21763,37 +19962,14 @@ of Control. They also have their own distinct attributes.
 An abstract Control element has the following attributes (which are
 described in the section "Attribute Definitions"):
 
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
-
-ID
-
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
-
-parameterRef
-
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
-
-label
-
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
-
-initFixField
-
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
-
-initPolicy
-
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
-
-tooltip
-
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
-
-disableForTemplate
-
-![](media/image2.jpeg){width="9.305555555555556e-2in" height="0.125in"}
-
-xsi:type
+- ID
+- parameterRef
+- label
+- initFixField
+- initPolicy
+- tooltip
+- disableForTemplate
+- xsi:type
 
 When the Control element is extended it gains several more attributes
 depending on the element to which it is extended.
@@ -22258,8 +20434,6 @@ The following types are used to extend the Control element:
 </tbody>
 </table>
 
-December 21, 2010 52 FIXatdl v1.1 with Errata 20101221
-
 +-------+-------+-------+-------+-------+-------+-------+---+
 |     |       | A     |     |     |       |       |   |
 | Check |       | list  |  init |  Mult |       |       |   |
@@ -22596,18 +20770,14 @@ specified.
 Time\" initValue="09:30" [localMktTz=\"America/New\_York\"]{.underline}
 parameterRef=\"StartTime\"/\>
 
-December 21, 2010 53 FIXatdl v1.1 with Errata 20101221
+## Dependencies and Structural Constraints beyond XML Schema
 
-[]{#page54 .anchor}
-
-**Dependencies and Structural Constraints beyond XML Schema**
->
 While W3C XML Schema is useful for describing the structure of an
 XML-based language, it still has its limitations. For example, it only
 allows the specification of whether attributes are required or
 optional. Furthermore, there is no way to specify more complex
 constraints between attributes or between attributes or elements.
->
+
 With this in mind the following table presents further constraints to
 which XML document instances must conform if they are to be FIXatdl
 compliant.
@@ -23831,27 +22001,15 @@ compliant.
 </tbody>
 </table>
 
-December 21, 2010 54 FIXatdl v1.1 with Errata 20101221
-
-**Formatted:** Space After: 0 pt
-
-![](media/image13.png){width="2.21875in" height="8.122916666666667in"}
-
-**Formatted:** Space After: 0 pt
-
 [of Control/\@checkedEnumRef and Control/\@uncheckedEnumRef
 each]{.underline}
->
+
 [must be equal to one of the EnumPair/\@enumID values of the
 Parameter]{.underline}
->
+
 [referred to by Control/\@parameterRef.]{.underline}
 
-December 21, 2010 55 FIXatdl v1.1 with Errata 20101221
-
-[]{#page56 .anchor}
-
-**A Sample FIXatdl Document**
+# A Sample FIXatdl Document
 
 The following listing shows a FIXatdl instance document describing one
 strategy with six parameters. The associated controls to be rendered are
@@ -23861,20 +22019,20 @@ vertically aligned. Three validation rules are provided.
 \<Strategies
 
 xmlns=\"http://www.fixprotocol.org/FIXatdl-1-1/Core\"
->
+
 xmlns:val=\"http://www.fixprotocol.org/FIXatdl-1-1/Validation\"
->
+
 xmlns:lay=\"http://www.fixprotocol.org/FIXatdl-1-1/Layout\"
->
+
 xmlns:flow=\"http://www.fixprotocol.org/FIXatdl-1-1/Flow\"
->
+
 xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
->
+
 xsi:schemaLocation=\"http://www.fixprotocol.org/FIXatdl-1-1/Core
 fixatdl-core-1-1.xsd\"
->
+
 strategyIdentifierTag=\"7620\"
->
+
 versionIdentifierTag=\"7621\"
 
 \>
@@ -23883,159 +22041,155 @@ versionIdentifierTag=\"7621\"
 version=\"1\" fixMsgType=\"D\" providerID=\"ABC\"\>
 
 \<!\--
->
+
 Declare the algorithm to be applicable in The U.S., Canada and the UK.
->
-\--\>
->
-\<Regions\>
->
-\<Region name=\"TheAmericas\" inclusion=\"Include\"\>
->
-\<Country CountryCode=\"US\" inclusion=\"Include\"/\>
->
-\<Country CountryCode="CA" inclusion="Include"/\>
->
-\</Region\>
->
-\<Region name="EuropeMiddleEastAfrica" inclusion="Include"\>
->
-\<Country CountryCode="UK" inclusion="Include"/\>
->
-\</Region\>
->
-\</Regions\>
->
-\<!\--
->
-Declare the markets where order may be executed.
->
-\--\>
->
-\<Markets\>
->
-\<Market MICCode=\"BATS\" inclusion=\"Include\"/\>
->
-\<Market MICCode="NYSE" inclusion="Include"/\>
->
-\<Market MICCode="XTSE" inclusion="Include"/\>
->
-\<Market MICCode="LSE" inclusion="Include"/\>
->
-\</Markets\>
->
-\<!\--
->
-This algorithm will be applied to equity common stock.
->
+
 \--\>
 
-December 21, 2010 56 FIXatdl v1.1 with Errata 20101221
+\<Regions\>
+
+\<Region name=\"TheAmericas\" inclusion=\"Include\"\>
+
+\<Country CountryCode=\"US\" inclusion=\"Include\"/\>
+
+\<Country CountryCode="CA" inclusion="Include"/\>
+
+\</Region\>
+
+\<Region name="EuropeMiddleEastAfrica" inclusion="Include"\>
+
+\<Country CountryCode="UK" inclusion="Include"/\>
+
+\</Region\>
+
+\</Regions\>
+
+\<!\--
+
+Declare the markets where order may be executed.
+
+\--\>
+
+\<Markets\>
+
+\<Market MICCode=\"BATS\" inclusion=\"Include\"/\>
+
+\<Market MICCode="NYSE" inclusion="Include"/\>
+
+\<Market MICCode="XTSE" inclusion="Include"/\>
+
+\<Market MICCode="LSE" inclusion="Include"/\>
+
+\</Markets\>
+
+\<!\--
+
+This algorithm will be applied to equity common stock.
+
+\--\>
 
 \<SecurityTypes\>
->
+
 \<SecurityType name=\"CS\" inclusion=\"Include\"/\>
->
+
 \</SecurityTypes\>
->
+
 \<!\--
->
+
 Parameter declarations
->
+
 Five parameters are declared here. The order recipient may reject
 orders with: EndTime (tag 7603) values greater than 4pm New York time;
 SweepDistribution (tag 7640) values other than „U‟ or „G‟; Variance
 (tag 7641) values outside the range \[0.01, 0.50\]; and DisplayQty
 (tag 7645) values less than 0.
->
+
 \--\>
->
+
 \<Parameter name=\"StartTime\" xsi:type=\"UTCTimestamp\_t\"
 fixTag=\"7602" use=\"required\"/\\<Parameter name=\"EndTime\"
 xsi:type=\"UTCTimestamp\_t\" fixTag=\"7603\" use=\"required\"
->
+
 maxValue=\"16:00:00\" localMktTz=\"America/New\_York \"/\>
->
+
 \<Parameter name=\"DisplayQty\" xsi:type=\"Int\_t\" fixTag=\"7645\"
 use=\"optional\" minValue=\"0\"/\\<Parameter
 name=\"SweepDistribution\" xsi:type=\"Char\_t\" fixTag=\"7640\"
 use=\"required\"\>
->
+
 \<EnumPair enumID=\"e\_Uniform\" wireValue=\"U\"/\>
->
+
 \<EnumPair enumID=\"e\_Gaussian\" wireValue=\"G\"/\>
->
+
 \</Parameter\>
->
+
 \<Parameter name=\"Variance\" xsi:type=\"Float\_t\" fixTag=\"7641\"
 use=\"optional\" minValue=\"0.01\" maxValue=\"0.50\"/\\<Parameter
 name="AllowDarkPoolExec" xsi:type="Char\_t" fixTag="7642"
 use="required"\>
->
+
 \<EnumPair enumID="e\_True" wireValue="T"/\>
->
+
 \<EnumPair enumID="e\_False" wireValue="F"/\>
->
+
 \</Parameter\>
->
+
 \<!\--
->
+
 Description and Layout of GUI controls
->
+
 \--\>
->
+
 \<lay:StrategyLayout\>
->
+
 \<lay:StrategyPanel orientation=\"VERTICAL\"\>
->
+
 \<lay:StrategyPanel orientation=\"HORIZONTAL\"\>
->
+
 \<!\--
->
+
 The StartTimeClock control will be initialized to 9:30am (New York
 time). If it is past 9:30am when the control is rendered, then it will
 be initialized with the current time.
->
+
 Note that the user will see the 9:30am New York time rendered
 according to his/her environment‟s local timezone setup.
->
+
 \--\>
->
+
 \<lay:Control xsi:type=\"lay:Clock\_t\" ID=\"StartTimeClock\"
 label=\"Start Time\" parameterRef=\"StartTime\"
->
+
 initValue=\"09:30:00\" localMktTz="America/New\_York"
 initValueMode="1"/\>
->
+
 \<!\--
->
+
 The EndTimeClock control is not initialized.
->
+
 \--\>
->
+
 \<lay:Control xsi:type=\"lay:Clock\_t\" ID=\"EndTimeClock\"
 label=\"End Time\" parameterRef=\"EndTime\"/\\<!\--
->
+
 The next control is not bound to any parameter. It is intended to
 direct the behavior of the DisplayQty control. It presents 3 options
 in a drop-down list.
->
+
 \--\>
->
+
 \<lay:Control ID=\"DQHandling\" xsi:type=\"lay:DropDownList\_t\"
 label=\"Display Handling\"\\<lay:ListItem enumID=\"choice1\"
 uiRep=\"Send nothing\"/\>
->
+
 \<lay:ListItem enumID=\"choice2\" uiRep=\"Send 0\"/\>
 
-December 21, 2010 57 FIXatdl v1.1 with Errata 20101221
-
 \<lay:ListItem enumID=\"choice3\" uiRep=\"Send what user enters\"/\>
->
+
 \</lay:Control\>
->
+
 \<!\--
->
+
 The DisplayQty control is bound to the DisplayQty parameter. The
 control is un-initialized when it is first rendered. Its subsequent
 behavior is directed by DQHandling control. When DQHandling‟s choice1
@@ -24044,157 +22198,151 @@ become disabled. When DQHandling‟s choice2 is selected, DisplayQty‟s
 value will be set to 0 and it will become disabled. When DQHandling‟s
 choice3 is selected, DisplayQty will be enabled and will accept user
 input.
->
+
 \--\>
->
+
 \<lay:Control xsi:type=\"lay:TextField\_t\" ID=\"DisplayQty\"
 label=\"Display Qty\" parameterRef=\"DisplayQty\"\\<flow:StateRule
 enabled=\"true\"\>
->
+
 \<val:Edit field=\"DQHandling\" operator=\"EQ\" value=\"choice3\"/\>
->
+
 \</flow:StateRule\>
->
+
 \<flow:StateRule value=\"{NULL}\"\>
->
+
 \<val:Edit field=\"DQHandling\" operator=\"EQ\" value=\"choice1\"/\>
->
+
 \</flow:StateRule\>
->
+
 \<flow:StateRule value=\"0\"\>
->
+
 \<val:Edit field=\"DQHandling\" operator=\"EQ\" value=\"choice2\"/\>
->
+
 \</flow:StateRule\>
->
+
 \</lay:Control\>
->
+
 \</lay:StrategyPanel\>
->
+
 \<lay:StrategyPanel orientation=\"HORIZONTAL\"\>
->
+
 \<!\--
->
+
 The SweepDist control will present the 2 options corresponding to the
 enumPairs of the SweepDistribution parameter.
->
+
 \--\>
->
+
 \<lay:Control ID=\"SweepDist\" xsi:type=\"lay:DropDownList\_t\"
 label=\"Sweep Distribution\"
->
+
 parameterRef=\"SweepDistribution\" initValue=\"Uniform\"\>
->
+
 \<lay:ListItem enumID=\"e\_Uniform\" uiRep=\"Uniform\"/\>
->
+
 \<lay:ListItem enumID=\"e\_Gaussian\" uiRep=\"Gaussian\"/\>
->
+
 \</lay:Control\>
->
+
 \<!\--
->
+
 The Variance control is enabled only when SweepDist‟s e\_Gaussian item
 is selected.
->
+
 \--\>
->
+
 \<lay:Control xsi:type=\"lay:SingleSpinner\_t\" ID=\"Variance\"
 label=\"Variance\" parameterRef=\"Variance\"\\<flow:StateRule
 enabled=\"true\"\>
->
+
 \<val:Edit field=\"SweepDist\" operator=\"EQ\"
 value=\"e\_Gaussian\"/\>
->
+
 \</flow:StateRule\>
->
+
 \</lay:Control\>
->
+
 \</lay:StrategyPanel\>
->
+
 \<lay:StrategyPanel orientation="HORIZONTAL"\>
->
+
 \<lay:Control xsi:type="CheckBox\_t" ID="DPOption" label="Allow Dark
 Pool Execution" parameterRef="AllowDarkPoolExec"
->
+
 checkedEnumRef="e\_True" uncheckedEnumRef="e\_False"\>
->
+
 \</lay:Control\>
->
+
 \</lay:StrategyPanel\>
->
+
 \</lay:StrategyPanel\>
->
+
 \</lay:StrategyLayout\>
 
-December 21, 2010 58 FIXatdl v1.1 with Errata 20101221
-
 \<!\--
->
+
 Validation Section
->
+
 Note that the attribute, field, always refers to a Parameter name and
 not a Control ID. Also note that short-circuit evaluation is fully
 exploited.
->
+
 \--\>
->
+
 \<val:StrategyEdit errorMessage=\"End Time should be later than Start
 Time\"\>
->
+
 \<val:Edit field=\"EndTime\" operator=\"GT\" field2=\"StartTime\"/\>
->
+
 \</val:StrategyEdit\>
->
+
 \<val:StrategyEdit errorMessage=\"Variance is required when Sweep
 Distribution is Gaussian.\"\\<val:Edit logicOperator=\"OR\"\>
->
+
 \<val:Edit field=\"SweepDistribution" operator=\"NE\" value=\"G\"/\>
->
+
 \<val:Edit logicOperator=\"AND\"\>
->
+
 \<val:Edit field=\"SweepDistribution\" operator=\"EQ\" value=\"G\"/\>
->
+
 \<val:Edit field=\"Variance\" operator=\"EX\"/\>
->
+
 \</val:Edit\>
->
+
 \</val:Edit\>
->
+
 \</val:StrategyEdit\>
->
+
 \<val:StrategyEdit errorMessage=\"Variance must be between 0 and
 2.0\"\>
->
+
 \<val:Edit logicOperator=\"OR\"\>
->
+
 \<val:Edit field=\"SweepDistribution\" operator=\"NE\" value=\"G\"/\>
->
+
 \<val:Edit logicOperator=\"AND\"\>
->
+
 \<val:Edit field=\"SweepDistribution\" operator=\"EQ\" value=\"G\"/\>
->
+
 \<val:Edit field=\"Variance\" operator=\"EX\"/\>
->
+
 \<val:Edit field=\"Variance\" operator=\"GT\" value=\"0.0\"/\>
->
+
 \<val:Edit field=\"Variance\" operator=\"LT\" value=\"2.0\"/\>
->
+
 \</val:Edit\>
->
+
 \</val:Edit\>
->
+
 \</val:StrategyEdit\>
->
+
 \</Strategy\>
 
 \</Strategies\>
 
-December 21, 2010 59 FIXatdl v1.1 with Errata 20101221
+# Appendix 1 - LocalMktTz Type
 
-[]{#page60 .anchor}
-
-**Appendix 1 - LocalMktTz Type**
->
 The following table shows the valid values of attributes of the type
 LocalMktTz. In the FIXatdl schema a simple type, LocalMktTz\_t, has
 been defined as a string which is restricted to the zone names of the
@@ -24532,8 +22680,6 @@ December 21, 2010 60 FIXatdl v1.1 with Errata 20101221
 |                      |                      |                      |
 +----------------------+----------------------+----------------------+
 
-December 21, 2010 61 FIXatdl v1.1 with Errata 20101221
-
 +----------------------+---------------------------+------------------------+
 | Asia/Bangkok       | Asia/Phnom\_Penh        | Australia/Eucla      |
 +======================+===========================+========================+
@@ -24696,8 +22842,6 @@ December 21, 2010 61 FIXatdl v1.1 with Errata 20101221
 |                      |                           |                        |
 +----------------------+---------------------------+------------------------+
 
-December 21, 2010 62 FIXatdl v1.1 with Errata 20101221
-
 +-----------------------+-----------------------+-------------------------+
 | Europe/Prague       | Indian/Mauritius    | Pacific/Pitcairn      |
 +=======================+=======================+=========================+
@@ -24819,5 +22963,3 @@ December 21, 2010 62 FIXatdl v1.1 with Errata 20101221
 +-----------------------+-----------------------+-------------------------+
 |                       |                       |                         |
 +-----------------------+-----------------------+-------------------------+
-
-December 21, 2010 63 FIXatdl v1.1 with Errata 20101221
