@@ -79,52 +79,34 @@ the need for the XML that describes the GUI.
 The FIXatdl language definition, ver. 1.1, is contained within six XML
 Schema files:
 
-+----------------------------------+----------------------------------+
-| **XML Schema file / namespace**  | **Purpose**                      |
-+==================================+==================================+
-| fixatdl-core-1-1.xsd             | Data: Defines attributes and     |
-|                                  | elements that are used to        |
-| http://www.                      | describe the data content of the |
-| fixprotocol.org/FIXatdl-1-1/Core | algorithm and the parameters.    |
-+----------------------------------+----------------------------------+
-| fixatdl-validation-1-1.xsd       | Data: Defines attributes and     |
-|                                  | elements used to author rules    |
-| http://www.fixpro                | that are applied to the          |
-| tocol.org/FIXatdl-1-1/Validation | parameter values as a validation |
-|                                  | check. These rules can be simple |
-|                                  | where boundary conditions are    |
-|                                  | checked, or complex where        |
-|                                  | compound boolean expressions     |
-|                                  | involving several parameters are |
-|                                  | evaluated.                       |
-+----------------------------------+----------------------------------+
-| fixatdl-layout-1-1.xsd           | GUI: XML constructs to describe  |
-|                                  | how a parameter should be        |
-| http://www.fi                    | rendered within a user interface |
-| xprotocol.org/FIXatdl-1-1/Layout | -- this includes recommendations |
-|                                  | about GUI controls and their     |
-|                                  | relative location within the     |
-|                                  | interface.                       |
-+----------------------------------+----------------------------------+
-| fixatdl-flow-1-1.xsd             | GUI: Provides the ability to     |
-|                                  | dynamically affect the behavior  |
-| http://www.                      | of a GUI control. Rules can be   |
-| fixprotocol.org/FIXatdl-1-1/Flow | created to enable or disable     |
-|                                  | parameters based on values       |
-|                                  | entered by the user in other     |
-|                                  | parameters.                      |
-+----------------------------------+----------------------------------+
-| fixatdl-regions-1-1.xsd          | Data: Enumeration values for     |
-|                                  | countries within three regions:  |
-| http://www.fix                   | TheAmericas,                     |
-| protocol.org/FIXatdl-1-1/Regions | EuropeMiddleEastAfrica and       |
-|                                  | AsiaPacificJapan.                |
-+----------------------------------+----------------------------------+
-| fixatdl-timezones-1-1.xsd        | Data: Lists enumeration values   |
-|                                  | for world timezones based on     |
-| http://www.fixpr                 | zoneinfo database.               |
-| otocol.org/FIXatdl-1-1/Timezones |                                  |
-+----------------------------------+----------------------------------+
++---------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| **XML Schema file / namespace**                   | **Purpose**                                                                                   |
++===================================================+===============================================================================================+
+| fixatdl-core-1-1.xsd                              | Data: Defines attributes and elements that are used to describe the data content of the       |
+|                                                   | algorithm and the parameters.                                                                 |
+| http://www.fixprotocol.org/FIXatdl-1-1/Core       |                                                                                               |
++---------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| fixatdl-validation-1-1.xsd                        | Data: Defines attributes and elements used to author rules that are applied to the parameter  |
+|                                                   | values as a validation check. These rules can be simple where boundary conditions are         |
+| http://www.fixprotocol.org/FIXatdl-1-1/Validation | checked, or complex where compound boolean expressions involving several parameters are       |
+|                                                   | evaluated.                                                                                    |
++---------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| fixatdl-layout-1-1.xsd                            | GUI: XML constructs to describe how a parameter should be rendered within a user interface -- |
+|                                                   | this includes recommendations about GUI controls and their relative location within the       |
+| http://www.fixprotocol.org/FIXatdl-1-1/Layout     | interface.                                                                                    |
++---------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| fixatdl-flow-1-1.xsd                              | GUI: Provides the ability to dynamically affect the behavior of a GUI control. Rules can be   |
+|                                                   | created to enable or disable parameters based on values entered by the user in other          |
+| http://www.fixprotocol.org/FIXatdl-1-1/Flow       | parameters.                                                                                   |
++---------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| fixatdl-regions-1-1.xsd                           | Data: Enumeration values for countries within three regions: TheAmericas,                     |
+|                                                   | EuropeMiddleEastAfrica and AsiaPacificJapan.                                                  |
+| http://www.fixprotocol.org/FIXatdl-1-1/Regions    |                                                                                               |
++---------------------------------------------------+-----------------------------------------------------------------------------------------------+
+| fixatdl-timezones-1-1.xsd                         | Data: Lists enumeration values for world timezones based on zoneinfo database.                |
+|                                                   |                                                                                               |
+| http://www.fixprotocol.org/FIXatdl-1-1/Timezones  |                                                                                               |
++---------------------------------------------------+-----------------------------------------------------------------------------------------------+
 
 # Key Concepts
 
@@ -141,29 +123,20 @@ strategy is identified by a unique name that must be provided in the XML
 of each of the Strategy elements. Instances of documents begin with the
 root element, Strategies, and follow the hierarchy:
 
-\<Strategies\>
-
-\<Strategy\>
-
-... strategy definition ...
-
-\</Strategy\>
-
-\<Strategy\>
-
-... strategy definition ...
-
-\</Strategy\>
-
-. . .
-
-\<Strategy\>
-
-... strategy definition ...
-
-\</Strategy\>
-
-\</Strategies\>
+```xml
+<Strategies>
+    <Strategy>
+        ... strategy definition ...
+    </Strategy>
+    <Strategy>
+        ... strategy definition ...
+    </Strategy>
+        . . .
+    <Strategy>
+        ... strategy definition ...
+    </Strategy>
+</Strategies>
+```
 
 At the root level, the algorithm provider must specify which tag to use
 to identify the individual strategies. (At one time TargetStrategy (tag
@@ -172,36 +145,30 @@ a user-defined field for this purpose.) For example to indicate that tag
 5009 will be used to identify strategies the Strategies element would be
 written as
 
-\<Strategies strategyIdentifierTag="5009"/\>
+```xml
+<Strategies strategyIdentifierTag="5009"/>
+```
 
 Parameters for each strategy are defined via Parameter elements.
 Validation rules are defined via StrategyEdit elements. Each strategy
 can have any number of parameters or validation rules. An algorithm can
 have only one section where the layout of the controls is defined. A
 layout is defined via the StrategyLayout element. So if we look deeper
-into the strategy definition we‟ll see that it follows the hierarchy:
+into the strategy definition we'll see that it follows the hierarchy:
 
-\<Strategy\>
-
-\<Parameter\>
-
-\<Parameter\>
-
-. . .
-
-\<Parameter\>
-
-\<StrategyEdit\>
-
-\<StrategyEdit\>
-
-. . .
-
-\<StrategyEdit\>
-
-\<StrategyLayout\>
-
-\</Strategy\>
+```xml
+<Strategy>
+    <Parameter>
+    <Parameter>
+    . . .
+    <Parameter>
+    <StrategyEdit>
+    <StrategyEdit>
+    . . .
+    <StrategyEdit>
+    <StrategyLayout>
+</Strategy>
+```
 
 The following figure shows the hierarchy of elements in tree form
 starting from the root element, Strategies. The XML Schema values
@@ -229,7 +196,7 @@ order-entry screen.
 
 The following figure shows the StrategyEdit hierarchy. This element is
 used to describe validation rules which are applied to the values of a
-strategy‟s parameters at order-generation time. Each StrategyEdit must
+strategy's parameters at order-generation time. Each StrategyEdit must
 contain a single Edit element (may contain further nested Edit rules)
 which is used to describe a particular condition that must be met in
 order to pass validation.
@@ -255,21 +222,23 @@ to various senders (*order initiators*). To describe these parameters,
 FIXatdl provides the Parameter element. Parameter elements are
 identified by their "name" attribute. There is no limit to the number of
 parameters a strategy may have as long as each is uniquely identified at
-the strategy level. Besides a parameter‟s name, other parameter
+the strategy level. Besides a parameter's name, other parameter
 attributes include: its type; its maximum and minimum values (if
 applicable); its corresponding FIX tag number; and its usage (optional
 vs. required). For example, the following code snippet describes an
 integer type parameter:
 
-\<Parameter name="SampleRate" xsi:type="Int\_t" fixTag="8000"
-use="optional" minValue="1" maxValue="9"/\>
+```xml
+<Parameter name="SampleRate" xsi:type="Int_t" fixTag="8000"
+use="optional" minValue="1" maxValue="9"/>
+```
 
 This listing describes a parameter named "SampleRate" which can
 optionally be populated in tag 8000 of an Order message. The attributes
 "minValue" and "maxValue" describes the minimum and maximum values that
 the recipient of an Order messages is expecting. Orders with SampleRate
 values outside that range may be rejected. The attribute "xsi:type"
-describes the parameter‟s type which must be one of the datatypes
+describes the parameter's type which must be one of the datatypes
 specified by the FIX Protocol. FIXatdl provides enumeration values for
 xsi:type that map directly to the FIX datatypes. (An explanation of
 xsi:type can be found in this document in the section entitled "Abstract
@@ -280,14 +249,13 @@ to a set of enumerated values. This is done by adding child EnumPair
 elements to the Parameter element. Each EnumPair represents one of the
 enumerated values expected to be transmitted over the wire. For example:
 
-\<Parameter name="Aggression" xsi:type="Char\_t" fixTag="8001"
-use="required"\\<EnumPair enumID="low" wireValue="L"/\>
-
-\<EnumPair enumID="medium" wireValue="M"/\>
-
-\<EnumPair enumID=‟high" wireValue="H"/\>
-
-\</Parameter\>
+```xml
+<Parameter name="Aggression" xsi:type="Char_t" fixTag="8001" use="required">
+    <EnumPair enumID="low" wireValue="L"/>
+    <EnumPair enumID="medium" wireValue="M"/>
+    <EnumPair enumID="high" wireValue="H"/>
+</Parameter>
+```
 
 This describes the "Aggression" parameter. An order recipient would
 expect to receive one of the values, "L", "M" or "H" in tag 8001 of an
@@ -299,7 +267,7 @@ If a user of an order-entry system were to submit an order with
 recipient would expect to receive a FIX message containing a substring
 similar to:
 
-...35=D\|11=0001\|55=AXP\|44=77.25\| ... 8000=5\|8001=H ...
+...35=D|11=0001|55=AXP|44=77.25| ... 8000=5|8001=H ...
 
 ## Validation Rules
 
@@ -325,14 +293,13 @@ To illustrate, consider the most common parameters of all algorithms,
 StartTime and EndTime. Their description and a rule guaranteeing that
 StartTime precedes EndTime can be described by the following statements:
 
-\<Parameter name="StartTime" xsi:type="UTCTimestamp\_t" fixTag="8005"
-use="required"/\\<Parameter name="EndTime" xsi:type="UTCTimestamp\_t"
-fixTag="8006" use="required"/\\<StrategyEdit errorMessage=\"Start Time
-must precede End Time.\"\>
-
-\<Edit field=\"StartTime\" operator=\"LT\" field2="EndTime"/\>
-
-\</StrategyEdit\>
+```xml
+<Parameter name="StartTime" xsi:type="UTCTimestamp_t" fixTag="8005" use="required">
+<Parameter name="EndTime" xsi:type="UTCTimestamp_t" fixTag="8006" use="required">
+<StrategyEdit errorMessage="Start Time must precede End Time.">
+    <Edit field="StartTime" operator="LT" field2="EndTime"/>
+</StrategyEdit>
+```
 
 Here we have defined both StartTime and EndTime as UTCTimestamp
 parameters. At validation time, the rule described in StrategyEdit
@@ -348,25 +315,18 @@ For more complex rules, Boolean expression may be formed by multiple
 Edit elements organized in an expression tree using logical operators
 AND, OR, XOR and NOT. For example consider these declarations:
 
-\<Parameter name="ParticipationRate" xsi:type="Float\_t" fixTag="8008"
-use="optional"/\\<StrategyEdit errorMessage=\"If Participation Rate is
-entered it must be between 1 and 50\"\>
-
-\<Edit logicOperator="OR"\>
-
-\<Edit field=\"ParticipationRate\" operator=\"NX\"/\>
-
-\<Edit logicOperator="AND"\>
-
-\<Edit field=\"ParticipationRate\" operator=\"GE\" value=\"1\"/\>
-
-\<Edit field=\"ParticipationRate\" operator=\"LE\" value=\"50\"/\>
-
-\</Edit\>
-
-\</Edit\>
-
-\</StrategyEdit\>
+```xml
+<Parameter name="ParticipationRate" xsi:type="Float_t" fixTag="8008" use="optional"/>
+<StrategyEdit errorMessage="If Participation Rate is entered it must be between 1 and 50">
+    <Edit logicOperator="OR">
+        <Edit field="ParticipationRate" operator="NX"/>
+        <Edit logicOperator="AND">
+            <Edit field="ParticipationRate" operator="GE" value="1"/>
+            <Edit field="ParticipationRate" operator="LE" value="50"/>
+        </Edit>
+    </Edit>
+</StrategyEdit>
+```
 
 Here we see a tree of Edit elements. The root Edit element is describing
 a logical "OR" condition asserting that either ParticipationRate was not
@@ -405,24 +365,19 @@ instance but nevertheless are required tags of order, cancel and
 cancel/replace messages) may also be used to create Boolean expressions.
 For example:
 
-\<StrategyEdit errorMessage=\"For IOC orders Participation Rate must
-be between 1 and 25\"\\<Edit logicOperator="OR"\>
-
-\<Edit field="FIX\_TimeInForce" operator="NX"/\>
-
-\<Edit field=\"FIX\_TimeInForce\" operator=\"NE\" value=\"3\"/\>
-
-\<Edit logicOperator="AND"\>
-
-\<Edit field=\"ParticipationRate\" operator=\"GE\" value=\"1\"/\>
-
-\<Edit field=\"ParticipationRate\" operator=\"LE\" value=\"25\"/\>
-
-\</Edit\>
-
-\</Edit\>
-
-\</StrategyEdit\>
+```xml
+<StrategyEdit errorMessage="For IOC orders Participation Rate must
+be between 1 and 25">
+    <Edit logicOperator="OR">
+        <Edit field="FIX_TimeInForce" operator="NX"/>
+            <Edit field="FIX_TimeInForce" operator="NE" value="3"/>
+            <Edit logicOperator="AND">
+                <Edit field="ParticipationRate" operator="GE" value="1"/>
+                <Edit field="ParticipationRate" operator="LE" value="25"/>
+        </Edit>
+    </Edit>
+</StrategyEdit>
+```
 
 This rule incorporates the value of TimeInForce which is a standard tag
 found in most order messages. The values associated with standard tags
@@ -435,7 +390,7 @@ available.
 
 In cases where the field attribute is not recognized or not supported,
 the rule containing the offending Edit element should be skipped-over by
-a vendor‟s application and should not cause a validation error. The
+a vendor's application and should not cause a validation error. The
 end-result will be the same as if the condition of the rule were true.
 
 ## GUI Layout Description
@@ -469,9 +424,9 @@ not be displayed
 - **Collapsible** -- a Boolean value indicating whether the panel can be
 collapsed.
 
-- **Collapsed** -- a Boolean value indicating the panel‟s initial state.
+- **Collapsed** -- a Boolean value indicating the panel's initial state.
 
-- **Orientation** -- defines whether the panel‟s components should be
+- **Orientation** -- defines whether the panel's components should be
 vertically or horizontally aligned.
 
 An important aspect of the GUI description is that it is platform
@@ -492,58 +447,40 @@ have an associated Parameter. These controls are typically defined in
 order to affect the state of other controls via the use of a StateRule.
 
 The following listing describes four parameters and the layout of their
-four associated controls. (Key identifiers have been highlighted.) If we
-examine the code we‟ll notice that the controls are enclosed in two
+four associated controls. (Key identifiers have been highlighted.)[HANNO: to be removed/revised, automatic syntax highlighting] If we
+examine the code we'll notice that the controls are enclosed in two
 StrategyPanels, one entitled "Time Parameters" and the other entitled
 "Advanced". These two panels are nested horizontally into the top-level
 StrategyPanel of the StrategyLayout element.
 
-\<Parameter name="StartTime" xsi:type="UTCTimestamp\_t" fixTag="8005"
-use="required"/\\<Parameter name="EndTime" xsi:type="UTCTimestamp\_t"
-fixTag="8006" use="required"/\\<Parameter name="ParticipationRate"
-xsi:type="Float\_t" fixTag="8007" use="optional"/\\<Parameter
-name="Aggression" xsi:type="Char\_t" fixTag="8001" use="required"\>
-
-\<EnumPair enumID="e\_low" wireValue="L"/\>
-
-\<EnumPair enumID="e\_med" wireValue="M"/\>
-
-\<EnumPair enumID="e\_high" wireValue="H"/\>
-
-\</Parameter\>
-
-\<StrategyLayout\>
-
-\<StrategyPanel orientation="HORIZONTAL"\>
-
-\<StrategyPanel title="Time Parameters" orientation="VERTICAL"\>
-
-\<Control ID="c\_ST" xsi:type="Clock\_t" label="Start Time"
-parameterRef="StartTime"/\\<Control ID="c\_ET" xsi:type="Clock\_t"
-label="End Time" parameterRef="EndTime"/\>
-
-\</StrategyPanel\>
-
-\<StrategyPanel title="Advanced" orientation="VERTICAL"\>
-
-\<Control ID="c\_PR" xsi:type="SingleSpinner" label="Partic. Rate"
-parameterRef="ParticipationRate"/\\<Control ID="c\_A"
-xsi:type="DropDownList\_t" label="Aggression"
-parameterRef="Aggression"\>
-
-\<ListItem enumID="e\_low" uiRep="Low"/\>
-
-\<ListItem enumID="e\_med" uiRep="Medium"/\>
-
-\<ListItem enumID="e\_high" uiRep="High"/\>
-
-\</Control\>
-
-\</StrategyPanel\>
-
-\</StrategyPanel\>
-
-\</StrategyLayout\>
+```xml
+<Parameter name="StartTime" xsi:type="UTCTimestamp_t" fixTag="8005" use="required"/>
+<Parameter name="EndTime" xsi:type="UTCTimestamp_t" fixTag="8006" use="required"/>
+<Parameter name="ParticipationRate" xsi:type="Float_t" fixTag="8007" use="optional"/>
+<Parameter name="Aggression" xsi:type="Char_t" fixTag="8001" use="required">
+    <EnumPair enumID="e_low" wireValue="L"/>
+    <EnumPair enumID="e_med" wireValue="M"/>
+    <EnumPair enumID="e_high" wireValue="H"/>
+</Parameter>
+<StrategyLayout>
+    <StrategyPanel orientation="HORIZONTAL">
+        <StrategyPanel title="Time Parameters" orientation="VERTICAL">
+            <Control ID="c_ST" xsi:type="Clock_t" label="Start Time" parameterRef="StartTime"/>
+            <Control ID="c_ET" xsi:type="Clock_t" label="End Time" parameterRef="EndTime"/>
+        </StrategyPanel>
+        <StrategyPanel title="Advanced" orientation="VERTICAL">
+            <Control ID="c_PR" xsi:type="SingleSpinner" label="Partic. Rate"
+              parameterRef="ParticipationRate"/>
+            <Control ID="c_A" xsi:type="DropDownList_t" label="Aggression"
+              parameterRef="Aggression">
+                <ListItem enumID="e_low" uiRep="Low"/>
+                <ListItem enumID="e_med" uiRep="Medium"/>
+                <ListItem enumID="e_high" uiRep="High"/>
+            </Control>
+        </StrategyPanel>
+    </StrategyPanel>
+</StrategyLayout>
+```
 
 Notice how the Parameter/\@name attributes match with the
 Control/\@parameterRef attributes. This creates the binding between
@@ -577,9 +514,9 @@ parameters of the algorithm.
 In order to standardize the way these rules are described we have
 provided a sub-schema which contains elements and attributes used to
 define rules that can be applied to the visual state of GUI Controls.
-This capability is a means to direct the user‟s workflow and this is why
+This capability is a means to direct the user's workflow and this is why
 it has been called "flow control". When creating flow-control rules the
-expectations are that they are evaluated every time a Control‟s value
+expectations are that they are evaluated every time a Control's value
 has changed. Based on the outcome of the evaluations, certain GUI
 controls may become grayed-out or hidden as the user enters values into
 text fields or selects items from drop-down lists.
@@ -608,51 +545,33 @@ action of "raising an error" occurs when the condition is false.
 To illustrate the description of a Flow-control rule consider the
 following code snippet. (Note how the highlighted Control/\@ID attribute
 matches the highlighted Edit/\@field attribute and how the highlighted
-enumID attribute matches the highlighted value attribute):
+enumID attribute matches the highlighted value attribute):[HANNO: to be removed/revised, automatic syntax highlighting]
 
-\<Parameter name="AlphaMode" xsi:type="Int\_t" fixTag="8300"
-use="required"\\<EnumPair enumID="e\_Annual" wireValue="1"/\>
-
-\<EnumPair enumID="e\_Daily" wireValue="2"/\>
-
-\<EnumPair enumID="e\_Custom" wireValue="3"/\>
-
-\</Parameter\>
-
-\<Parameter name="CustomValue" xsi:type="Float\_t" fixTag="8301"
-use="optional"/\\<StrategyLayout\>
-
-\<StrategyPanel orientation="HORIZONTAL"\>
-
-\<Control ID="c\_AlphaMode" xsi:type="DropDownList" label="Alpha
-Benchmark" parameterRef="AlphaMode"\\<ListItem enumID="e\_Annual"
-uiRep="Annual"/\>
-
-\<ListItem enumID="e\_Daily" uiRep="Daily"/\>
-
-\<ListItem enumID="e\_Custom" uiRep="Custom"/\>
-
-\</Control\>
-
-\<Control ID="c\_CustomValue" xsi:type="SingleSpinner\_t"
-label="Custom Alpha" parameterRef="CustomValue"\\<StateRule
-enabled="true"\>
-
-\<Edit field="c\_AlphaMode" operator="EQ" value="e\_Custom"/\>
-
-\</StateRule\>
-
-\<StateRule value="{NULL}"\>
-
-\<Edit field="c\_AlphaMode" operator="NE" value="e\_Custom"/\>
-
-\</StateRule\>
-
-\</Control\>
-
-\</StrategyPanel\>
-
-\</StrategyLayout\>
+```xml
+<Parameter name="AlphaMode" xsi:type="Int_t" fixTag="8300" use="required">
+    <EnumPair enumID="e_Annual" wireValue="1"/>
+    <EnumPair enumID="e_Daily" wireValue="2"/>
+    <EnumPair enumID="e_Custom" wireValue="3"/>
+</Parameter>
+<Parameter name="CustomValue" xsi:type="Float_t" fixTag="8301" use="optional"/>
+<StrategyLayout>
+    <StrategyPanel orientation="HORIZONTAL">
+        <Control ID="c_AlphaMode" xsi:type="DropDownList" label="Alpha Benchmark" parameterRef="AlphaMode">
+            <ListItem enumID="e_Annual" uiRep="Annual"/>
+            <ListItem enumID="e_Daily" uiRep="Daily"/>
+            <ListItem enumID="e_Custom" uiRep="Custom"/>
+        </Control>
+        <Control ID="c_CustomValue" xsi:type="SingleSpinner_t" label="Custom Alpha" parameterRef="CustomValue">
+            <StateRule enabled="true">
+                <Edit field="c_AlphaMode" operator="EQ" value="e_Custom"/>
+            </StateRule>
+            <StateRule value="{NULL}">
+                <Edit field="c_AlphaMode" operator="NE" value="e_Custom"/>
+            </StateRule>
+        </Control>
+    </StrategyPanel>
+</StrategyLayout>
+```
 
 In this listing we have defined two parameters, "AlphaMode" and
 "CustomValue". We have also defined two controls corresponding to the
@@ -690,7 +609,7 @@ iii. A StateRule that changes the value of a control when its condition
      StateRule element is not the special token "{NULL}".
 
 iv. A StateRule that changes the value of a control to "{NULL}" when its
-    condition becomes true will cause the control‟s value to revert
+    condition becomes true will cause the control's value to revert
     back to its previous non-{NULL} value or its initial value.
 
 Note that due to (iv), when a StateRule condition becomes false it may
@@ -700,12 +619,12 @@ Order Cancel/Replace Request message be generated while the control is
 in this condition, the associated parameter will not be included in that
 message.
 
-Also note that the state of a control‟s enabled property or visible
-property does not influence whether the control‟s associated parameter
+Also note that the state of a control's enabled property or visible
+property does not influence whether the control's associated parameter
 is sent on the wire or not. This behavior is governed entirely by the
-control‟s value. To clarify this, we must adhere to another convention:
+control's value. To clarify this, we must adhere to another convention:
 
-v.  To the extent that a control‟s value determines the "wire-value" of
+v.  To the extent that a control's value determines the "wire-value" of
     a particular parameter, if the control is un-initialized or has
     been set to the value of "{NULL}" then the associated parameter
     will not have a "wire-value" and will not have its tag-value pair
@@ -718,11 +637,11 @@ a tag to be populated in the generated FIX message and the value would
 go out over the wire. This is why, in the previous listing, a second
 StateRule was required:
 
-\<StateRule value="{NULL}"\>
-
-\<Edit field="c\_AlphaMode" operator="NE" value="e\_Custom"/\>
-
-\</StateRule\>
+```xml
+<StateRule value="{NULL}">
+    <Edit field="c_AlphaMode" operator="NE" value="e_Custom"/>
+</StateRule>
+```
 
 If this rule had not been provided, a "CustomValue" parameter (tag 8301)
 would be transmitted on the wire if the user had entered a value into
@@ -737,7 +656,7 @@ control values and determine appropriate values with which to populate
 the custom FIX tags of the order message. In order for this to be
 accomplished FIXatdl provides a means for relating controls to
 parameters, mainly, the parameterRef attribute of the Control element.
-This attribute is set to the value of a Parameter‟s name attribute, thus
+This attribute is set to the value of a Parameter's name attribute, thus
 providing a binding between the two.
 
 Bindings of controls to parameters may be either one-to-one, where one
@@ -747,7 +666,7 @@ bindings involve groups of radio buttons. All other bindings are
 one-to-one.)
 
 When a binding of a control to a parameter is declared it must be
-possible for the control‟s value to be converted to a legal wire-value
+possible for the control's value to be converted to a legal wire-value
 of the control. For example, it makes little sense for a checkbox
 control to be bound to a floating point parameter. Rather, a checkbox is
 more logically fit to be bound to a Boolean parameter.
@@ -760,8 +679,9 @@ parameters. When this is the case, an attribute of the Parameter
 element, constValue, is used to indicate that the parameter is a
 constant and provides the value, as in the following listing.
 
-\<Parameter name="ExecService" xsi:type="Char\_t" fixTag="9050"
-constValue="A"/\>
+```xml
+<Parameter name="ExecService" xsi:type="Char_t" fixTag="9050" constValue="A"/>
+```
 
 Based on this description of "ExecService" the order recipient would
 expect to receive a FIX message containing the substring "9050=A".
@@ -773,17 +693,14 @@ controls via the use of flow-control rules. For example, the following
 listing describes two controls -- a helper control and a control bound
 to some integer parameter named "CrossQty".
 
-\<Control ID="EnableCross" xsi:type="CheckBox\_t" label="Enable Cross"
-initValue=false/\\<Control ID="CrossQty" xsi:type="SingleSpinner\_t"
-label="Cross Qty" parameterRef="CrossQty"\>
-
-\<StateRule enable="true"\>
-
-\<Edit field="EnableCross" operator="EQ" value="true"/\>
-
-\</StateRule\>
-
-\</Control\>
+```xml
+<Control ID="EnableCross" xsi:type="CheckBox_t" label="Enable Cross" initValue=false/>
+<Control ID="CrossQty" xsi:type="SingleSpinner_t" label="Cross Qty" parameterRef="CrossQty">
+    <StateRule enable="true">
+        <Edit field="EnableCross" operator="EQ" value="true"/>
+    </StateRule>
+</Control>
+```
 
 For a strategy rendered from this description, the user would not be
 able to enter a value into the CrossQty spinner control unless the
@@ -807,28 +724,20 @@ transport methods.
 
 To illustrate, consider the following listing:
 
-\<Strategies strategyIdentifierTag=\"7000\"
-versionIdentifierTag=\"7001\" tag957Support="true"\\<Strategy
-name=\"POV\" uiRep=\"POV\" wireValue=\"v\" version=\"1\"
-fixMsgType=\"D\"\>
-
-\<Parameter name="PctVol" xsi:type="Percentage\_t" fixTag="7002"
-use="required"/\\<Parameter name="FC" xsi:type="Boolean\_t"
-fixTag="7003" use="required"/\\<StrategyLayout\>
-
-\<StrategyPanel\>
-
-\<Control ID="c\_PctVol" xsi:type="SingleSpinner\_t" label="Pct of
-Volume" parameterRef="PctVol"/\\<Control ID="c\_FC"
-xsi:type="CheckBox\_t" label="Force Completion" parameterRef="FC"/\>
-
-\</StrategyPanel\>
-
-\</StrategyLayout\>
-
-\</Strategy\>
-
-\</Strategies\>
+```xml
+<Strategies strategyIdentifierTag="7000" versionIdentifierTag="7001" tag957Support="true">
+    <Strategy name="POV" uiRep="POV" wireValue="v" version="1" fixMsgType="D">
+        <Parameter name="PctVol" xsi:type="Percentage_t" fixTag="7002" use="required"/>
+        <Parameter name="FC" xsi:type="Boolean_t" fixTag="7003" use="required"/>
+        <StrategyLayout>
+            <StrategyPanel>
+                <Control ID="c_PctVol" xsi:type="SingleSpinner_t" label="Pct of Volume" parameterRef="PctVol"/>
+                <Control ID="c_FC" xsi:type="CheckBox_t" label="Force Completion" parameterRef="FC"/>
+            </StrategyPanel>
+        </StrategyLayout>
+    </Strategy>
+</Strategies>
+```
 
 This document instance describes an algorithm with two parameters,
 PctVol and ForceCompletion. The algorithm provider has also indicated
@@ -840,14 +749,13 @@ were to be rendered by an E/OMS and a user was to enter a PctVol value
 of 0.15 and check the Force Completion checkbox, then the order
 generated may contain a substring similar to:
 
-. . 35=D\|11=1234\|55=AXP\|. .
-\|7000=v\|7001=1\|957=2\|958=PctVol\|959=11\|960=0.15\|958=FC\|959=13\|960=Y
+. . 35=D|11=1234|55=AXP|. . |7000=v|7001=1|957=2|958=PctVol|959=11|960=0.15|958=FC|959=13|960=Y
 
 In this case the E/OMS has decided to use the StrategyParametersGrp
 repeating group. If tag957Support were set to false then the E/OMS
 would be forced to use the UDFs, 7002 and 7003, as in:
 
-. . 35=D\|11=1234\|55=AXP\|. . \|7000=v\|7001=1\|7002=0.15\|7003=Y
+. . 35=D|11=1234|55=AXP|. . |7000=v|7001=1|7002=0.15|7003=Y
 
 The general rule for determining which method to use is as follows.
 
@@ -1032,8 +940,7 @@ table.
 The following table describes the attributes of all the FIXatdl XML
 elements. The format of the attribute name is
 
-\<element name\>/@\<attribute\where the element is one of the XML
-elements defined by FIXatdl.
+`<element name>/@<attribute>` where the element is one of the XML elements defined by FIXatdl.
 
 Since some of the attributes are overloaded due to the way the
 Parameter and Control elements can be extended, types of certain
@@ -1140,10 +1047,9 @@ their description.
 |                                     |                                            |           | accessible, and initValue is not defined,  |
 |                                     |                                            |           | then do not initialize.                    |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Valid values are:                          |
+|                                     |                                            |           | Valid values:                              |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | -   UseValue                               |
-|                                     |                                            |           |                                            |
 |                                     |                                            |           | -   UseFixField                            |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
 | Control/\@initValue                 | (Depends on value of xsi:type)             | N         | The value used to pre-populate the GUI     |
@@ -1155,84 +1061,84 @@ their description.
 |                                     |                                            |           | The following list gives the type of this  |
 |                                     |                                            |           | attribute based on the value of xsi:type.  |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | [xsi:type]{.underline} [initValue          |
-|                                     |                                            |           | type]{.underline}                          |
+|                                     |                                            |           | **[xsi:type]{.underline}:**                |
+|                                     |                                            |           | [initValue type]{.underline}               |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Clock\_t time                              |
+|                                     |                                            |           | **Clock_t:** time                          |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | TextField\_t string                        |
+|                                     |                                            |           | **TextField_t:** string                    |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | SingleSelectList\_t string                 |
+|                                     |                                            |           | **SingleSelectList_t:** string             |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | MultiSelectList\_t MultipleStringValue     |
+|                                     |                                            |           | **MultiSelectList_t:** MultipleStringValue |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Slider\_t double                           |
+|                                     |                                            |           | **Slider_t:** double                       |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | CheckBox\_t boolean ("true"/"false")       |
+|                                     |                                            |           | **CheckBox_t:** boolean ("true"/"false")   |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | CheckBoxList\_t MultipleStringValue        |
+|                                     |                                            |           | **CheckBoxList_t:** MultipleStringValue    |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | SingleSpinner\_t double                    |
+|                                     |                                            |           | **SingleSpinner_t:** double                |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | DoubleSpinner double                       |
+|                                     |                                            |           | **DoubleSpinner_t** double                 |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | DropDownList string                        |
+|                                     |                                            |           | **DropDownList_t** string                  |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | EditableDropDownList\_t string             |
+|                                     |                                            |           | **EditableDropDownList_t:** string         |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | RadioButton\_t boolean ("true"/"false")    |
+|                                     |                                            |           | **RadioButton_t:** boolean ("true"/"false")|
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | RadioButtonList\_t string                  |
+|                                     |                                            |           | **RadioButtonList_t:** string              |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Label\_t string                            |
+|                                     |                                            |           | **Label_t:** string                        |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | HiddenField\_t string                      |
+|                                     |                                            |           | **HiddenField_t:** string                  |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | The use of initValue also depends on the   |
 |                                     |                                            |           | value of xsi:type.                         |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | [xsi:type]{.underline} i[nitValue          |
-|                                     |                                            |           | use]{.underline}                           |
+|                                     |                                            |           | **[xsi:type]{.underline}:**                |
+|                                     |                                            |           | [initValue use]{.underline}                |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Clock\_t A time (expressed in              |
+|                                     |                                            |           | **Clock_t:** A time (expressed in          |
 |                                     |                                            |           | Control/\@localMktTz)                      |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | TextField\_t string                        |
+|                                     |                                            |           | **TextField_t:** string                    |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | SingleSelectList\_t enumID of a child      |
+|                                     |                                            |           | **SingleSelectList_t:** enumID of a child  |
 |                                     |                                            |           | ListItem                                   |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | MultiSelectList\_t enumIDs of child        |
+|                                     |                                            |           | **MultiSelectList_t:** enumIDs of child    |
 |                                     |                                            |           | ListItems                                  |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Slider\_t A valid value returned by the    |
-|                                     |                                            |           | slider                                     |
+|                                     |                                            |           | **Slider_t:** A valid value returned by    |
+|                                     |                                            |           | the slider                                 |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | CheckBox\_t "true" (checked) or "false"    |
-|                                     |                                            |           | (unchecked)                                |
+|                                     |                                            |           | **CheckBox_t:** "true" (checked) or        |
+|                                     |                                            |           | "false" (unchecked)                        |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | CheckBoxList\_t enumIDs of ListItems to be |
-|                                     |                                            |           | checked (separated by single\              |
-|                                     |                                            |           | spaces)                                    |
+|                                     |                                            |           | **CheckBoxList_t:** enumIDs of ListItems   |
+|                                     |                                            |           | to be checked (separated by single spaces  |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | SingleSpinner\_t double                    |
+|                                     |                                            |           | **SingleSpinner_t:** double                |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | DoubleSpinner\_t double                    |
+|                                     |                                            |           | **DoubleSpinner_t:** double                |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | DropDownList\_t enumID of a child ListItem |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | EditableDropDownList\_t enumID of a child  |
+|                                     |                                            |           | **DropDownList_t:** enumID of a child      |
 |                                     |                                            |           | ListItem                                   |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | RadioButton\_t "true" (selected) or        |
+|                                     |                                            |           | **EditableDropDownList_t:** enumID of a    |
+|                                     |                                            |           | child ListItem                             |
+|                                     |                                            |           |                                            |
+|                                     |                                            |           | **RadioButton_t:** "true" (selected) or    |
 |                                     |                                            |           | "false" (unselected)                       |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | RadioButtonList\_t enumID of ListItem to   |
-|                                     |                                            |           | be pushed                                  |
+|                                     |                                            |           | **RadioButtonList_t:** enumID of ListItem  |
+|                                     |                                            |           | to be pushed                               |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Label\_t string to render                  |
+|                                     |                                            |           | **Label_t:** string to render              |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | HiddenField\_t non-displayed string        |
+|                                     |                                            |           | **HiddenField_t:** non-displayed string    |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Required when initPolicy="UseValue".       |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
@@ -1369,44 +1275,30 @@ their description.
 | Control/\@xsi:type                  | string                                     | Y         | Indicates the type of GUI control that     |
 |                                     |                                            |           | should be rendered on the screen.          |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | > Valid values are:                        |
+|                                     |                                            |           | Valid values:                              |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | -   CheckBox\_t                            |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   CheckBoxList\_t                        |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   Clock\_t                               |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   DoubleSpinner\_t                       |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   DropDownList\_t                        |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   EditableDropDownList\_t                |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   HiddenField\_t                         |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   Label\_t                               |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   MultiSelectList\_t                     |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   RadioButton\_t                         |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   RadioButtonList\_t                     |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   SingleSelectList\_t                    |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   SingleSpinner\_t                       |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   Slider\_t                              |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   TextField\_t                           |
+|                                     |                                            |           | -   CheckBox_t                             |
+|                                     |                                            |           | -   CheckBoxList_t                         |
+|                                     |                                            |           | -   Clock_t                                |
+|                                     |                                            |           | -   DoubleSpinner_t                        |
+|                                     |                                            |           | -   DropDownList_t                         |
+|                                     |                                            |           | -   EditableDropDownList_t                 |
+|                                     |                                            |           | -   HiddenField_t                          |
+|                                     |                                            |           | -   Label_t                                |
+|                                     |                                            |           | -   MultiSelectList_t                      |
+|                                     |                                            |           | -   RadioButton_t                          |
+|                                     |                                            |           | -   RadioButtonList_t                      |
+|                                     |                                            |           | -   SingleSelectList_t                     |
+|                                     |                                            |           | -   SingleSpinner_t                        |
+|                                     |                                            |           | -   Slider_t                               |
+|                                     |                                            |           | -   TextField_t                            |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
 | Country/\@CountryCode               | String restricted to \"\[A-Z0-9\]{2}\"     | Y         | ISO 3166-1 alpha-2 code for the countries  |
 |                                     |                                            |           | to include or exclude in a given region.   |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
 | Country/\@inclusion                 | string                                     | Y         | Indicates whether this country should be   |
 |                                     |                                            |           | included or excluded from encompassing     |
-|                                     |                                            |           | list. Valid values: are "Include",         |
+|                                     |                                            |           | list. Valid values:     "Include",         |
 |                                     |                                            |           | "Exclude".                                 |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
 | Edit/\@field                        | string                                     | N         | Field name for comparison. When the edit   |
@@ -1445,11 +1337,8 @@ their description.
 |                                     |                                            |           | types:                                     |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | -   AND                                    |
-|                                     |                                            |           |                                            |
 |                                     |                                            |           | -   OR                                     |
-|                                     |                                            |           |                                            |
 |                                     |                                            |           | -   XOR                                    |
-|                                     |                                            |           |                                            |
 |                                     |                                            |           | -   NOT                                    |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Required when operator is not present. An  |
@@ -1464,20 +1353,13 @@ their description.
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | -   EX (Exists. I.e. the user has entered  |
 |                                     |                                            |           |     a value)                               |
-|                                     |                                            |           |                                            |
 |                                     |                                            |           | -   NX (Not exists. I.e. the user has not  |
 |                                     |                                            |           |     entered a value)                       |
-|                                     |                                            |           |                                            |
 |                                     |                                            |           | -   EQ (Equal)                             |
-|                                     |                                            |           |                                            |
 |                                     |                                            |           | -   LT (Less than)                         |
-|                                     |                                            |           |                                            |
 |                                     |                                            |           | -   GT (Greater than)                      |
-|                                     |                                            |           |                                            |
 |                                     |                                            |           | -   NE (Not equal)                         |
-|                                     |                                            |           |                                            |
 |                                     |                                            |           | -   LE (Less than equal)                   |
-|                                     |                                            |           |                                            |
 |                                     |                                            |           | -   GE (Greater than equal)                |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Required when logicOperator is not         |
@@ -1537,7 +1419,7 @@ their description.
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
 | Market/\@inclusion                  | string                                     | Y         | Indicates whether this market should be    |
 |                                     |                                            |           | included or excluded from encompassing     |
-|                                     |                                            |           | list. Valid values: are "Include",         |
+|                                     |                                            |           | list. Valid values:     "Include",         |
 |                                     |                                            |           | "Exclude".                                 |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
 | Market/\@MICCode                    | string                                     | Y         | String representing a market or exchange - |
@@ -1551,66 +1433,67 @@ their description.
 |                                     |                                            |           | The following list give the type of this   |
 |                                     |                                            |           | attribute based on the value of xsi:type.  |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | [xsi:type]{.underline} [constValue         |
-|                                     |                                            |           | type]{.underline}                          |
+|                                     |                                            |           | **[xsi:type]{.underline}:**                |
+|                                     |                                            |           | [constValue type]{.underline}              |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Int\_t int                                 |
+|                                     |                                            |           | **Int_t:** int                             |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Length\_t positiveInteger                  |
+|                                     |                                            |           | **Length_t:** positiveInteger              |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | NumInGroup\_t positiveInteger              |
+|                                     |                                            |           | **NumInGroup_t:** positiveInteger          |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | SeqNum\_t positiveInteger                  |
+|                                     |                                            |           | **SeqNum_t:** positiveInteger              |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | TagNum\_t positiveInteger                  |
+|                                     |                                            |           | **TagNum_t:** positiveInteger              |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Float\_t decimal                           |
+|                                     |                                            |           | **Float_t:** decimal                       |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Qty\_t Qty                                 |
+|                                     |                                            |           | **Qty_t:** Qty                             |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Price\_t Price                             |
+|                                     |                                            |           | **Price_t:** Price                         |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | PriceOffset\_t PriceOffset                 |
+|                                     |                                            |           | **PriceOffset_t:** PriceOffset             |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Amt\_t Amt                                 |
+|                                     |                                            |           | **Amt_t:** Amt                             |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Percentage\_t Percentage                   |
+|                                     |                                            |           | **Percentage_t:** Percentage               |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Char\_t char                               |
+|                                     |                                            |           | **Char_t:** char                           |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Boolean\_t Boolean ('Y'/'N')               |
+|                                     |                                            |           | **Boolean_t:** Boolean ('Y'/'N')           |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | String\_t string                           |
+|                                     |                                            |           | **String_t:** string                       |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | MultipleCharValue\_t MultipleCharValue     |
+|                                     |                                            |           | **MultipleCharValue_t:** MultipleCharValue |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Currency\_t Currency                       |
+|                                     |                                            |           | **Currency_t:** Currency                   |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Exchange\_t Exchange                       |
+|                                     |                                            |           | **Exchange_t:** Exchange                   |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | MonthYear\_t MonthYear                     |
+|                                     |                                            |           | **MonthYear_t:** MonthYear                 |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | UTCTimestamp\_t time                       |
+|                                     |                                            |           | **UTCTimestamp_t:** time                   |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | UTCTimeOnly\_t time                        |
+|                                     |                                            |           | **UTCTimeOnly_t:** time                    |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | LocalMktDate\_t date                       |
+|                                     |                                            |           | **LocalMktDate_t:** date                   |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | UTCDateOnly\_t UTCDateOnly                 |
+|                                     |                                            |           | **UTCDateOnly_t:** UTCDateOnly             |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Data\_t Data                               |
+|                                     |                                            |           | **Data_t:** Data                           |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | MultipleStringValue\_t MultipleStringValue |
+|                                     |                                            |           | **MultipleStringValue_t:**                 |
+|                                     |                                            |           | MultipleStringValue                        |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Country\_t Country                         |
+|                                     |                                            |           | **Country_t:** Country                     |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Language\_t language                       |
+|                                     |                                            |           | **Language_t:** language                   |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | TZTimestamp\_t time                        |
+|                                     |                                            |           | **TZTimestamp_t:** time                    |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | TZTimeOnly\_t TZTimeOnly                   |
+|                                     |                                            |           | **TZTimeOnly_t:** TZTimeOnly               |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Tenor\_t Tenor                             |
+|                                     |                                            |           | **Tenor_t:** Tenor                         |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | When defined in UTCTimestamp\_t elements   |
 |                                     |                                            |           | the following apply:                       |
@@ -1638,9 +1521,11 @@ their description.
 |                                     |                                            |           | the order qty (tag 38) then the Parameter  |
 |                                     |                                            |           | declaration may be similar to:             |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | \<Parameter name="OrderQty"                |
-|                                     |                                            |           | xsi:type="Qty\_t" fixTag="38"              |
-|                                     |                                            |           | definedByFIX="true" use="required"/\>      |
+|                                     |                                            |           | ```xml                                     |
+|                                     |                                            |           | <Parameter name="OrderQty"                 |
+|                                     |                                            |           | xsi:type="Qty_t" fixTag="38"               |
+|                                     |                                            |           | definedByFIX="true" use="required"/>       |
+|                                     |                                            |           | ```                                        |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
 | Parameter/\@falseWireValue          | string                                     | N         | Applicable only when xsi:type is           |
 |                                     |                                            |           | Boolean\_t.                                |
@@ -1727,45 +1612,45 @@ their description.
 |                                     |                                            |           | The following list give the type of this   |
 |                                     |                                            |           | attribute based on the value of xsi:type.  |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | [xsi:type]{.underline} [initValue          |
-|                                     |                                            |           | type]{.underline}                          |
+|                                     |                                            |           | **[xsi:type]{.underline}:**                |
+|                                     |                                            |           | [initValue type]{.underline}               |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Int\_t int                                 |
+|                                     |                                            |           | **Int_t:** int                             |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Float\_t decimal                           |
+|                                     |                                            |           | **Float_t:** decimal                       |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Qty\_t Qty                                 |
+|                                     |                                            |           | **Qty_t:** Qty                             |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Price\_t Price                             |
+|                                     |                                            |           | **Price_t:** Price                         |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | PriceOffset\_t PriceOffset                 |
+|                                     |                                            |           | **PriceOffset_t:** PriceOffset             |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Amt\_t Amt                                 |
+|                                     |                                            |           | **Amt_t:** Amt                             |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Percentage\_t Percentage                   |
+|                                     |                                            |           | **Percentage_t:** Percentage               |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | MonthYear\_t MonthYear                     |
+|                                     |                                            |           | **MonthYear_t:** MonthYear                 |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | UTCTimestamp\_t time                       |
+|                                     |                                            |           | **UTCTimestamp_t:** time                   |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | UTCTimeOnly\_t time                        |
+|                                     |                                            |           | **UTCTimeOnly_t:** time                    |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | LocalMktDate\_t date                       |
+|                                     |                                            |           | **LocalMktDate_t:** date                   |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | UTCDateOnly\_t UTCDateOnly                 |
+|                                     |                                            |           | **UTCDateOnly_t:** UTCDateOnly             |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | TZTimestamp\_t time                        |
+|                                     |                                            |           | **TZTimestamp_t:** time                    |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | TZTimeOnly\_t TZTimeOnly                   |
+|                                     |                                            |           | **TZTimeOnly_t:** TZTimeOnly               |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Tenor\_t Tenor                             |
+|                                     |                                            |           | **Tenor_t:** Tenor                         |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | This attribute is applicable only for the  |
 |                                     |                                            |           | xsi:type values listed above.              |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | maxValue has no default value.             |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | When defined in UTCTimestamp\_t elements   |
+|                                     |                                            |           | When defined in UTCTimestamp_t elements **   |
 |                                     |                                            |           | the following applies:                     |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | -   Maximum local market time. Represents  |
@@ -1778,7 +1663,7 @@ their description.
 |                                     |                                            |           |     represents the maximum time of day     |
 |                                     |                                            |           |     allowed for the parameter.             |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Parameter/\@minLength               | non-neg int                                | N         | Applicable when xsi:type is String\_t.     |
+| Parameter/\@minLength               | non-neg int                                | N         | Applicable when xsi:type is String_t.      |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | The minimum allowable length of the        |
 |                                     |                                            |           | parameter.                                 |
@@ -1792,43 +1677,44 @@ their description.
 |                                     |                                            |           | provided, otherwise minValue has no        |
 |                                     |                                            |           | default value.                             |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | [xsi:type]{.underline} [initValue          |
-|                                     |                                            |           | type]{.underline} [default]{.underline}    |
+|                                     |                                            |           | **[xsi:type]{.underline}:**                |
+|                                     |                                            |           | [initValue type]{.underline}               |
+|                                     |                                            |           | ([default]{.underline})                    |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Int\_t int                                 |
+|                                     |                                            |           | **Int_t:** int                             |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Float\_t decimal                           |
+|                                     |                                            |           | **Float_t:** decimal                       |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Qty\_t Qty 0                               |
+|                                     |                                            |           | **Qty_t:** Qty (0)                         |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Price\_t Price 0                           |
+|                                     |                                            |           | **Price_t:** Price (0)                     |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | PriceOffset\_t PriceOffset 0               |
+|                                     |                                            |           | **PriceOffset_t:** PriceOffset (0)         |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Amt\_t Amt 0                               |
+|                                     |                                            |           | **Amt_t:** Amt (0)                         |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Percentage\_t Percentage 0                 |
+|                                     |                                            |           | **Percentage_t:** Percentage (0)           |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | MonthYear\_t MonthYear                     |
+|                                     |                                            |           | **MonthYear_t:** MonthYear                 |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | UTCTimestamp\_t UTCTimestamp               |
+|                                     |                                            |           | **UTCTimestamp_t:** UTCTimestamp           |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | UTCTimeOnly\_t time                        |
+|                                     |                                            |           | **UTCTimeOnly_t:** time                    |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | LocalMktDate\_t date                       |
+|                                     |                                            |           | **LocalMktDate_t:** date                   |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | UTCDateOnly\_t UTCDateOnly                 |
+|                                     |                                            |           | **UTCDateOnly_t:** UTCDateOnly             |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | TZTimestamp\_t time                        |
+|                                     |                                            |           | **TZTimestamp_t:** time                    |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | TZTimeOnly\_t TZTimeOnly                   |
+|                                     |                                            |           | **TZTimeOnly_t:** TZTimeOnly               |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Tenor\_t Tenor                             |
+|                                     |                                            |           | **Tenor_t:** Tenor                         |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | This attribute is applicable only for the  |
 |                                     |                                            |           | xsi:type values listed above.              |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | When defined in UTCTimestamp\_t the        |
+|                                     |                                            |           | When defined in UTCTimestamp_t the         |
 |                                     |                                            |           | following applies:                         |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | -   Minimum local market time. Represents  |
@@ -1841,7 +1727,7 @@ their description.
 |                                     |                                            |           |     represents the minimum time of day     |
 |                                     |                                            |           |     allowed for the parameter.             |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Parameter/\@multiplyBy100           | boolean                                    | N         | Applicable for xsi:type of Percentage\_t.  |
+| Parameter/\@multiplyBy100           | boolean                                    | N         | Applicable for xsi:type of Percentage_t.   |
 |                                     |                                            |           | If true then percent values must be        |
 |                                     |                                            |           | multiplied by 100 before being sent on the |
 |                                     |                                            |           | wire. For example, if multiplyBy100 were   |
@@ -1884,8 +1770,8 @@ their description.
 |                                     |                                            |           | by the user should be taken as-is without  |
 |                                     |                                            |           | rounding.                                  |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | **Applicable when** xsi:type is Float\_t,  |
-|                                     |                                            |           | Price\_t, PriceOffset\_t and Qty\_t.       |
+|                                     |                                            |           | **Applicable when** xsi:type is Float_t,   |
+|                                     |                                            |           | Price_t, PriceOffset_t and Qty_t.          |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
 | Parameter/\@revertOnCxlRpl          | boolean                                    | N         | Indicates how to interpret those tags that |
 |                                     |                                            |           | were populated in an original order but    |
@@ -1965,77 +1851,47 @@ their description.
 |                                     |                                            |           | xmlns:xsi=<h                               |
 |                                     |                                            |           | ttp://www.w3.org/2001/XMLSchema-instance>. |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Valid values are:                          |
+|                                     |                                            |           | Valid values:                              |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | -   Amt\_t                                 |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   Boolean\_t                             |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   Char\_t                                |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   Country\_t                             |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   Currency\_t                            |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   Data\_t                                |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   Exchange\_t                            |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   Float\_t                               |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   Int\_t                                 |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   Language\_t                            |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   Length\_t                              |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   LocalMktDate\_t                        |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   MonthYear\_t                           |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   MultipleCharValue\_t                   |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   MultipleStringValue\_t                 |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   NumInGroup\_t                          |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   Percentage\_t                          |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   Price\_t                               |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   PriceOffset\_t                         |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   Qty\_t                                 |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   SeqNum\_t                              |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   String\_t                              |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   TagNum\_t                              |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   Tenor\_t                               |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   TZTimeOnly\_t                          |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   TZTimestamp\_t                         |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   UTCDateOnly\_t                         |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   UTCTimeOnly\_t                         |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | -   UTCTimestamp\_t                        |
+|                                     |                                            |           | -   Amt_t                                  |
+|                                     |                                            |           | -   Boolean_t                              |
+|                                     |                                            |           | -   Char_t                                 |
+|                                     |                                            |           | -   Country_t                              |
+|                                     |                                            |           | -   Currency_t                             |
+|                                     |                                            |           | -   Data_t                                 |
+|                                     |                                            |           | -   Exchange_t                             |
+|                                     |                                            |           | -   Float_t                                |
+|                                     |                                            |           | -   Int_t                                  |
+|                                     |                                            |           | -   Language_t                             |
+|                                     |                                            |           | -   Length_t                               |
+|                                     |                                            |           | -   LocalMktDate_t                         |
+|                                     |                                            |           | -   MonthYear_t                            |
+|                                     |                                            |           | -   MultipleCharValue_t                    |
+|                                     |                                            |           | -   MultipleStringValue_t                  |
+|                                     |                                            |           | -   NumInGroup_t                           |
+|                                     |                                            |           | -   Percentage_t                           |
+|                                     |                                            |           | -   Price_t                                |
+|                                     |                                            |           | -   PriceOffset_t                          |
+|                                     |                                            |           | -   Qty_t                                  |
+|                                     |                                            |           | -   SeqNum_t                               |
+|                                     |                                            |           | -   String_t                               |
+|                                     |                                            |           | -   TagNum_t                               |
+|                                     |                                            |           | -   Tenor_t                                |
+|                                     |                                            |           | -   TZTimeOnly_t                           |
+|                                     |                                            |           | -   TZTimestamp_t                          |
+|                                     |                                            |           | -   UTCDateOnly_t                          |
+|                                     |                                            |           | -   UTCTimeOnly_t                          |
+|                                     |                                            |           | -   UTCTimestamp_t                         |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
 | Region/\@inclusion                  | string                                     | Y         | Indicates whether this region should be    |
 |                                     |                                            |           | included or excluded when declared within  |
-|                                     |                                            |           | a list of regions. Valid values: are       |
+|                                     |                                            |           | a list of regions. Valid values:           |
 |                                     |                                            |           | "Include", "Exclude".                      |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Region/\@name                       | String                                     | Y         | The name of the region. Valid values are:  |
+| Region/\@name                       | String                                     | Y         | The name of the region. Valid values:      |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | -   "TheAmericas"                          |
-|                                     |                                            |           |                                            |
 |                                     |                                            |           | -   "EuropeMiddleEastAfrica"               |
-|                                     |                                            |           |                                            |
 |                                     |                                            |           | -   "AsiaPacificJapan"                     |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
 | RepeatingGroup/\@fixTag             | int                                        | N         | The FIX tag corresponding to a NoXXX tag.  |
@@ -2044,7 +1900,7 @@ their description.
 |                                     |                                            |           | are repeating group tags when sent over    |
 |                                     |                                            |           | the wire.                                  |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Valid values are: 555 (NoLegs) and 68      |
+|                                     |                                            |           | Valid values: 555 (NoLegs) and 68          |
 |                                     |                                            |           | (TotNoOrders). In the case where           |
 |                                     |                                            |           | fixTag=68, either multiple NewOrder-List   |
 |                                     |                                            |           | messages may be sent where the total       |
@@ -2060,7 +1916,7 @@ their description.
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
 | RepeatingGroup/\@name               | string                                     | N         | FIX Field name of the repeating group.     |
 |                                     |                                            |           | Must refer to a FIX field of NumInGroup    |
-|                                     |                                            |           | type. Valid values are: \"TotNoOrders\"    |
+|                                     |                                            |           | type. Valid values: \"TotNoOrders\"        |
 |                                     |                                            |           | (when NewOrder-List messages are           |
 |                                     |                                            |           | expected), \"NoLegs\" (when                |
 |                                     |                                            |           | NewOrder-Multileg messages are expected).  |
@@ -2069,7 +1925,7 @@ their description.
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
 | SecurityType/\@inclusion            | string                                     | Y         | Indicates whether this security type       |
 |                                     |                                            |           | should be included or excluded from        |
-|                                     |                                            |           | encompassing list. Valid values: are       |
+|                                     |                                            |           | encompassing list. Valid values:           |
 |                                     |                                            |           | "Include", "Exclude".                      |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
 | SecurityType/\@name                 | string                                     | Y         | Indicates type of security. Valid values   |
@@ -2279,10 +2135,9 @@ their description.
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
 | StrategyPanel/\@border              | Border                                     | N         | Recommended border for the panel.          |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Valid values are:                          |
+|                                     |                                            |           | Valid values:                              |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | -   None                                   |
-|                                     |                                            |           |                                            |
 |                                     |                                            |           | -   Line                                   |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
 | StrategyPanel/\@collapsed           | boolean                                    | N         | Initial visual state of a panel. Indicates |
@@ -2508,87 +2363,88 @@ specific parameter extension type.
 **Parameter xsi:type**   **Corresponding FIX 5.0 Type**   **Extended attributes specific to xsi:type**   
 ------------------------ -------------------------------- ---------------------------------------------- ---------------------
                                                           **Attribute Name**                             **Attribute Type**
-Amt\_t                   Amt                              minValue                                       decimal
+Amt_t                    Amt                              minValue                                       decimal
                                                           maxValue                                       decimal
                                                           constValue                                     decimal
-Boolean\_t               Boolean                          trueWireValue *(Deprecated)*                   string
+Boolean_t                Boolean                          trueWireValue *(Deprecated)*                   string
                                                           falseWireValue *(Deprecated)*                  string
                                                           constValue                                     boolean
-Char\_t                  char                             constValue                                     char
-Country\_t               Country                          constValue                                     Country
-Currency\_t              Currency                         constValue                                     string
-Data\_t                  data                             minLength                                      Length
+Char_t                   char                             constValue                                     char
+Country_t                Country                          constValue                                     Country
+Currency_t               Currency                         constValue                                     string
+Data_t                   data                             minLength                                      Length
                                                           maxLength                                      Length
                                                           constValue                                     Data
-Exchange\_t              Exchange                         constValue                                     Exchange
-Float\_t                 float                            minValue                                       decimal
+Exchange_t               Exchange                         constValue                                     Exchange
+Float_t                  float                            minValue                                       decimal
                                                           maxValue                                       decimal
                                                           constValue                                     decimal
                                                           precision                                      non-neg int
-Int\_t                   int                              minValue                                       int
+Int_t                    int                              minValue                                       int
                                                           maxValue                                       int
                                                           constValue                                     int
-Language\_t              Language                         constValue                                     language
-Length\_t                Length                           constValue                                     positiveInteger
-LocalMktDate\_t          LocalMktDate                     minValue                                       LocalMktDate
+Language_t               Language                         constValue                                     language
+Length_t                 Length                           constValue                                     positiveInteger
+LocalMktDate_t           LocalMktDate                     minValue                                       LocalMktDate
                                                           maxValue                                       LocalMktDate
                                                           constValue                                     LocalMktDate
-MonthYear\_t             month-year                       minValue                                       MonthYear
+MonthYear_t              month-year                       minValue                                       MonthYear
                                                           maxValue                                       MonthYear
                                                           constValue                                     MonthYear
-MultipleCharValue\_t     MultipleCharValue                minLength                                      Length
+MultipleCharValue_t      MultipleCharValue                minLength                                      Length
                                                           maxLength                                      Length
                                                           constValue                                     MultipleCharValue
                                                           invertOnWire                                   boolean
-MultipleStringValue\_t   MultipleStringValue              minLength                                      Length
+MultipleStringValue_t    MultipleStringValue              minLength                                      Length
                                                           maxLength                                      Length
                                                           constValue                                     MultipleStringValue
                                                           invertOnWire                                   boolean
-NumInGroup\_t            NumInGroup                       constValue                                     positiveInteger
-Percentage\_t            Percentage                       minValue                                       Percentage
+NumInGroup_t             NumInGroup                       constValue                                     positiveInteger
+Percentage_t             Percentage                       minValue                                       Percentage
                                                           maxValue                                       Percentage
                                                           constValue                                     Percentage
                                                           multiplyBy100                                  boolean
-Price\_t                 Price                            minValue                                       Price
+Price_t                  Price                            minValue                                       Price
                                                           maxValue                                       Price
                                                           constValue                                     Price
                                                           precision                                      non-neg int
-PriceOffset\_t           PriceOffset                      minValue                                       PriceOffset
+PriceOffset_t            PriceOffset                      minValue                                       PriceOffset
                                                           maxValue                                       PriceOffset
                                                           constValue                                     PriceOffset
                                                           precision                                      non-neg int
-Qty\_t                   Qty                              minValue                                       Qty
+Qty_t                    Qty                              minValue                                       Qty
                                                           maxValue                                       Qty
                                                           constValue                                     Qty
                                                           precision                                      non-neg int
-SeqNum\_t                SeqNum                           constValue                                     positiveInteger
-String\_t                string                           minLength                                      Length
+SeqNum_t                 SeqNum                           constValue                                     positiveInteger
+String_t                 string                           minLength                                      Length
                                                           maxLength                                      Length
                                                           constValue                                     string
-TagNum\_t                int                              constValue                                     positiveInteger
-Tenor\_t                 Tenor                            constValue                                     Tenor
-UTCDateOnly\_t           UTCDateOnly                      minValue                                       UTCDateOnly
+TagNum_t                 int                              constValue                                     positiveInteger
+Tenor_t                  Tenor                            constValue                                     Tenor
+UTCDateOnly_t            UTCDateOnly                      minValue                                       UTCDateOnly
                                                           maxValue                                       UTCDateOnly
                                                           constValue                                     UTCDateOnly
-UTCTimeOnly\_t           UTCTimeOnly                      minValue                                       time
+UTCTimeOnly_t            UTCTimeOnly                      minValue                                       time
                                                           maxValue                                       time
                                                           constValue                                     time
-UTCTimestamp\_t          UTCTimestamp                     minValue                                       time
+UTCTimestamp_t           UTCTimestamp                     minValue                                       time
                                                           maxValue                                       time
                                                           constValue                                     time
                                                           localMktTz                                     LocalMktTz
-TZTimestamp\_t           TZTimestamp                      minValue                                       time
+TZTimestamp_t            TZTimestamp                      minValue                                       time
                                                           maxValue                                       time
                                                           constValue                                     time
-TZTimeOnly\_t            TZTimeOnly                       minValue                                       TZTimeOnly
+TZTimeOnly_t             TZTimeOnly                       minValue                                       TZTimeOnly
                                                           maxValue                                       TZTimeOnly
                                                           constValue                                     TZTimeOnly
 
 For example in the following code snippet an algorithmic parameter,
 MktOnCloseFlag, is defined as being a Boolean\_t type.
 
-\<Parameter name="MktOnCloseFlag" xsi:type="Boolean\_t" fixTag="8001"
-use="required trueWireValue="T" false WireValue="F"/\>
+```xml
+<Parameter name="MktOnCloseFlag" xsi:type="Boolean_t" fixTag="8001" use="required" trueWireValue="T" falseWireValue="F"/>
+```
 
 Notice that by setting xsi:type of this parameter to "Boolean\_t" we can
 now use the attributes, "trueWireValue" and "falseWireValue", which are
@@ -2601,11 +2457,9 @@ elements are used.\]]{.underline}
 
 [In this next snippet a quantity parameter is defined.]{.underline}
 
-[\<Parameter name="CrossQty" xsi:type="Qty\_t" fixTag="8002"
-use="required" minValue="100"/\>]{.underline}
+[`<Parameter name="CrossQty" xsi:type="Qty_t" fixTag="8002" use="required" minValue="100"/>`]{.underline}
 
-[By setting xsi:type to Qty\_t we can now provide a value for
-minValue.]{.underline}
+[By setting xsi:type to Qty\_t we can now provide a value for minValue.]{.underline}
 
 ## Control Element Extension
 
@@ -2638,7 +2492,7 @@ The following types are used to extend the Control element:
 +=========================+=================================================+=====================================+=====================+
 |                         |                                                 | **Attribute Name**                  | **Attribute Type**  |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
-| Clock\_t                | Clock with hours, minutes, seconds and AM/PM    | initValue                           | time                |
+| Clock_t                 | Clock with hours, minutes, seconds and AM/PM    | initValue                           | time                |
 |                         | setting.                                        |                                     |                     |
 |                         |                                                 |                                     |                     |
 |                         | Depending on the parameter type, this control   |                                     |                     |
@@ -2646,28 +2500,28 @@ The following types are used to extend the Control element:
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
 |                         |                                                 | initValueMode                       | int                 |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
-| TextField\_t            | Standard text field.                            | initValue                           | string              |
+| TextField_t             | Standard text field.                            | initValue                           | string              |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
-| SingleSelectList\_t     | Affords the user the ability to select one item | initValue                           | string              |
+| SingleSelectList_t      | Affords the user the ability to select one item | initValue                           | string              |
 |                         | from a list.                                    |                                     |                     |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
-| MultiSelectList\_t      | Affords the user the ability to select many     | initValue                           | MultipleStringValue |
+| MultiSelectList_t       | Affords the user the ability to select many     | initValue                           | MultipleStringValue |
 |                         | items from a list. Values extracted from this   |                                     |                     |
 |                         | type of control are expected to be transmitted  |                                     |                     |
 |                         | using a MultipleStringValue or                  |                                     |                     |
 |                         | MultipleCharValue FIX type.                     |                                     |                     |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
-| Slider\_t               | Draggable slider with labels that map to        | initValue                           | string              |
+| Slider_t                | Draggable slider with labels that map to        | initValue                           | string              |
 |                         | values.                                         |                                     |                     |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
 |                         |                                                 | increment                           | double              |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
 |                         |                                                 | incrementPolicy                     | string              |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
-| CheckBox\_t             | Standard check box -- initialized to checked or | initValue                           | boolean             |
+| CheckBox_t              | Standard check box -- initialized to checked or | initValue                           | boolean             |
 |                         | unchecked.                                      |                                     |                     |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
-| CheckBoxList\_t         | A list of check boxes where multiple selections | initValue                           | MultipleStringValue |
+| CheckBoxList_t          | A list of check boxes where multiple selections | initValue                           | MultipleStringValue |
 |                         | can be made. Values extracted from this type of |                                     |                     |
 |                         | control are expected to be transmitted using a  |                                     |                     |
 |                         | MultipleStringValue or MultipleCharValue FIX    |                                     |                     |
@@ -2675,14 +2529,14 @@ The following types are used to extend the Control element:
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
 |                         |                                                 | orientation                         | Orientation         |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
-| SingleSpinner\_t        | A numeric field that has arrows to increment    | initValue                           | double              |
+| SingleSpinner_t         | A numeric field that has arrows to increment    | initValue                           | double              |
 |                         | and decrement                                   |                                     |                     |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
 |                         |                                                 | increment                           | double              |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
 |                         |                                                 | incrementPolicy                     | string              |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
-| DoubleSpinner\_t        | A numeric field that has two sets of arrows to  | initValue                           | double              |
+| DoubleSpinner_t         | A numeric field that has two sets of arrows to  | initValue                           | double              |
 |                         | increment and decrement by different values     |                                     |                     |
 |                         | (say for pennies and dollars). When pressed,    |                                     |                     |
 |                         | the right-most pair of arrows will increment    |                                     |                     |
@@ -2700,23 +2554,23 @@ The following types are used to extend the Control element:
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
 |                         |                                                 | outerIncrementPolicy                | string              |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
-| DropDownList\_t         | More specific derivation of a SingleSelectList. | initValue                           | string              |
+| DropDownList_t          | More specific derivation of a SingleSelectList. | initValue                           | string              |
 |                         | E.g., a combo box.                              |                                     |                     |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
-| EditableDropDownList\_t | More specific derivation of a SingleSelectList. | initValue                           | string              |
+| EditableDropDownList_t  | More specific derivation of a SingleSelectList. | initValue                           | string              |
 |                         | E.g., an editable combo box.                    |                                     |                     |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
-| RadioButton\_t          | Standard radio button, but with no associated   | initValue                           | boolean             |
+| RadioButton_t           | Standard radio button, but with no associated   | initValue                           | boolean             |
 |                         | group.                                          |                                     |                     |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
-| RadioButtonList\_t      | More specific derivation of a SingleSelectList. | initValue                           | string              |
+| RadioButtonList_t       | More specific derivation of a SingleSelectList. | initValue                           | string              |
 |                         | Several items are presented with an associated  |                                     |                     |
 |                         | radio button where the user can select only one |                                     |                     |
 |                         | of them.                                        |                                     |                     |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
 |                         |                                                 | orientation                         | Orientation         |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
-| Label\_t                | Plain text.                                     | initValue                           | string              |
+| Label_t                 | Plain text.                                     | initValue                           | string              |
 |                         |                                                 |                                     |                     |
 |                         | Note that the label control's text may be       |                                     |                     |
 |                         | updated through the execution of a StateRule.   |                                     |                     |
@@ -2726,9 +2580,9 @@ For example in the following code snippet a control, StartTimeCntl, is
 defined as being a Clock\_t. An initial value of 09:30 has been
 specified.
 
-\<Control ID=\"StartTimeCntl\" xsi:type=\"lay:Clock\_t\" label=\"Start
-Time\" initValue="09:30" [localMktTz=\"America/New\_York\"]{.underline}
-parameterRef=\"StartTime\"/\>
+```xml
+<Control ID="StartTimeCntl" xsi:type="lay:Clock_t" label="Start Time" initValue="09:30" localMktTz="America/New_York" parameterRef="StartTime"/>
+```
 
 # Dependencies and Structural Constraints beyond XML Schema
 
@@ -2787,330 +2641,205 @@ strategy with six parameters. The associated controls to be rendered are
 aligned horizontally within two panels which are, in turn, are
 vertically aligned. Three validation rules are provided.
 
-\<Strategies
-
-xmlns=\"http://www.fixprotocol.org/FIXatdl-1-1/Core\"
-
-xmlns:val=\"http://www.fixprotocol.org/FIXatdl-1-1/Validation\"
-
-xmlns:lay=\"http://www.fixprotocol.org/FIXatdl-1-1/Layout\"
-
-xmlns:flow=\"http://www.fixprotocol.org/FIXatdl-1-1/Flow\"
-
-xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
-
-xsi:schemaLocation=\"http://www.fixprotocol.org/FIXatdl-1-1/Core
-fixatdl-core-1-1.xsd\"
-
-strategyIdentifierTag=\"7620\"
-
-versionIdentifierTag=\"7621\"
-
-\>
-
-\<Strategy name=\"Tazer1\" uiRep=\"Tazer\" wireValue=\"Tazer\"
-version=\"1\" fixMsgType=\"D\" providerID=\"ABC\"\>
-
-\<!\--
-
-Declare the algorithm to be applicable in The U.S., Canada and the UK.
-
-\--\>
-
-\<Regions\>
-
-\<Region name=\"TheAmericas\" inclusion=\"Include\"\>
-
-\<Country CountryCode=\"US\" inclusion=\"Include\"/\>
-
-\<Country CountryCode="CA" inclusion="Include"/\>
-
-\</Region\>
-
-\<Region name="EuropeMiddleEastAfrica" inclusion="Include"\>
-
-\<Country CountryCode="UK" inclusion="Include"/\>
-
-\</Region\>
-
-\</Regions\>
-
-\<!\--
-
-Declare the markets where order may be executed.
-
-\--\>
-
-\<Markets\>
-
-\<Market MICCode=\"BATS\" inclusion=\"Include\"/\>
-
-\<Market MICCode="NYSE" inclusion="Include"/\>
-
-\<Market MICCode="XTSE" inclusion="Include"/\>
-
-\<Market MICCode="LSE" inclusion="Include"/\>
-
-\</Markets\>
-
-\<!\--
-
-This algorithm will be applied to equity common stock.
-
-\--\>
-
-\<SecurityTypes\>
-
-\<SecurityType name=\"CS\" inclusion=\"Include\"/\>
-
-\</SecurityTypes\>
-
-\<!\--
-
-Parameter declarations
-
-Five parameters are declared here. The order recipient may reject
-orders with: EndTime (tag 7603) values greater than 4pm New York time;
-SweepDistribution (tag 7640) values other than „U‟ or „G‟; Variance
-(tag 7641) values outside the range \[0.01, 0.50\]; and DisplayQty
-(tag 7645) values less than 0.
-
-\--\>
-
-\<Parameter name=\"StartTime\" xsi:type=\"UTCTimestamp\_t\"
-fixTag=\"7602" use=\"required\"/\\<Parameter name=\"EndTime\"
-xsi:type=\"UTCTimestamp\_t\" fixTag=\"7603\" use=\"required\"
-
-maxValue=\"16:00:00\" localMktTz=\"America/New\_York \"/\>
-
-\<Parameter name=\"DisplayQty\" xsi:type=\"Int\_t\" fixTag=\"7645\"
-use=\"optional\" minValue=\"0\"/\\<Parameter
-name=\"SweepDistribution\" xsi:type=\"Char\_t\" fixTag=\"7640\"
-use=\"required\"\>
-
-\<EnumPair enumID=\"e\_Uniform\" wireValue=\"U\"/\>
-
-\<EnumPair enumID=\"e\_Gaussian\" wireValue=\"G\"/\>
-
-\</Parameter\>
-
-\<Parameter name=\"Variance\" xsi:type=\"Float\_t\" fixTag=\"7641\"
-use=\"optional\" minValue=\"0.01\" maxValue=\"0.50\"/\\<Parameter
-name="AllowDarkPoolExec" xsi:type="Char\_t" fixTag="7642"
-use="required"\>
-
-\<EnumPair enumID="e\_True" wireValue="T"/\>
-
-\<EnumPair enumID="e\_False" wireValue="F"/\>
-
-\</Parameter\>
-
-\<!\--
-
-Description and Layout of GUI controls
-
-\--\>
-
-\<lay:StrategyLayout\>
-
-\<lay:StrategyPanel orientation=\"VERTICAL\"\>
-
-\<lay:StrategyPanel orientation=\"HORIZONTAL\"\>
-
-\<!\--
-
-The StartTimeClock control will be initialized to 9:30am (New York
-time). If it is past 9:30am when the control is rendered, then it will
-be initialized with the current time.
-
-Note that the user will see the 9:30am New York time rendered
-according to his/her environment‟s local timezone setup.
-
-\--\>
-
-\<lay:Control xsi:type=\"lay:Clock\_t\" ID=\"StartTimeClock\"
-label=\"Start Time\" parameterRef=\"StartTime\"
-
-initValue=\"09:30:00\" localMktTz="America/New\_York"
-initValueMode="1"/\>
-
-\<!\--
-
-The EndTimeClock control is not initialized.
-
-\--\>
-
-\<lay:Control xsi:type=\"lay:Clock\_t\" ID=\"EndTimeClock\"
-label=\"End Time\" parameterRef=\"EndTime\"/\\<!\--
-
-The next control is not bound to any parameter. It is intended to
-direct the behavior of the DisplayQty control. It presents 3 options
-in a drop-down list.
-
-\--\>
-
-\<lay:Control ID=\"DQHandling\" xsi:type=\"lay:DropDownList\_t\"
-label=\"Display Handling\"\\<lay:ListItem enumID=\"choice1\"
-uiRep=\"Send nothing\"/\>
-
-\<lay:ListItem enumID=\"choice2\" uiRep=\"Send 0\"/\>
-
-\<lay:ListItem enumID=\"choice3\" uiRep=\"Send what user enters\"/\>
-
-\</lay:Control\>
-
-\<!\--
-
-The DisplayQty control is bound to the DisplayQty parameter. The
-control is un-initialized when it is first rendered. Its subsequent
-behavior is directed by DQHandling control. When DQHandling‟s choice1
-is selected DisplayQty will revert to an un-initialized state and
-become disabled. When DQHandling‟s choice2 is selected, DisplayQty‟s
-value will be set to 0 and it will become disabled. When DQHandling‟s
-choice3 is selected, DisplayQty will be enabled and will accept user
-input.
-
-\--\>
-
-\<lay:Control xsi:type=\"lay:TextField\_t\" ID=\"DisplayQty\"
-label=\"Display Qty\" parameterRef=\"DisplayQty\"\\<flow:StateRule
-enabled=\"true\"\>
-
-\<val:Edit field=\"DQHandling\" operator=\"EQ\" value=\"choice3\"/\>
-
-\</flow:StateRule\>
-
-\<flow:StateRule value=\"{NULL}\"\>
-
-\<val:Edit field=\"DQHandling\" operator=\"EQ\" value=\"choice1\"/\>
-
-\</flow:StateRule\>
-
-\<flow:StateRule value=\"0\"\>
-
-\<val:Edit field=\"DQHandling\" operator=\"EQ\" value=\"choice2\"/\>
-
-\</flow:StateRule\>
-
-\</lay:Control\>
-
-\</lay:StrategyPanel\>
-
-\<lay:StrategyPanel orientation=\"HORIZONTAL\"\>
-
-\<!\--
-
-The SweepDist control will present the 2 options corresponding to the
-enumPairs of the SweepDistribution parameter.
-
-\--\>
-
-\<lay:Control ID=\"SweepDist\" xsi:type=\"lay:DropDownList\_t\"
-label=\"Sweep Distribution\"
-
-parameterRef=\"SweepDistribution\" initValue=\"Uniform\"\>
-
-\<lay:ListItem enumID=\"e\_Uniform\" uiRep=\"Uniform\"/\>
-
-\<lay:ListItem enumID=\"e\_Gaussian\" uiRep=\"Gaussian\"/\>
-
-\</lay:Control\>
-
-\<!\--
-
-The Variance control is enabled only when SweepDist‟s e\_Gaussian item
-is selected.
-
-\--\>
-
-\<lay:Control xsi:type=\"lay:SingleSpinner\_t\" ID=\"Variance\"
-label=\"Variance\" parameterRef=\"Variance\"\\<flow:StateRule
-enabled=\"true\"\>
-
-\<val:Edit field=\"SweepDist\" operator=\"EQ\"
-value=\"e\_Gaussian\"/\>
-
-\</flow:StateRule\>
-
-\</lay:Control\>
-
-\</lay:StrategyPanel\>
-
-\<lay:StrategyPanel orientation="HORIZONTAL"\>
-
-\<lay:Control xsi:type="CheckBox\_t" ID="DPOption" label="Allow Dark
-Pool Execution" parameterRef="AllowDarkPoolExec"
-
-checkedEnumRef="e\_True" uncheckedEnumRef="e\_False"\>
-
-\</lay:Control\>
-
-\</lay:StrategyPanel\>
-
-\</lay:StrategyPanel\>
-
-\</lay:StrategyLayout\>
-
-\<!\--
-
-Validation Section
-
-Note that the attribute, field, always refers to a Parameter name and
-not a Control ID. Also note that short-circuit evaluation is fully
-exploited.
-
-\--\>
-
-\<val:StrategyEdit errorMessage=\"End Time should be later than Start
-Time\"\>
-
-\<val:Edit field=\"EndTime\" operator=\"GT\" field2=\"StartTime\"/\>
-
-\</val:StrategyEdit\>
-
-\<val:StrategyEdit errorMessage=\"Variance is required when Sweep
-Distribution is Gaussian.\"\\<val:Edit logicOperator=\"OR\"\>
-
-\<val:Edit field=\"SweepDistribution" operator=\"NE\" value=\"G\"/\>
-
-\<val:Edit logicOperator=\"AND\"\>
-
-\<val:Edit field=\"SweepDistribution\" operator=\"EQ\" value=\"G\"/\>
-
-\<val:Edit field=\"Variance\" operator=\"EX\"/\>
-
-\</val:Edit\>
-
-\</val:Edit\>
-
-\</val:StrategyEdit\>
-
-\<val:StrategyEdit errorMessage=\"Variance must be between 0 and
-2.0\"\>
-
-\<val:Edit logicOperator=\"OR\"\>
-
-\<val:Edit field=\"SweepDistribution\" operator=\"NE\" value=\"G\"/\>
-
-\<val:Edit logicOperator=\"AND\"\>
-
-\<val:Edit field=\"SweepDistribution\" operator=\"EQ\" value=\"G\"/\>
-
-\<val:Edit field=\"Variance\" operator=\"EX\"/\>
-
-\<val:Edit field=\"Variance\" operator=\"GT\" value=\"0.0\"/\>
-
-\<val:Edit field=\"Variance\" operator=\"LT\" value=\"2.0\"/\>
-
-\</val:Edit\>
-
-\</val:Edit\>
-
-\</val:StrategyEdit\>
-
-\</Strategy\>
-
-\</Strategies\>
+```xml
+<Strategies
+    xmlns="http://www.fixprotocol.org/FIXatdl-1-1/Core"
+    xmlns:val="http://www.fixprotocol.org/FIXatdl-1-1/Validation"
+    xmlns:lay="http://www.fixprotocol.org/FIXatdl-1-1/Layout"
+    xmlns:flow="http://www.fixprotocol.org/FIXatdl-1-1/Flow"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.fixprotocol.org/FIXatdl-1-1/Core fixatdl-core-1-1.xsd"
+    strategyIdentifierTag="7620"
+    versionIdentifierTag="7621"
+>
+
+    <Strategy name="Tazer1" uiRep="Tazer" wireValue="Tazer" version="1" fixMsgType="D"
+      providerID="ABC">
+
+        <!--
+            Declare the algorithm to be applicable in The U.S., Canada and the UK.
+        -->
+        <Regions>
+            <Region name="TheAmericas" inclusion="Include">
+                <Country CountryCode="US" inclusion="Include"/>
+                <Country CountryCode="CA" inclusion="Include"/>
+            </Region>
+            <Region name="EuropeMiddleEastAfrica" inclusion="Include">
+                <Country CountryCode="UK" inclusion="Include"/>
+            </Region>
+        </Regions>
+
+        <!--
+            Declare the markets where order may be executed.
+        -->
+        <Markets>
+            <Market MICCode="BATS" inclusion="Include"/>
+            <Market MICCode="NYSE" inclusion="Include"/>
+            <Market MICCode="XTSE" inclusion="Include"/>
+            <Market MICCode="LSE" inclusion="Include"/>
+        </Markets>
+
+        <!--
+        This algorithm will be applied to equity common stock.
+        -->
+        <SecurityTypes>
+            <SecurityType name="CS" inclusion="Include"/>
+        </SecurityTypes>
+
+        <!--
+            Parameter declarations
+
+            Five parameters are declared here. The order recipient may reject
+            orders with: EndTime (tag 7603) values greater than 4pm New York time;
+            SweepDistribution (tag 7640) values other than "U" or "G"; Variance
+            (tag 7641) values outside the range [0.01, 0.50]; and DisplayQty
+            (tag 7645) values less than 0.
+        -->
+        <Parameter name="StartTime" xsi:type="UTCTimestamp_t" fixTag="7602" use="required"/>
+        <Parameter name="EndTime" xsi:type="UTCTimestamp_t" fixTag="7603" use="required"
+          maxValue="16:00:00" localMktTz="America/New_York "/>
+        <Parameter name="DisplayQty" xsi:type="Int_t" fixTag="7645" use="optional"
+          minValue="0"/>
+        <Parameter name="SweepDistribution" xsi:type="Char_t" fixTag="7640" use="required">
+            <EnumPair enumID="e_Uniform" wireValue="U"/>
+            <EnumPair enumID="e_Gaussian" wireValue="G"/>
+        </Parameter>
+        <Parameter name="Variance" xsi:type="Float_t" fixTag="7641" use="optional"
+          minValue="0.01" maxValue="0.50"/>
+        <Parameter name="AllowDarkPoolExec" xsi:type="Char_t" fixTag="7642" use="required">
+            <EnumPair enumID="e_True" wireValue="T"/>
+            <EnumPair enumID="e_False" wireValue="F"/>
+        </Parameter>
+
+        <!--
+            Description and Layout of GUI controls
+        -->
+        <lay:StrategyLayout>
+            <lay:StrategyPanel orientation="VERTICAL">
+                <lay:StrategyPanel orientation="HORIZONTAL">
+                    <!--
+                        The StartTimeClock control will be initialized to 9:30am (New
+                        York time). If it is past 9:30am when the control is rendered,
+                        then it will be initialized with the current time.
+
+                        Note that the user will see the 9:30am New York time rendered
+                        according to his/her environment's local timezone setup.
+                    -->
+                    <lay:Control xsi:type="lay:Clock_t" ID="StartTimeClock" label="Start Time"
+                      parameterRef="StartTime" initValue="09:30:00" localMktTz="America/New_York"
+                      initValueMode="1"/>
+
+                    <!--
+                      The EndTimeClock control is not initialized.
+                    -->
+
+                    <lay:Control xsi:type="lay:Clock_t" ID="EndTimeClock" label="End Time"
+                      parameterRef="EndTime"/>
+
+                    <!--
+                        The next control is not bound to any parameter. It is intended to
+                        direct the behavior of the DisplayQty control. It presents 3
+                        options in a drop-down list.
+                    -->
+
+                    <lay:Control ID="DQHandling" xsi:type="lay:DropDownList_t"
+                      label="Display Handling">
+                        <lay:ListItem enumID="choice1" uiRep="Send nothing"/>
+                        <lay:ListItem enumID="choice2" uiRep="Send 0"/>
+                        <lay:ListItem enumID="choice3" uiRep="Send what user enters"/>
+                    </lay:Control>
+
+                    <!--
+                        The DisplayQty control is bound to the DisplayQty parameter. The
+                        control is un-initialized when it is first rendered. Its
+                        subsequent behavior is directed by DQHandling control. When
+                        DQHandling's choice1 is selected DisplayQty will revert to an
+                        un-initialized state and become disabled. When DQHandling's
+                        choice2 is selected, DisplayQty's value will be set to 0 and
+                        it will become disabled. When DQHandling's choice3 is selected,
+                        DisplayQty will be enabled and will accept user input.
+                    -->
+
+                    <lay:Control xsi:type="lay:TextField_t" ID="DisplayQty" label="Display Qty"
+                      parameterRef="DisplayQty">
+                        <flow:StateRule enabled="true">
+                          <val:Edit field="DQHandling" operator="EQ" value="choice3"/>
+                        </flow:StateRule>
+                        <flow:StateRule value="{NULL}">
+                            <val:Edit field="DQHandling" operator="EQ" value="choice1"/>
+                        </flow:StateRule>
+                        <flow:StateRule value="0">
+                            <val:Edit field="DQHandling" operator="EQ" value="choice2"/>
+                        </flow:StateRule>
+                    </lay:Control>
+                </lay:StrategyPanel>
+                <lay:StrategyPanel orientation="HORIZONTAL">
+                    <!--
+                        The SweepDist control will present the 2 options corresponding to
+                        the enumPairs of the SweepDistribution parameter.
+                    -->
+                    <lay:Control ID="SweepDist" xsi:type="lay:DropDownList_t"
+                      label="Sweep Distribution"
+                      parameterRef="SweepDistribution" initValue="Uniform">
+                        <lay:ListItem enumID="e_Uniform" uiRep="Uniform"/>
+                        <lay:ListItem enumID="e_Gaussian" uiRep="Gaussian"/>
+                    </lay:Control>
+                    <!--
+                        The Variance control is enabled only when SweepDist's e_Gaussian
+                        item is selected.
+                    -->
+                    <lay:Control xsi:type="lay:SingleSpinner_t" ID="Variance" label="Variance"
+                      parameterRef="Variance">
+                        <flow:StateRule enabled="true">
+                            <val:Edit field="SweepDist" operator="EQ" value="e_Gaussian"/>
+                        </flow:StateRule>
+                    </lay:Control>
+                </lay:StrategyPanel>
+                <lay:StrategyPanel orientation="HORIZONTAL">
+                    <lay:Control xsi:type="CheckBox_t" ID="DPOption"
+                      label="Allow Dark Pool Execution" parameterRef="AllowDarkPoolExec"
+                      checkedEnumRef="e_True" uncheckedEnumRef="e_False">
+                    </lay:Control>
+                </lay:StrategyPanel>
+            </lay:StrategyPanel>
+        </lay:StrategyLayout>
+
+        <!--
+            Validation Section
+
+            Note that the attribute, field, always refers to a Parameter name and
+            not a Control ID. Also note that short-circuit evaluation is fully
+            exploited.
+        -->
+        <val:StrategyEdit errorMessage="End Time should be later than Start Time">
+            <val:Edit field="EndTime" operator="GT" field2="StartTime"/>
+        </val:StrategyEdit>
+
+        <val:StrategyEdit errorMessage="Variance is required when Sweep Distribution is
+          Gaussian.">
+            <val:Edit logicOperator="OR">
+                <val:Edit field="SweepDistribution" operator="NE" value="G"/>
+                <val:Edit logicOperator="AND">
+                    <val:Edit field="SweepDistribution" operator="EQ" value="G"/>
+                    <val:Edit field="Variance" operator="EX"/>
+                </val:Edit>
+            </val:Edit>
+        </val:StrategyEdit>
+
+        <val:StrategyEdit errorMessage="Variance must be between 0 and 2.0">
+            <val:Edit logicOperator="OR">
+                <val:Edit field="SweepDistribution" operator="NE" value="G"/>
+                <val:Edit logicOperator="AND">
+                    <val:Edit field="SweepDistribution" operator="EQ" value="G"/>
+                    <val:Edit field="Variance" operator="EX"/>
+                    <val:Edit field="Variance" operator="GT" value="0.0"/>
+                    <val:Edit field="Variance" operator="LT" value="2.0"/>
+                </val:Edit>
+            </val:Edit>
+        </val:StrategyEdit>
+    </Strategy>
+</Strategies>
+```
 
 # Appendix 1 - LocalMktTz Type
 
