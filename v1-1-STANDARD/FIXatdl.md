@@ -137,7 +137,7 @@ root element, Strategies, and follow the hierarchy:
     </Strategy>
 </Strategies>
 ```
-
+\
 At the root level, the algorithm provider must specify which tag to use
 to identify the individual strategies. (At one time TargetStrategy (tag
 847) was intended to carry this information. However, most providers use
@@ -148,7 +148,7 @@ written as
 ```xml
 <Strategies strategyIdentifierTag="5009"/>
 ```
-
+\
 Parameters for each strategy are defined via Parameter elements.
 Validation rules are defined via StrategyEdit elements. Each strategy
 can have any number of parameters or validation rules. An algorithm can
@@ -169,7 +169,7 @@ into the strategy definition we'll see that it follows the hierarchy:
     <StrategyLayout>
 </Strategy>
 ```
-
+\
 The following figure shows the hierarchy of elements in tree form
 starting from the root element, Strategies. The XML Schema values
 minOccurs and maxOccurs are given for each branch of the tree. Elements
@@ -232,7 +232,7 @@ integer type parameter:
 <Parameter name="SampleRate" xsi:type="Int_t" fixTag="8000"
 use="optional" minValue="1" maxValue="9"/>
 ```
-
+\
 This listing describes a parameter named "SampleRate" which can
 optionally be populated in tag 8000 of an Order message. The attributes
 "minValue" and "maxValue" describes the minimum and maximum values that
@@ -256,10 +256,10 @@ enumerated values expected to be transmitted over the wire. For example:
     <EnumPair enumID="high" wireValue="H"/>
 </Parameter>
 ```
-
+\
 This describes the "Aggression" parameter. An order recipient would
 expect to receive one of the values, "L", "M" or "H" in tag 8001 of an
-Order message. The attribute EnumPair/\@enumID is a unique identifier of
+Order message. The attribute EnumPair/@enumID is a unique identifier of
 EnumPair elements.
 
 If a user of an order-entry system were to submit an order with
@@ -300,7 +300,7 @@ StartTime precedes EndTime can be described by the following statements:
     <Edit field="StartTime" operator="LT" field2="EndTime"/>
 </StrategyEdit>
 ```
-
+\
 Here we have defined both StartTime and EndTime as UTCTimestamp
 parameters. At validation time, the rule described in StrategyEdit
 instructs the E/OMS to perform an evaluation of the Boolean expression
@@ -327,7 +327,7 @@ AND, OR, XOR and NOT. For example consider these declarations:
     </Edit>
 </StrategyEdit>
 ```
-
+\
 Here we see a tree of Edit elements. The root Edit element is describing
 a logical "OR" condition asserting that either ParticipationRate was not
 provided or its value is in the range from 1 to 50. Note how in the
@@ -336,28 +336,26 @@ but to a constant value.
 
 Also note that the logical operators, AND and OR, can have more than two
 operands. Furthermore, they both perform short-circuit evaluation of
-their operands. [(I.e. their operands are evaluated from left to right.
-As soon as the value is]{.underline} [known, evaluation of the
+their operands. (I.e. their operands are evaluated from left to right.
+As soon as the value is known, evaluation of the
 expression stops and the value is returned. Consequently, not all
 operands need to be evaluated. For example, consider the previous
 example in which "ParticipationRate" is an optional parameter. It is
 quite possible that the user does not provide a value for
 "ParticipationRate". If that is the case then evaluation of the "OR"
 statement will terminate after it is established that its first operand,
-\<Edit field="ParticipationRate" operator="NX"/\>, is true. The "AND"
+`<Edit field="ParticipationRate" operator="NX"/>`, is true. The "AND"
 statement that follows is never evaluated -- which is a good result
-since, if we had attempted to evaluate it, it is]{.underline}
-
-[quite possible that a]{.underline} ["Null Reference"]{.underline}
-[error would occur.)]{.underline} That being the case, it is important
+since, if we had attempted to evaluate it, it is quite possible that a "Null Reference"
+error would occur.) That being the case, it is important
 that XML parsing or binding libraries maintain the order of the elements
 as they appear; otherwise unexpected results may occur.
 
-[The logical operator XOR can also have more than two operands. As a
-convention we define XOR as "one and only one",]{.underline} which means
+The logical operator XOR can also have more than two operands. As a
+convention we define XOR as "one and only one", which means
 it evaluates to "true" when one and only one of its operands is true. If
-none or more than one of its operands [is true then XOR is false.
-Short-circuit evaluation cannot be applied to XOR.]{.underline}
+none or more than one of its operands is true then XOR is false.
+Short-circuit evaluation cannot be applied to XOR.
 
 The "field" attribute of an Edit element is not restricted to strategy
 parameters. Standard order tags (those not described in a FIXatdl
@@ -378,7 +376,7 @@ be between 1 and 25">
     </Edit>
 </StrategyEdit>
 ```
-
+\
 This rule incorporates the value of TimeInForce which is a standard tag
 found in most order messages. The values associated with standard tags
 are those that are sent over the wire. For example, TimeInForce is an
@@ -481,11 +479,11 @@ StrategyPanel of the StrategyLayout element.
     </StrategyPanel>
 </StrategyLayout>
 ```
-
-Notice how the Parameter/\@name attributes match with the
-Control/\@parameterRef attributes. This creates the binding between
-parameters and controls. Also note how the EnumPair/\@EnumID attributes
-match with the ListItem/\@EnumID attributes. This creates the binding
+\
+Notice how the Parameter/@name attributes match with the
+Control/@parameterRef attributes. This creates the binding between
+parameters and controls. Also note how the EnumPair/@EnumID attributes
+match with the ListItem/@EnumID attributes. This creates the binding
 between the enumeration values of the parameter and the items of a
 drop-down list.
 
@@ -534,7 +532,7 @@ As with validation rules, flow-control rules employ the Edit element to
 describe the condition (or Boolean expression). However, when an Edit is
 used in a Flow-control rule, it will not make comparisons of parameter
 values; rather it will compare the values returned by the controls. For
-example, the attributes Edit/\@field and Edit/\@field2 will refer to
+example, the attributes Edit/@field and Edit/@field2 will refer to
 either control values or constant values.
 
 Another difference between validation rules and flow-control rules is
@@ -543,8 +541,8 @@ it describes is true. This differs from validation rules, where the
 action of "raising an error" occurs when the condition is false.
 
 To illustrate the description of a Flow-control rule consider the
-following code snippet. (Note how the highlighted Control/\@ID attribute
-matches the highlighted Edit/\@field attribute and how the highlighted
+following code snippet. (Note how the highlighted Control/@ID attribute
+matches the highlighted Edit/@field attribute and how the highlighted
 enumID attribute matches the highlighted value attribute):[HANNO: to be removed/revised, automatic syntax highlighting]
 
 ```xml
@@ -572,13 +570,13 @@ enumID attribute matches the highlighted value attribute):[HANNO: to be removed/
     </StrategyPanel>
 </StrategyLayout>
 ```
-
+\
 In this listing we have defined two parameters, "AlphaMode" and
 "CustomValue". We have also defined two controls corresponding to the
 parameters. A rule has been supplied to the control identified by
-"c\_CustomValue" governing its visual behavior. The rule should be
-interpreted as: "The control c\_CustomValue is enabled only when the
-value of control c\_AlphaMode has been set to "Custom". So a user who
+"c_CustomValue" governing its visual behavior. The rule should be
+interpreted as: "The control c_CustomValue is enabled only when the
+value of control c_AlphaMode has been set to "Custom". So a user who
 selects "Annual" or "Daily" would not able to enter a custom Alpha
 value. Only when "Custom" is selected from the dropdown list would the
 custom Alpha control be able to accept values entered by the user.
@@ -642,7 +640,7 @@ StateRule was required:
     <Edit field="c_AlphaMode" operator="NE" value="e_Custom"/>
 </StateRule>
 ```
-
+\
 If this rule had not been provided, a "CustomValue" parameter (tag 8301)
 would be transmitted on the wire if the user had entered a value into
 the spinner and then selected "Daily" or "Annual" from the drop-down
@@ -682,7 +680,7 @@ constant and provides the value, as in the following listing.
 ```xml
 <Parameter name="ExecService" xsi:type="Char_t" fixTag="9050" constValue="A"/>
 ```
-
+\
 Based on this description of "ExecService" the order recipient would
 expect to receive a FIX message containing the substring "9050=A".
 
@@ -694,14 +692,14 @@ listing describes two controls -- a helper control and a control bound
 to some integer parameter named "CrossQty".
 
 ```xml
-<Control ID="EnableCross" xsi:type="CheckBox_t" label="Enable Cross" initValue=false/>
+<Control ID="EnableCross" xsi:type="CheckBox_t" label="Enable Cross" initValue="false">
 <Control ID="CrossQty" xsi:type="SingleSpinner_t" label="Cross Qty" parameterRef="CrossQty">
     <StateRule enable="true">
         <Edit field="EnableCross" operator="EQ" value="true"/>
     </StateRule>
 </Control>
 ```
-
+\
 For a strategy rendered from this description, the user would not be
 able to enter a value into the CrossQty spinner control unless the
 EnableCross checkbox is checked.
@@ -738,7 +736,7 @@ To illustrate, consider the following listing:
     </Strategy>
 </Strategies>
 ```
-
+\
 This document instance describes an algorithm with two parameters,
 PctVol and ForceCompletion. The algorithm provider has also indicated
 that it supports receipt of these parameters via StrategyParametersGrp
@@ -1005,7 +1003,7 @@ their description.
 |                                     |                                            |           |     available, use the value from the      |
 |                                     |                                            |           |     increment attribute.)                  |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | -   "Tick" - use symbol minimum tick size. |
+|                                     |                                            |           | -   "Tick" -- use symbol minimum tick size. |
 |                                     |                                            |           |     (If this value is not available, use   |
 |                                     |                                            |           |     the value from the increment           |
 |                                     |                                            |           |     attribute.)                            |
@@ -1171,7 +1169,7 @@ their description.
 |                                     |                                            |           | -   "LotSize" -- use the round lot size of |
 |                                     |                                            |           |     symbol                                 |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | -   "Tick: - use symbol minimum tick size  |
+|                                     |                                            |           | -   "Tick" -- use symbol minimum tick size  |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Applicable when xsi:type is                |
 |                                     |                                            |           | DoubleSpinner\_t.                          |
@@ -1229,7 +1227,7 @@ their description.
 |                                     |                                            |           | -   "LotSize" -- use the round lot size of |
 |                                     |                                            |           |     symbol                                 |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | -   "Tick: - use symbol minimum tick size  |
+|                                     |                                            |           | -   "Tick" -- use symbol minimum tick size  |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Applicable when xsi:type is                |
 |                                     |                                            |           | DoubleSpinner\_t.                          |
@@ -2186,7 +2184,7 @@ their description.
 The types of the attribute listed in the previous table are defined
 here. Many of these datatypes have been leveraged from the FIXML
 schema file fixml-datatypes-5-0.xsd. Some come from the XML Schema
-namespace [[http://www.w3.org/2001/XMLSchema]{.underline}.](http://www.w3.org/2001/XMLSchema)
+namespace [http://www.w3.org/2001/XMLSchema](http://www.w3.org/2001/XMLSchema)
 All others have been defined explicitly within the FIXatdl schema files.
 
 +--------------------------+------------+----------------------------------------------------------------------------------------------------------+
@@ -2313,7 +2311,8 @@ All others have been defined explicitly within the FIXatdl schema files.
 |                          |            | Rotation Service (IERS) and has, since 1972, only occurred on the night of Dec. 31 or Jun 30. The IERS   |
 |                          |            | considers March 31 and September 30 as secondary dates for leap second insertion, but has never utilized |
 |                          |            | these dates. During a leap second insertion, a UTCTimestamp field may read \"19981231-23:59:59\",        |
-|                          |            | \"19981231-23:59:60\", \"19990101-00:00:00\". (see http://tycho.usno.navy.mil/leapsec.html)              |
+|                          |            | \"19981231-23:59:60\", \"19990101-00:00:00\"                                                             |
+|                          |            | (see [http://tycho.usno.navy.mil/leapsec.html](http://tycho.usno.navy.mil/leapsec.html).)                |
 +--------------------------+------------+----------------------------------------------------------------------------------------------------------+
 
 # Abstract Element Extensions
@@ -2323,7 +2322,7 @@ example, they cannot be included in an ATDL document without being
 extended by another element via the XML Schema extension element. All
 instances of these elements must indicate a derived type that is not
 abstract via use of the attribute xsi:type defined in the namespace
-[[http://www.w3.org/2001/XMLSchema-instance]{.underline}.](http://www.w3.org/2001/XMLSchema-instance)
+[http://www.w3.org/2001/XMLSchema-instance](http://www.w3.org/2001/XMLSchema-instance).
 
 ## Parameter Element Extension
 
@@ -2360,106 +2359,140 @@ The following table presents the xsi:type names, the expected data type
 of the wire-value and the extended attributes that apply only to the
 specific parameter extension type.
 
-**Parameter xsi:type**   **Corresponding FIX 5.0 Type**   **Extended attributes specific to xsi:type**   
+------------------------------------------------------------------------------------------------------------------------------
+**Parameter xsi:type**   **Corresponding FIX 5.0 Type**   **Attribute Name[^2]**                         **Attribute Type[^2]**   
 ------------------------ -------------------------------- ---------------------------------------------- ---------------------
-                                                          **Attribute Name**                             **Attribute Type**
-Amt_t                    Amt                              minValue                                       decimal
-                                                          maxValue                                       decimal
+Amt_t                    Amt                              minValue\                                      decimal\
+                                                          maxValue\                                      decimal\
                                                           constValue                                     decimal
-Boolean_t                Boolean                          trueWireValue *(Deprecated)*                   string
-                                                          falseWireValue *(Deprecated)*                  string
+
+Boolean_t                Boolean                          trueWireValue[^3]\                             string\
+                                                          falseWireValue[^3]\                            string\
                                                           constValue                                     boolean
+
 Char_t                   char                             constValue                                     char
+
 Country_t                Country                          constValue                                     Country
+
 Currency_t               Currency                         constValue                                     string
-Data_t                   data                             minLength                                      Length
-                                                          maxLength                                      Length
+
+Data_t                   data                             minLength\                                     Length\
+                                                          maxLength\                                     Length\
                                                           constValue                                     Data
+
 Exchange_t               Exchange                         constValue                                     Exchange
-Float_t                  float                            minValue                                       decimal
-                                                          maxValue                                       decimal
-                                                          constValue                                     decimal
+
+Float_t                  float                            minValue\                                      decimal\
+                                                          maxValue\                                      decimal\
+                                                          constValue\                                    decimal\
                                                           precision                                      non-neg int
-Int_t                    int                              minValue                                       int
-                                                          maxValue                                       int
+
+Int_t                    int                              minValue\                                      int\
+                                                          maxValue\                                      int\
                                                           constValue                                     int
+
 Language_t               Language                         constValue                                     language
+
 Length_t                 Length                           constValue                                     positiveInteger
-LocalMktDate_t           LocalMktDate                     minValue                                       LocalMktDate
-                                                          maxValue                                       LocalMktDate
+
+LocalMktDate_t           LocalMktDate                     minValue\                                      LocalMktDate\
+                                                          maxValue\                                      LocalMktDate\
                                                           constValue                                     LocalMktDate
-MonthYear_t              month-year                       minValue                                       MonthYear
-                                                          maxValue                                       MonthYear
+
+MonthYear_t              month-year                       minValue\                                      MonthYear\
+                                                          maxValue\                                      MonthYear\
                                                           constValue                                     MonthYear
-MultipleCharValue_t      MultipleCharValue                minLength                                      Length
-                                                          maxLength                                      Length
-                                                          constValue                                     MultipleCharValue
+
+MultipleCharValue_t      MultipleCharValue                minLength\                                     Length\
+                                                          maxLength\                                     Length\
+                                                          constValue\                                    MultipleCharValue\
                                                           invertOnWire                                   boolean
-MultipleStringValue_t    MultipleStringValue              minLength                                      Length
-                                                          maxLength                                      Length
-                                                          constValue                                     MultipleStringValue
+
+MultipleStringValue_t    MultipleStringValue              minLength\                                     Length\
+                                                          maxLength\                                     Length\
+                                                          constValue\                                    MultipleStringValue\
                                                           invertOnWire                                   boolean
+
 NumInGroup_t             NumInGroup                       constValue                                     positiveInteger
-Percentage_t             Percentage                       minValue                                       Percentage
-                                                          maxValue                                       Percentage
-                                                          constValue                                     Percentage
+
+Percentage_t             Percentage                       minValue\                                      Percentage\
+                                                          maxValue\                                      Percentage\
+                                                          constValue\                                    Percentage\
                                                           multiplyBy100                                  boolean
-Price_t                  Price                            minValue                                       Price
-                                                          maxValue                                       Price
-                                                          constValue                                     Price
+
+Price_t                  Price                            minValue\                                      Price\
+                                                          maxValue\                                      Price\
+                                                          constValue\                                    Price\
                                                           precision                                      non-neg int
-PriceOffset_t            PriceOffset                      minValue                                       PriceOffset
-                                                          maxValue                                       PriceOffset
-                                                          constValue                                     PriceOffset
+
+PriceOffset_t            PriceOffset                      minValue\                                      PriceOffset\
+                                                          maxValue\                                      PriceOffset\
+                                                          constValue\                                    PriceOffset\
                                                           precision                                      non-neg int
-Qty_t                    Qty                              minValue                                       Qty
-                                                          maxValue                                       Qty
-                                                          constValue                                     Qty
+
+Qty_t                    Qty                              minValue\                                      Qty\
+                                                          maxValue\                                      Qty\
+                                                          constValue\                                    Qty\
                                                           precision                                      non-neg int
+
 SeqNum_t                 SeqNum                           constValue                                     positiveInteger
-String_t                 string                           minLength                                      Length
-                                                          maxLength                                      Length
+
+String_t                 string                           minLength\                                     Length\
+                                                          maxLength\                                     Length\
                                                           constValue                                     string
+
 TagNum_t                 int                              constValue                                     positiveInteger
+
 Tenor_t                  Tenor                            constValue                                     Tenor
-UTCDateOnly_t            UTCDateOnly                      minValue                                       UTCDateOnly
-                                                          maxValue                                       UTCDateOnly
+
+UTCDateOnly_t            UTCDateOnly                      minValue\                                      UTCDateOnly\
+                                                          maxValue\                                      UTCDateOnly\
                                                           constValue                                     UTCDateOnly
-UTCTimeOnly_t            UTCTimeOnly                      minValue                                       time
-                                                          maxValue                                       time
+
+UTCTimeOnly_t            UTCTimeOnly                      minValue\                                      time\
+                                                          maxValue\                                      time\
                                                           constValue                                     time
-UTCTimestamp_t           UTCTimestamp                     minValue                                       time
-                                                          maxValue                                       time
-                                                          constValue                                     time
+
+UTCTimestamp_t           UTCTimestamp                     minValue\                                      time\
+                                                          maxValue\                                      time\
+                                                          constValue\                                    time\
                                                           localMktTz                                     LocalMktTz
-TZTimestamp_t            TZTimestamp                      minValue                                       time
-                                                          maxValue                                       time
+
+TZTimestamp_t            TZTimestamp                      minValue\                                      time\
+                                                          maxValue\                                      time\
                                                           constValue                                     time
-TZTimeOnly_t             TZTimeOnly                       minValue                                       TZTimeOnly
-                                                          maxValue                                       TZTimeOnly
+
+TZTimeOnly_t             TZTimeOnly                       minValue\                                      TZTimeOnly\
+                                                          maxValue\                                      TZTimeOnly\
                                                           constValue                                     TZTimeOnly
+------------------------------------------------------------------------------------------------------------------------------
+
+[^2]: Extended attributes specific to xsi:type
+[^3]: Deprecated
 
 For example in the following code snippet an algorithmic parameter,
-MktOnCloseFlag, is defined as being a Boolean\_t type.
+MktOnCloseFlag, is defined as being a Boolean_t type.
 
 ```xml
 <Parameter name="MktOnCloseFlag" xsi:type="Boolean_t" fixTag="8001" use="required" trueWireValue="T" falseWireValue="F"/>
 ```
-
-Notice that by setting xsi:type of this parameter to "Boolean\_t" we can
+\
+Notice that by setting xsi:type of this parameter to "Boolean_t" we can
 now use the attributes, "trueWireValue" and "falseWireValue", which are
 members of the derived element and accept standard XML string values.
 
-[\[Please note that the previous example shows two attributes which have
-been deprecated, Parameter/\@trueWireValue and
-Parameter/\@falseWireValue. The intention was to illustrate how extended
-elements are used.\]]{.underline}
+[Please note that the previous example shows two attributes which have
+been deprecated, Parameter/@trueWireValue and
+Parameter/@falseWireValue. The intention was to illustrate how extended
+elements are used.]
 
-[In this next snippet a quantity parameter is defined.]{.underline}
+In this next snippet a quantity parameter is defined.
 
-[`<Parameter name="CrossQty" xsi:type="Qty_t" fixTag="8002" use="required" minValue="100"/>`]{.underline}
-
-[By setting xsi:type to Qty\_t we can now provide a value for minValue.]{.underline}
+```xml
+<Parameter name="CrossQty" xsi:type="Qty_t" fixTag="8002" use="required" minValue="100"/>
+```
+\
+By setting xsi:type to Qty_t we can now provide a value for minValue.
 
 ## Control Element Extension
 
@@ -2488,17 +2521,13 @@ and may vary from one Control to another.
 The following types are used to extend the Control element:
 
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
-| **Control xsi:type**    | **Description of desired control**              | **Attributes specific to xsi:type** |                     |
+| **Control xsi:type**    | **Description of desired control**              | **Attribute Name[^1]**              | **Attribute Type[^1]**  |
 +=========================+=================================================+=====================================+=====================+
-|                         |                                                 | **Attribute Name**                  | **Attribute Type**  |
-+-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
 | Clock_t                 | Clock with hours, minutes, seconds and AM/PM    | initValue                           | time                |
 |                         | setting.                                        |                                     |                     |
-|                         |                                                 |                                     |                     |
+|                         |                                                 | initValueMode                       | int                 |
 |                         | Depending on the parameter type, this control   |                                     |                     |
 |                         | may optionally also display a date selector.    |                                     |                     |
-+-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
-|                         |                                                 | initValueMode                       | int                 |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
 | TextField_t             | Standard text field.                            | initValue                           | string              |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
@@ -2513,9 +2542,8 @@ The following types are used to extend the Control element:
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
 | Slider_t                | Draggable slider with labels that map to        | initValue                           | string              |
 |                         | values.                                         |                                     |                     |
-+-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
 |                         |                                                 | increment                           | double              |
-+-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
+|                         |                                                 |                                     |                     |
 |                         |                                                 | incrementPolicy                     | string              |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
 | CheckBox_t              | Standard check box -- initialized to checked or | initValue                           | boolean             |
@@ -2523,36 +2551,25 @@ The following types are used to extend the Control element:
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
 | CheckBoxList_t          | A list of check boxes where multiple selections | initValue                           | MultipleStringValue |
 |                         | can be made. Values extracted from this type of |                                     |                     |
-|                         | control are expected to be transmitted using a  |                                     |                     |
+|                         | control are expected to be transmitted using a  | orientation                         | Orientation         |
 |                         | MultipleStringValue or MultipleCharValue FIX    |                                     |                     |
 |                         | type.                                           |                                     |                     |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
-|                         |                                                 | orientation                         | Orientation         |
-+-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
 | SingleSpinner_t         | A numeric field that has arrows to increment    | initValue                           | double              |
 |                         | and decrement                                   |                                     |                     |
-+-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
 |                         |                                                 | increment                           | double              |
-+-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
+|                         |                                                 |                                     |                     |
 |                         |                                                 | incrementPolicy                     | string              |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
 | DoubleSpinner_t         | A numeric field that has two sets of arrows to  | initValue                           | double              |
 |                         | increment and decrement by different values     |                                     |                     |
-|                         | (say for pennies and dollars). When pressed,    |                                     |                     |
+|                         | (say for pennies and dollars). When pressed,    | innerIncrement                      | double              |
 |                         | the right-most pair of arrows will increment    |                                     |                     |
-|                         | (or decrement) the value of the control by the  |                                     |                     |
+|                         | (or decrement) the value of the control by the  | innerIncrementPolicy                | string              |
 |                         | value of outerIncrement. Pressing the other     |                                     |                     |
-|                         | pair of arrows will cause the value to be       |                                     |                     |
+|                         | pair of arrows will cause the value to be       | outerIncrement                      | double              |
 |                         | incremented (or decremented) by the value of    |                                     |                     |
-|                         | innerIncrement.                                 |                                     |                     |
-+-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
-|                         |                                                 | innerIncrement                      | double              |
-+-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
-|                         |                                                 | innerIncrementPolicy                | string              |
-+-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
-|                         |                                                 | outerIncrement                      | double              |
-+-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
-|                         |                                                 | outerIncrementPolicy                | string              |
+|                         | innerIncrement.                                 | outerIncrementPolicy                | string              |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
 | DropDownList_t          | More specific derivation of a SingleSelectList. | initValue                           | string              |
 |                         | E.g., a combo box.                              |                                     |                     |
@@ -2565,10 +2582,8 @@ The following types are used to extend the Control element:
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
 | RadioButtonList_t       | More specific derivation of a SingleSelectList. | initValue                           | string              |
 |                         | Several items are presented with an associated  |                                     |                     |
-|                         | radio button where the user can select only one |                                     |                     |
+|                         | radio button where the user can select only one | orientation                         | Orientation         |
 |                         | of them.                                        |                                     |                     |
-+-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
-|                         |                                                 | orientation                         | Orientation         |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
 | Label_t                 | Plain text.                                     | initValue                           | string              |
 |                         |                                                 |                                     |                     |
@@ -2576,8 +2591,10 @@ The following types are used to extend the Control element:
 |                         | updated through the execution of a StateRule.   |                                     |                     |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
 
+[^1]: Attributes specific to xsi:type.
+
 For example in the following code snippet a control, StartTimeCntl, is
-defined as being a Clock\_t. An initial value of 09:30 has been
+defined as being a Clock_t. An initial value of 09:30 has been
 specified.
 
 ```xml
@@ -2620,18 +2637,18 @@ compliant.
 |    |                   |                         | the same type or be able to be converted in such a way so that the resulting converted types   |
 |    |                   |                         | are the same.                                                                                  |
 +----+-------------------+-------------------------+------------------------------------------------------------------------------------------------+
-| 8  | Control           | parameterRef            | If Control/\@parameterRef is defined it must be equal to the "name" attribute of one of the    |
+| 8  | Control           | parameterRef            | If Control/@parameterRef is defined it must be equal to the "name" attribute of one of the     |
 |    |                   |                         | defined Parameter elements.                                                                    |
 +----+-------------------+-------------------------+------------------------------------------------------------------------------------------------+
-| 9  | EnumPair          | enumID                  | If a Control is linked to a Parameter via use of Control/\@parameterRef, and the Control       |
+| 9  | EnumPair          | enumID                  | If a Control is linked to a Parameter via use of Control/@parameterRef, and the Control        |
 |    |                   |                         | contains ListItem elements, then the Parameter must contain EnumPair elements. Furthermore,    |
-|    | ListItem          |                         | each of the Control's ListItem/\@enumID values must match one and only one of the Parameter's  |
-|    |                   |                         | EnumPair/\@enumID values.                                                                      |
+|    | ListItem          |                         | each of the Control's ListItem/@enumID values must match one and only one of the Parameter's   |
+|    |                   |                         | EnumPair/@enumID values.                                                                       |
 +----+-------------------+-------------------------+------------------------------------------------------------------------------------------------+
-| 10 | Control           | checkedEnumRef          | If values for Control/\@checkedEnumRef or Control/\@uncheckedEnumRef are provided then         |
-|    |                   |                         | Control/\@parameterRef must also be provided. Furthermore, the values of                       |
-|    |                   | uncheckedEnumRef        | Control/\@checkedEnumRef and Control/\@uncheckedEnumRef each must be equal to one of the       |
-|    |                   |                         | EnumPair/\@enumID values of the Parameter referred to by Control/\@parameterRef.               |
+| 10 | Control           | checkedEnumRef          | If values for Control/@checkedEnumRef or Control/@uncheckedEnumRef are provided then           |
+|    |                   |                         | Control/@parameterRef must also be provided. Furthermore, the values of                        |
+|    |                   | uncheckedEnumRef        | Control/@checkedEnumRef and Control/@uncheckedEnumRef each must be equal to one of the         |
+|    |                   |                         | EnumPair/@enumID values of the Parameter referred to by Control/@parameterRef.                 |
 +----+-------------------+-------------------------+------------------------------------------------------------------------------------------------+
 
 # A Sample FIXatdl Document
@@ -2841,160 +2858,178 @@ vertically aligned. Three validation rules are provided.
 </Strategies>
 ```
 
-# Appendix 1 - LocalMktTz Type
+::: {custom-style="Annex"}
+Appendix 1 - LocalMktTz Type
+:::
 
 The following table shows the valid values of attributes of the type
-LocalMktTz. In the FIXatdl schema a simple type, LocalMktTz\_t, has
+LocalMktTz. In the FIXatdl schema a simple type, LocalMktTz_t, has
 been defined as a string which is restricted to the zone names of the
 TZ environment variable.
 
-A.  reference to the zone environment variable can be found at
-    [[http://en.wikipedia.org/wiki/List\_of\_zoneinfo\_time\_zones.]{.underline}](http://en.wikipedia.org/wiki/List_of_zoneinfo_time_zones)
+A reference to the zone environment variable can be found at
+[http://en.wikipedia.org/wiki/List_of_zoneinfo_time_zones](http://en.wikipedia.org/wiki/List_of_zoneinfo_time_zones).
 
-    Africa/Abidjan           Africa/Libreville                 America/Argentina/La\_Rioja
-    ------------------------ --------------------------------- ---------------------------------
-    Africa/Accra             Africa/Lome                       America/Argentina/Mendoza
-    Africa/Addis\_Ababa      Africa/Luanda                     America/Argentina/Rio\_Gallegos
-    Africa/Algiers           Africa/Lubumbashi                 America/Argentina/Salta
-    Africa/Asmara            Africa/Lusaka                     America/Argentina/San\_Juan
-    Africa/Bamako            Africa/Malabo                     America/Argentina/San\_Luis
-    Africa/Bangui            Africa/Maputo                     America/Argentina/Tucuman
-    Africa/Banjul            Africa/Maseru                     America/Argentina/Ushuaia
-    Africa/Bissau            Africa/Mbabane                    America/Aruba
-    Africa/Blantyre          Africa/Mogadishu                  America/Asuncion
-    Africa/Brazzaville       Africa/Monrovia                   America/Atikokan
-    Africa/Bujumbura         Africa/Nairobi                    America/Bahia
-    Africa/Cairo             Africa/Ndjamena                   America/Barbados
-    Africa/Casablanca        Africa/Niamey                     America/Belem
-    Africa/Ceuta             Africa/Nouakchott                 America/Belize
-    Africa/Conakry           Africa/Ouagadougou                America/Blanc-Sablon
-    Africa/Dakar             Africa/Porto-Novo                 America/Boa\_Vista
-    Africa/Dar\_es\_Salaam   Africa/Sao\_Tome                  America/Bogota
-    Africa/Djibouti          Africa/Tripoli                    America/Boise
-    Africa/Douala            Africa/Tunis                      America/Cambridge\_Bay
-    Africa/El\_Aaiun         Africa/Windhoek                   America/Campo\_Grande
-    Africa/Freetown          America/Adak                      America/Cancun
-    Africa/Gaborone          America/Anchorage                 America/Caracas
-    Africa/Harare            America/Anguilla                  America/Cayenne
-    Africa/Johannesburg      America/Antigua                   America/Cayman
-    Africa/Kampala           America/Araguaina                 America/Chicago
-    Africa/Khartoum          America/Argentina/Buenos\_Aires   America/Chihuahua
-    Africa/Kigali            America/Argentina/Catamarca       America/Costa\_Rica
-    Africa/Kinshasa          America/Argentina/Cordoba         America/Cuiaba
-    Africa/Lagos             America/Argentina/Jujuy           America/Curacao
+------------------------ --------------------------------- ---------------------------------
+Africa/Abidjan           Africa/Libreville                 America/Argentina/La\_Rioja
+Africa/Accra             Africa/Lome                       America/Argentina/Mendoza
+Africa/Addis\_Ababa      Africa/Luanda                     America/Argentina/Rio\_Gallegos
+Africa/Algiers           Africa/Lubumbashi                 America/Argentina/Salta
+Africa/Asmara            Africa/Lusaka                     America/Argentina/San\_Juan
+Africa/Bamako            Africa/Malabo                     America/Argentina/San\_Luis
+Africa/Bangui            Africa/Maputo                     America/Argentina/Tucuman
+Africa/Banjul            Africa/Maseru                     America/Argentina/Ushuaia
+Africa/Bissau            Africa/Mbabane                    America/Aruba
+Africa/Blantyre          Africa/Mogadishu                  America/Asuncion
+Africa/Brazzaville       Africa/Monrovia                   America/Atikokan
+Africa/Bujumbura         Africa/Nairobi                    America/Bahia
+Africa/Cairo             Africa/Ndjamena                   America/Barbados
+Africa/Casablanca        Africa/Niamey                     America/Belem
+Africa/Ceuta             Africa/Nouakchott                 America/Belize
+Africa/Conakry           Africa/Ouagadougou                America/Blanc-Sablon
+Africa/Dakar             Africa/Porto-Novo                 America/Boa\_Vista
+Africa/Dar\_es\_Salaam   Africa/Sao\_Tome                  America/Bogota
+Africa/Djibouti          Africa/Tripoli                    America/Boise
+Africa/Douala            Africa/Tunis                      America/Cambridge\_Bay
+Africa/El\_Aaiun         Africa/Windhoek                   America/Campo\_Grande
+Africa/Freetown          America/Adak                      America/Cancun
+Africa/Gaborone          America/Anchorage                 America/Caracas
+Africa/Harare            America/Anguilla                  America/Cayenne
+Africa/Johannesburg      America/Antigua                   America/Cayman
+Africa/Kampala           America/Araguaina                 America/Chicago
+Africa/Khartoum          America/Argentina/Buenos\_Aires   America/Chihuahua
+Africa/Kigali            America/Argentina/Catamarca       America/Costa\_Rica
+Africa/Kinshasa          America/Argentina/Cordoba         America/Cuiaba
+Africa/Lagos             America/Argentina/Jujuy           America/Curacao
+------------------------ --------------------------------- ---------------------------------
 
-    America/Danmarkshavn           America/Managua                    America/Shiprock
-    ------------------------------ ---------------------------------- ---------------------------
-    America/Dawson                 America/Manaus                     America/St\_Barthelemy
-    America/Dawson\_Creek          America/Marigot                    America/St\_Johns
-    America/Denver                 America/Martinique                 America/St\_Kitts
-    America/Detroit                America/Mazatlan                   America/St\_Lucia
-    America/Dominica               America/Menominee                  America/St\_Thomas
-    America/Edmonton               America/Merida                     America/St\_Vincent
-    America/Eirunepe               America/Mexico\_City               America/Swift\_Current
-    America/El\_Salvador           America/Miquelon                   America/Tegucigalpa
-    America/Fortaleza              America/Moncton                    America/Thule
-    America/Glace\_Bay             America/Monterrey                  America/Thunder\_Bay
-    America/Godthab                America/Montevideo                 America/Tijuana
-    America/Goose\_Bay             America/Montreal                   America/Toronto
-    America/Grand\_Turk            America/Montserrat                 America/Tortola
-    America/Grenada                America/Nassau                     America/Vancouver
-    America/Guadeloupe             America/New\_York                  America/Whitehorse
-    America/Guatemala              America/Nipigon                    America/Winnipeg
-    America/Guayaquil              America/Nome                       America/Yakutat
-    America/Guyana                 America/Noronha                    America/Yellowknife
-    America/Halifax                America/North\_Dakota/Center       Antarctica/Casey
-    America/Havana                 America/North\_Dakota/New\_Salem   Antarctica/Davis
-    America/Hermosillo             America/Panama                     Antarctica/DumontDUrville
-    America/Indiana/Indianapolis   America/Pangnirtung                Antarctica/Mawson
-    America/Indiana/Knox           America/Paramaribo                 Antarctica/McMurdo
-    America/Indiana/Marengo        America/Phoenix                    Antarctica/Palmer
-    America/Indiana/Petersburg     America/Port-au-Prince             Antarctica/Rothera
-    America/Indiana/Tell\_City     America/Port\_of\_Spain            Antarctica/South\_Pole
-    America/Indiana/Vevay          America/Porto\_Velho               Antarctica/Syowa
-    America/Indiana/Vincennes      America/Puerto\_Rico               Antarctica/Vostok
-    America/Indiana/Winamac        America/Rainy\_River               Arctic/Longyearbyen
-    America/Inuvik                 America/Rankin\_Inlet              Asia/Aden
-    America/Iqaluit                America/Recife                     Asia/Almaty
-    America/Jamaica                America/Regina                     Asia/Amman
-    America/Juneau                 America/Resolute                   Asia/Anadyr
-    America/Kentucky/Louisville    America/Rio\_Branco                Asia/Aqtau
-    America/Kentucky/Monticello    America/Santarem                   Asia/Aqtobe
-    America/La\_Paz                America/Santiago                   Asia/Ashgabat
-    America/Lima                   America/Santo\_Domingo             Asia/Baghdad
-    America/Los\_Angeles           America/Sao\_Paulo                 Asia/Bahrain
-    America/Maceio                 America/Scoresbysund               Asia/Baku
+::: {custom-style="NewPageSmall"}
+\
+:::
 
-    Asia/Bangkok         Asia/Phnom\_Penh          Australia/Eucla
-    -------------------- ------------------------- ----------------------
-    Asia/Beirut          Asia/Pontianak            Australia/Hobart
-    Asia/Bishkek         Asia/Pyongyang            Australia/Lindeman
-    Asia/Brunei          Asia/Qatar                Australia/Lord\_Howe
-    Asia/Choibalsan      Asia/Qyzylorda            Australia/Melbourne
-    Asia/Chongqing       Asia/Rangoon              Australia/Perth
-    Asia/Colombo         Asia/Riyadh               Australia/Sydney
-    Asia/Damascus        Asia/Sakhalin             Europe/Amsterdam
-    Asia/Dhaka           Asia/Samarkand            Europe/Andorra
-    Asia/Dili            Asia/Seoul                Europe/Athens
-    Asia/Dubai           Asia/Shanghai             Europe/Belgrade
-    Asia/Dushanbe        Asia/Singapore            Europe/Berlin
-    Asia/Gaza            Asia/Taipei               Europe/Bratislava
-    Asia/Harbin          Asia/Tashkent             Europe/Brussels
-    Asia/Ho\_Chi\_Minh   Asia/Tbilisi              Europe/Bucharest
-    Asia/Hong\_Kong      Asia/Tehran               Europe/Budapest
-    Asia/Hovd            Asia/Thimphu              Europe/Chisinau
-    Asia/Irkutsk         Asia/Tokyo                Europe/Copenhagen
-    Asia/Jakarta         Asia/Ulaanbaatar          Europe/Dublin
-    Asia/Jayapura        Asia/Urumqi               Europe/Gibraltar
-    Asia/Jerusalem       Asia/Vientiane            Europe/Guernsey
-    Asia/Kabul           Asia/Vladivostok          Europe/Helsinki
-    Asia/Kamchatka       Asia/Yakutsk              Europe/Isle\_of\_Man
-    Asia/Karachi         Asia/Yekaterinburg        Europe/Istanbul
-    Asia/Kashgar         Asia/Yerevan              Europe/Jersey
-    Asia/Katmandu        Atlantic/Azores           Europe/Kaliningrad
-    Asia/Kolkata         Atlantic/Bermuda          Europe/Kiev
-    Asia/Krasnoyarsk     Atlantic/Canary           Europe/Lisbon
-    Asia/Kuala\_Lumpur   Atlantic/Cape\_Verde      Europe/Ljubljana
-    Asia/Kuching         Atlantic/Faroe            Europe/London
-    Asia/Kuwait          Atlantic/Madeira          Europe/Luxembourg
-    Asia/Macau           Atlantic/Reykjavik        Europe/Madrid
-    Asia/Magadan         Atlantic/South\_Georgia   Europe/Malta
-    Asia/Makassar        Atlantic/St\_Helena       Europe/Mariehamn
-    Asia/Manila          Atlantic/Stanley          Europe/Minsk
-    Asia/Muscat          Australia/Adelaide        Europe/Monaco
-    Asia/Nicosia         Australia/Brisbane        Europe/Moscow
-    Asia/Novosibirsk     Australia/Broken\_Hill    Europe/Oslo
-    Asia/Omsk            Australia/Currie          Europe/Paris
-    Asia/Oral            Australia/Darwin          Europe/Podgorica
+------------------------------ ---------------------------------- ---------------------------
+America/Danmarkshavn           America/Managua                    America/Shiprock
+America/Dawson                 America/Manaus                     America/St\_Barthelemy
+America/Dawson\_Creek          America/Marigot                    America/St\_Johns
+America/Denver                 America/Martinique                 America/St\_Kitts
+America/Detroit                America/Mazatlan                   America/St\_Lucia
+America/Dominica               America/Menominee                  America/St\_Thomas
+America/Edmonton               America/Merida                     America/St\_Vincent
+America/Eirunepe               America/Mexico\_City               America/Swift\_Current
+America/El\_Salvador           America/Miquelon                   America/Tegucigalpa
+America/Fortaleza              America/Moncton                    America/Thule
+America/Glace\_Bay             America/Monterrey                  America/Thunder\_Bay
+America/Godthab                America/Montevideo                 America/Tijuana
+America/Goose\_Bay             America/Montreal                   America/Toronto
+America/Grand\_Turk            America/Montserrat                 America/Tortola
+America/Grenada                America/Nassau                     America/Vancouver
+America/Guadeloupe             America/New\_York                  America/Whitehorse
+America/Guatemala              America/Nipigon                    America/Winnipeg
+America/Guayaquil              America/Nome                       America/Yakutat
+America/Guyana                 America/Noronha                    America/Yellowknife
+America/Halifax                America/North\_Dakota/Center       Antarctica/Casey
+America/Havana                 America/North\_Dakota/New\_Salem   Antarctica/Davis
+America/Hermosillo             America/Panama                     Antarctica/DumontDUrville
+America/Indiana/Indianapolis   America/Pangnirtung                Antarctica/Mawson
+America/Indiana/Knox           America/Paramaribo                 Antarctica/McMurdo
+America/Indiana/Marengo        America/Phoenix                    Antarctica/Palmer
+America/Indiana/Petersburg     America/Port-au-Prince             Antarctica/Rothera
+America/Indiana/Tell\_City     America/Port\_of\_Spain            Antarctica/South\_Pole
+America/Indiana/Vevay          America/Porto\_Velho               Antarctica/Syowa
+America/Indiana/Vincennes      America/Puerto\_Rico               Antarctica/Vostok
+America/Indiana/Winamac        America/Rainy\_River               Arctic/Longyearbyen
+America/Inuvik                 America/Rankin\_Inlet              Asia/Aden
+America/Iqaluit                America/Recife                     Asia/Almaty
+America/Jamaica                America/Regina                     Asia/Amman
+America/Juneau                 America/Resolute                   Asia/Anadyr
+America/Kentucky/Louisville    America/Rio\_Branco                Asia/Aqtau
+America/Kentucky/Monticello    America/Santarem                   Asia/Aqtobe
+America/La\_Paz                America/Santiago                   Asia/Ashgabat
+America/Lima                   America/Santo\_Domingo             Asia/Baghdad
+America/Los\_Angeles           America/Sao\_Paulo                 Asia/Bahrain
+America/Maceio                 America/Scoresbysund               Asia/Baku
+------------------------------ ---------------------------------- ---------------------------
 
-    Europe/Prague         Indian/Mauritius      Pacific/Pitcairn
-    --------------------- --------------------- -----------------------
-    Europe/Riga           Indian/Mayotte        Pacific/Ponape
-    Europe/Rome           Indian/Reunion        Pacific/Port\_Moresby
-    Europe/Samara         Pacific/Apia          Pacific/Rarotonga
-    Europe/San\_Marino    Pacific/Auckland      Pacific/Saipan
-    Europe/Sarajevo       Pacific/Chatham       Pacific/Tahiti
-    Europe/Simferopol     Pacific/Easter        Pacific/Tarawa
-    Europe/Skopje         Pacific/Efate         Pacific/Tongatapu
-    Europe/Sofia          Pacific/Enderbury     Pacific/Truk
-    Europe/Stockholm      Pacific/Fakaofo       Pacific/Wake
-    Europe/Tallinn        Pacific/Fiji          Pacific/Wallis
-    Europe/Tirane         Pacific/Funafuti      
-    Europe/Uzhgorod       Pacific/Galapagos     
-    Europe/Vaduz          Pacific/Gambier       
-    Europe/Vatican        Pacific/Guadalcanal   
-    Europe/Vienna         Pacific/Guam          
-    Europe/Vilnius        Pacific/Honolulu      
-    Europe/Volgograd      Pacific/Johnston      
-    Europe/Warsaw         Pacific/Kiritimati    
-    Europe/Zagreb         Pacific/Kosrae        
-    Europe/Zaporozhye     Pacific/Kwajalein     
-    Europe/Zurich         Pacific/Majuro        
-    Indian/Antananarivo   Pacific/Marquesas     
-    Indian/Chagos         Pacific/Midway        
-    Indian/Christmas      Pacific/Nauru         
-    Indian/Cocos          Pacific/Niue          
-    Indian/Comoro         Pacific/Norfolk       
-    Indian/Kerguelen      Pacific/Noumea        
-    Indian/Mahe           Pacific/Pago\_Pago    
-    Indian/Maldives       Pacific/Palau         
+::: {custom-style="NewPageSmall"}
+\
+:::
+
+-------------------- ------------------------- ----------------------
+Asia/Bangkok         Asia/Phnom\_Penh          Australia/Eucla
+Asia/Beirut          Asia/Pontianak            Australia/Hobart
+Asia/Bishkek         Asia/Pyongyang            Australia/Lindeman
+Asia/Brunei          Asia/Qatar                Australia/Lord\_Howe
+Asia/Choibalsan      Asia/Qyzylorda            Australia/Melbourne
+Asia/Chongqing       Asia/Rangoon              Australia/Perth
+Asia/Colombo         Asia/Riyadh               Australia/Sydney
+Asia/Damascus        Asia/Sakhalin             Europe/Amsterdam
+Asia/Dhaka           Asia/Samarkand            Europe/Andorra
+Asia/Dili            Asia/Seoul                Europe/Athens
+Asia/Dubai           Asia/Shanghai             Europe/Belgrade
+Asia/Dushanbe        Asia/Singapore            Europe/Berlin
+Asia/Gaza            Asia/Taipei               Europe/Bratislava
+Asia/Harbin          Asia/Tashkent             Europe/Brussels
+Asia/Ho\_Chi\_Minh   Asia/Tbilisi              Europe/Bucharest
+Asia/Hong\_Kong      Asia/Tehran               Europe/Budapest
+Asia/Hovd            Asia/Thimphu              Europe/Chisinau
+Asia/Irkutsk         Asia/Tokyo                Europe/Copenhagen
+Asia/Jakarta         Asia/Ulaanbaatar          Europe/Dublin
+Asia/Jayapura        Asia/Urumqi               Europe/Gibraltar
+Asia/Jerusalem       Asia/Vientiane            Europe/Guernsey
+Asia/Kabul           Asia/Vladivostok          Europe/Helsinki
+Asia/Kamchatka       Asia/Yakutsk              Europe/Isle\_of\_Man
+Asia/Karachi         Asia/Yekaterinburg        Europe/Istanbul
+Asia/Kashgar         Asia/Yerevan              Europe/Jersey
+Asia/Katmandu        Atlantic/Azores           Europe/Kaliningrad
+Asia/Kolkata         Atlantic/Bermuda          Europe/Kiev
+Asia/Krasnoyarsk     Atlantic/Canary           Europe/Lisbon
+Asia/Kuala\_Lumpur   Atlantic/Cape\_Verde      Europe/Ljubljana
+Asia/Kuching         Atlantic/Faroe            Europe/London
+Asia/Kuwait          Atlantic/Madeira          Europe/Luxembourg
+Asia/Macau           Atlantic/Reykjavik        Europe/Madrid
+Asia/Magadan         Atlantic/South\_Georgia   Europe/Malta
+Asia/Makassar        Atlantic/St\_Helena       Europe/Mariehamn
+Asia/Manila          Atlantic/Stanley          Europe/Minsk
+Asia/Muscat          Australia/Adelaide        Europe/Monaco
+Asia/Nicosia         Australia/Brisbane        Europe/Moscow
+Asia/Novosibirsk     Australia/Broken\_Hill    Europe/Oslo
+Asia/Omsk            Australia/Currie          Europe/Paris
+Asia/Oral            Australia/Darwin          Europe/Podgorica
+-------------------- ------------------------- ----------------------
+
+::: {custom-style="NewPageSmall"}
+\
+:::
+
+--------------------- --------------------- -----------------------
+Europe/Prague         Indian/Mauritius      Pacific/Pitcairn
+Europe/Riga           Indian/Mayotte        Pacific/Ponape
+Europe/Rome           Indian/Reunion        Pacific/Port\_Moresby
+Europe/Samara         Pacific/Apia          Pacific/Rarotonga
+Europe/San\_Marino    Pacific/Auckland      Pacific/Saipan
+Europe/Sarajevo       Pacific/Chatham       Pacific/Tahiti
+Europe/Simferopol     Pacific/Easter        Pacific/Tarawa
+Europe/Skopje         Pacific/Efate         Pacific/Tongatapu
+Europe/Sofia          Pacific/Enderbury     Pacific/Truk
+Europe/Stockholm      Pacific/Fakaofo       Pacific/Wake
+Europe/Tallinn        Pacific/Fiji          Pacific/Wallis
+Europe/Tirane         Pacific/Funafuti      
+Europe/Uzhgorod       Pacific/Galapagos     
+Europe/Vaduz          Pacific/Gambier       
+Europe/Vatican        Pacific/Guadalcanal   
+Europe/Vienna         Pacific/Guam          
+Europe/Vilnius        Pacific/Honolulu      
+Europe/Volgograd      Pacific/Johnston      
+Europe/Warsaw         Pacific/Kiritimati    
+Europe/Zagreb         Pacific/Kosrae        
+Europe/Zaporozhye     Pacific/Kwajalein     
+Europe/Zurich         Pacific/Majuro        
+Indian/Antananarivo   Pacific/Marquesas     
+Indian/Chagos         Pacific/Midway        
+Indian/Christmas      Pacific/Nauru         
+Indian/Cocos          Pacific/Niue          
+Indian/Comoro         Pacific/Norfolk       
+Indian/Kerguelen      Pacific/Noumea        
+Indian/Mahe           Pacific/Pago\_Pago    
+Indian/Maldives       Pacific/Palau         
+--------------------- --------------------- -----------------------
