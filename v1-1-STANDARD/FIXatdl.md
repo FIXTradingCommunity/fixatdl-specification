@@ -41,10 +41,6 @@ developing applications with FIX order entry capabilities supporting
 order type definition via FIXatdl; or (2) algorithmic order providers
 who wish to describe the interface to their algorithms in FIXatdl.
 
-December 21, 2010 5 FIXatdl v1.1 with Errata 20101221
-
-[]{#page6 .anchor}
-
 # FIXatdl Schema Files
 
 A set of XML Schema files has been created to describe the structure
