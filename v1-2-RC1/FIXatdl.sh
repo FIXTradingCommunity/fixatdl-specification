@@ -13,7 +13,7 @@ FILES="FIXatdl.md"
 WPFOLDER="/wp-content/uploads/2020/11/"
 
 # Create FIX document version with disclaimer
-pandoc "$DISCLAIMER" $FILES -o "$TARGET/docx/FIXatdl_V1.1_with_Errata.docx" --reference-doc="$STYLE" --metadata-file="$YAML" --toc --toc-depth=4
+pandoc "$DISCLAIMER" $FILES -o "$TARGET/docx/FIXatdl_V1.2_RC1.docx" --reference-doc="$STYLE" --metadata-file="$YAML" --toc --toc-depth=4
 echo FIXatdl document version created for FIX
 
 # Create base online version without disclaimer
