@@ -1806,9 +1806,7 @@ their description.
 |                                     |                                            |           | CheckBox control should define the         |
 |                                     |                                            |           | parameters checkedEnumRef and              |
 |                                     |                                            |           | uncheckedEnumRef to refer to the enumIDs   |
-|                                     |                                            |           | of the parameter. See the section "A       |
-|                                     |                                            |           | Sample FIXatdl Document" in this document  |
-|                                     |                                            |           | for an example. (See the section "A Sample |
+|                                     |                                            |           | of the parameter. (See the section "A Sample |
 |                                     |                                            |           | FIXatdl Document" in this document for an  |
 |                                     |                                            |           | example. Examine the Parameter             |
 |                                     |                                            |           | "AllowDarkPoolExec" and Control "DPOption" |
@@ -2184,6 +2182,8 @@ namespace [http://www.w3.org/2001/XMLSchema](http://www.w3.org/2001/XMLSchema)
 All others have been defined explicitly within the FIXatdl schema files.
 
 +--------------------------+------------+----------------------------------------------------------------------------------------------------------+
+| **Type Name**            | **Source** | **Description**                                                                                          |
++==========================+============+==========================================================================================================+
 | MonthYear                | FIXML      | String field representing month of a year. An optional day of the month can be appended or an optional   |
 |                          |            | week code. Valid formats: YYYYMM YYYYMMDD YYYYMMWW YYYY = 0000-9999, MM = 01-12, DD = 01-31, WW = w1,    |
 |                          |            | w2, w3, w4, w5.                                                                                          |

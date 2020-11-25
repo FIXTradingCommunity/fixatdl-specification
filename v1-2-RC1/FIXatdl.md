@@ -76,7 +76,7 @@ The FIXatdl language definition is contained within six XML
 Schema files:
 
 +---------------------------------------------------+-----------------------------------------------------------------------------------------------+
-| **XML Schema file / namespace**                   | **Purpose**                                                                                   |
+| XML Schema file / namespace                       | Purpose                                                                                       |
 +===================================================+===============================================================================================+
 | fixatdl-core-1-2.xsd                              | Data: Defines attributes and elements that are used to describe the data content of the       |
 |                                                   | algorithm and the parameters.                                                                 |
@@ -765,7 +765,7 @@ A high-level description of the elements is provided in the following
 table.
 
 +------------------+-------------------------------------------------+---------------------------------------------------------------+
-| **Element Name** | **Parent Element(s)**                           | **Description**                                               |
+| Element Name     | Parent Element(s)                               | Description                                                   |
 +==================+=================================================+===============================================================+
 | Country          | Region                                          | An element used to build a list of countries that may be      |
 |                  |                                                 | included or excluded from a region. Its attribute,            |
@@ -942,16 +942,16 @@ attributes, the conditions determining their type will be listed in
 their description.
 
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| **Attribute**                       | **Type**                                   | **Req'd** | **Description**                            |
-+=====================================+============================================+===========+============================================+
+| Attribute                           | Type                                       | Req'd     | Description                                |
++=====================================+============================================+:=========:+============================================+
 | Control/@checkedEnumRef             | StringID                                   | N         | Refers to an enumID defined in the         |
 |                                     |                                            |           | definition of the Parameter referred by    |
 |                                     |                                            |           | Control/@parameterRef. This enumID is the  |
 |                                     |                                            |           | output from this control if it is          |
 |                                     |                                            |           | checked/selected.                          |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | **(See the section "A Sample FIXatdl       |
-|                                     |                                            |           | Document" in this document for an example. |
+|                                     |                                            |           | **(See the section [A Sample FIXatdl Document](#a-sample-fixatdl-document) |
+|                                     |                                            |           | in this document for an example.           |
 |                                     |                                            |           | Examine the Parameter "AllowDarkPoolExec"  |
 |                                     |                                            |           | and Control "DPOption" for details.)**     |
 |                                     |                                            |           |                                            |
@@ -1257,8 +1257,8 @@ their description.
 |                                     |                                            |           | output from this control if it is          |
 |                                     |                                            |           | unchecked/unselected.                      |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | **(See the section "A Sample FIXatdl       |
-|                                     |                                            |           | Document" in this document for an example. |
+|                                     |                                            |           | **(See the section [A Sample FIXatdl Document](#a-sample-fixatdl-document) |
+|                                     |                                            |           | in this document for an example.           |
 |                                     |                                            |           | Examine the Parameter "AllowDarkPoolExec"  |
 |                                     |                                            |           | and Control "DPOption" for details.)**     |
 |                                     |                                            |           |                                            |
@@ -1537,8 +1537,8 @@ their description.
 |                                     |                                            |           | CheckBox control should define the         |
 |                                     |                                            |           | parameters checkedEnumRef and              |
 |                                     |                                            |           | uncheckedEnumRef to refer to the enumIDs   |
-|                                     |                                            |           | of the parameter. (See the section "A      |
-|                                     |                                            |           | Sample FIXatdl Document" in this document  |
+|                                     |                                            |           | of the parameter. (See the section         |
+|                                     |                                            |           | [A Sample FIXatdl Document](#a-sample-fixatdl-document) in this document  |
 |                                     |                                            |           | for an example. Examine the Parameter      |
 |                                     |                                            |           | "AllowDarkPoolExec" and Control "DPOption" |
 |                                     |                                            |           | for details.)**                            |
@@ -1807,10 +1807,8 @@ their description.
 |                                     |                                            |           | CheckBox control should define the         |
 |                                     |                                            |           | parameters checkedEnumRef and              |
 |                                     |                                            |           | uncheckedEnumRef to refer to the enumIDs   |
-|                                     |                                            |           | of the parameter. See the section "A       |
-|                                     |                                            |           | Sample FIXatdl Document" in this document  |
-|                                     |                                            |           | for an example. (See the section "A Sample |
-|                                     |                                            |           | FIXatdl Document" in this document for an  |
+|                                     |                                            |           | of the parameter. (See the section         |
+|                                     |                                            |           | [A Sample FIXatdl Document](#a-sample-fixatdl-document) in this document for an  |
 |                                     |                                            |           | example. Examine the Parameter             |
 |                                     |                                            |           | "AllowDarkPoolExec" and Control "DPOption" |
 |                                     |                                            |           | for details.)**                            |
@@ -1843,8 +1841,7 @@ their description.
 |                                     |                                            |           | The namespace, xsi, must be declared       |
 |                                     |                                            |           | within the Strategies element with the     |
 |                                     |                                            |           | statement:                                 |
-|                                     |                                            |           | xmlns:xsi=<h                               |
-|                                     |                                            |           | ttp://www.w3.org/2001/XMLSchema-instance>. |
+|                                     |                                            |           | xmlns:xsi=<http://www.w3.org/2001/XMLSchema-instance>. |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Valid values:                              |
 |                                     |                                            |           |                                            |
@@ -2063,7 +2060,7 @@ their description.
 | Strategy/@providerSubID             | string                                     | N         | A further level of firm identification.    |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
 | Strategy/@sentOrderLink             | anyURI                                     | N         | Prefix portion of a URL to access the      |
-|                                     |                                            |           | order or draft at the target e.g.          |
+|                                     |                                            |           | order or draft at the target, e.g.,        |
 |                                     |                                            |           | https://xyz.com/algo/dashboard?SenderCompID=OMS |
 |                                     |                                            |           | appends to this the specific               |
 |                                     |                                            |           | SenderCompID string, an ampersand          |
@@ -2157,6 +2154,8 @@ namespace [http://www.w3.org/2001/XMLSchema](http://www.w3.org/2001/XMLSchema)
 All others have been defined explicitly within the FIXatdl schema files.
 
 +--------------------------+------------+----------------------------------------------------------------------------------------------------------+
+| Type Name                | Source     | Description                                                                                              |
++==========================+============+==========================================================================================================+
 | MonthYear                | FIXML      | String field representing month of a year. An optional day of the month can be appended or an optional   |
 |                          |            | week code. Valid formats: YYYYMM YYYYMMDD YYYYMMWW YYYY = 0000-9999, MM = 01-12, DD = 01-31, WW = w1,    |
 |                          |            | w2, w3, w4, w5.                                                                                          |
@@ -2491,7 +2490,7 @@ and may vary from one Control to another.
 The following types are used to extend the Control element:
 
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
-| **Control xsi:type**    | **Description of desired control**              | **Attribute Name[^1]**              | **Attribute Type[^1]**  |
+| Control xsi:type        | Description of desired control                  | Attribute Name[^1]                  | Attribute Type[^1]  |
 +=========================+=================================================+=====================================+=====================+
 | Clock_t                 | Clock with hours, minutes, seconds and AM/PM    | initValue                           | time                |
 |                         | setting.                                        |                                     |                     |
