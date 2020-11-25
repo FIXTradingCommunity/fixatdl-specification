@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	- - - - - - - - - - - - - - - - - - - - - - - - - -
+    FIXatdl Sample document instance for FIXatdl Schema Version 1.1
+    (C) 2010 FIX Protocol Limited. All use of the FIXatdl Schema is subject to
+    the disclaimer which is printed on one of the initial pages of the written specification
+    for the FIXatdl Schema and is included in the zip file which you downloaded to
+    obtain the Schema.
+    Comments and errors should be posted on the FIX protocol web-site
+    http://www.fixprotocol.org
+	- - - - - - - - - - - - - - - - - - - - - - - - - -
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:lay="http://www.fixprotocol.org/FIXatdl-1-2/Layout"
+           xmlns:flow="http://www.fixprotocol.org/FIXatdl-1-2/Flow"
+           xmlns:core="http://www.fixprotocol.org/FIXatdl-1-2/Core"
+           xmlns:tz="http://www.fixprotocol.org/FIXatdl-1-2/Timezones"
+           targetNamespace="http://www.fixprotocol.org/FIXatdl-1-2/Layout"
+           elementFormDefault="qualified"
+           attributeFormDefault="unqualified"
+           version="1.2">
+	<xs:annotation>
+		<xs:documentation>
+      This value is the internal build number of the ATDL Schema
+    </xs:documentation>
+		<xs:appinfo>
+			<BuildInfo buildNumber="1.0"/>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:import namespace="http://www.fixprotocol.org/FIXatdl-1-2/Flow" schemaLocation="fixatdl-flow-1-2.xsd"/>
+	<xs:import namespace="http://www.fixprotocol.org/FIXatdl-1-2/Core" schemaLocation="fixatdl-core-1-2.xsd"/>
+	<xs:import namespace="http://www.fixprotocol.org/FIXatdl-1-2/Timezones" schemaLocation="fixatdl-timezones-1-2.xsd"/>
+	<!-- Please email any suggestions or revisions to algotech@fixprotocol.org-->
+	<!-- Please note - Revision history is at the end of this xsd 
+  
+  User Interface Sub-Schema
+  The intent of the UI sub-schema is to provide an easy, platform-neutral way to specify the layout of components.  
+  This schema should be flexible enough to support multiple-platforms (i.e. Java Swing, SWT, or Web).-->
+	<xs:element name="StrategyLayout" type="lay:StrategyLayout_t"/>
+	<xs:complexType name="StrategyLayout_t">
+		<xs:sequence>
+			<xs:element name="StrategyPanel" type="lay:StrategyPanel_t" maxOccurs="unbounded">
+				<xs:key name="controlKey">
+					<xs:selector xpath=".//lay:control"/>
+					<xs:field xpath="@ID"/>
+				</xs:key>
+				<xs:unique name="controlParameterRefMustBeUnique">
+					<xs:selector xpath=".//lay:control"/>
+					<xs:field xpath="@parameterRef"/>
+				</xs:unique>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+  <xs:complexType name="PanelItem_t" abstract="true">
+    <xs:attribute name="row" type="xs:nonNegativeInteger">
+      <xs:annotation>
+        <xs:documentation>Row in which this item is to appear in a grid-oriented panel.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="col" type="xs:nonNegativeInteger">
+      <xs:annotation>
+        <xs:documentation>Column in which this item is to appear in a grid-oriented panel.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="rowSpan" type="xs:nonNegativeInteger">
+      <xs:annotation>
+        <xs:documentation>Number of rows to span in a grid-oriented panel.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="colSpan" type="xs:nonNegativeInteger">
+      <xs:annotation>
+        <xs:documentation>Number of colums to span in a grid-oriented panel.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  
+	<xs:complexType name="StrategyPanel_t">
+    <xs:complexContent>
+      <xs:extension base="lay:PanelItem_t">
+        <xs:sequence>
+          <xs:element name="StrategyPanel" type="lay:StrategyPanel_t" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="Control" type="lay:Control_t" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="title" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>Title that appears in the panel border.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="collapsed" type="xs:boolean" default="false">
+          <xs:annotation>
+            <xs:documentation>If true then the panel is initially collapsed.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="collapsible" type="xs:boolean" default="true">
+          <xs:annotation>
+            <xs:documentation>Set to true to make this a collapsible panel.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="color" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>Set the background color.  The value should appear as the RBG combination separated by commas.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="orientation" type="lay:PanelOrientation_t">
+          <xs:annotation>
+            <xs:documentation>Indicates how items in this panel should be layed-out.Valid values are HORIZONTAL or VERTICAL.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="border" type="lay:Border_t">
+          <xs:annotation>
+            <xs:documentation>If provided then put this border around the panel.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="numRows" type="xs:nonNegativeInteger">
+          <xs:annotation>
+            <xs:documentation>Number of rows. Applicable for grid-oriented panels</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="numCols" type="xs:nonNegativeInteger">
+          <xs:annotation>
+            <xs:documentation>Number of columns. Applicable for grid-oriented panels</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="fillOrder" type="lay:FillOrder_t">
+          <xs:annotation>
+            <xs:documentation>Applicable for grid-oriented panels</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+	</xs:complexType>
+  
+	<xs:complexType name="Control_t" abstract="true">
+    <xs:complexContent>
+      <xs:extension base="lay:PanelItem_t">
+        <xs:sequence>
+          <xs:element ref="flow:StateRule" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="HelpText" type="lay:HelpText_t" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation> Help text for the parameter </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+        <xs:attribute name="ID" use="required">
+          <xs:annotation>
+            <xs:documentation>Unique identifier of this control. No two controls of the same strategy can have the same ID.</xs:documentation>
+          </xs:annotation>
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:pattern value="[A-Za-z][A-za-z0-9_]{0,255}"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="parameterRef" use="optional">
+          <xs:annotation>
+            <xs:documentation>The name of the parameter for which this control gives the visual representation. A parameter with this name must be defined within the same strategy as this control.</xs:documentation>
+          </xs:annotation>
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:pattern value="[A-Za-z][A-za-z0-9_]{0,255}"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="label" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>A title for this control which may be displayed.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="initFixField" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>Indicates the initialization value is to be taken from this standard FIX field. Format: "FIX_" + FIXFieldName. Eg. "FIX_OrderQty".</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="initPolicy">
+          <xs:annotation>
+            <xs:documentation>Describes how to initialize the control. If undefined or "UseValue" then init with initValue. If "UseFixField" then attempt to intialize with the field value specified by initFixField, If "UseFixField" and it is not possible to to access the value of the specified fix field then revert to using initValue. If "UseFixField" and no access and initValue is not defined then do not initialize.</xs:documentation>
+          </xs:annotation>
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="UseValue"/>
+              <xs:enumeration value="UseFixField"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="tooltip" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>Tool tip text for rendered GUI objects rendered for the parameter.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="disableForTemplate" type="xs:boolean" use="optional">
+          <xs:annotation>
+            <xs:documentation>For implementing systems that support saving order templates or pre-populated orders for basket trading/list trading this attribute specifies that the control should be disabled when the order screen is going to be saved as a template and not actually used to place an order.</xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+	</xs:complexType>
+  
+  <xs:complexType name="Duration_t">
+    <xs:complexContent>
+      <xs:extension base="lay:Control_t">
+        <xs:attribute name="initValue" type="xs:time">
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  
+	<xs:complexType name="Clock_t">
+		<xs:complexContent>
+			<xs:extension base="lay:Control_t">
+				<xs:attribute name="initValue" type="xs:time">
+					<xs:annotation>
+						<xs:documentation>Expressed in local market time of the order recipient system.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="initValueMode" default="0">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>Defines the treatment of initValue time. 0: use initValue; 1: use current time if initValue time has past.</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:int">
+							<xs:enumeration value="0"/>
+							<xs:enumeration value="1"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+				<xs:attribute name="localMktTz" type="tz:LocalMktTz_t">
+					<xs:annotation>
+						<xs:documentation>Required when initValue supplied. Given the location of the order recipient system or target marketplace, the OMS should be able to initialize the clock with the correct value.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+        <xs:attribute name="enablingControlType">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="CheckBox"/>
+              <xs:enumeration value="RadioButton"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="disablingControlType">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="CheckBox"/>
+              <xs:enumeration value="RadioButton"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="disablingControlLabel" type="xs:string">
+          <xs:annotation>
+            <xs:documentation>
+              Disabling a clock will have the effect of setting the control's value to {NULL}. If the control is {NULL} and there is an associated parameter, then thatparameter will not be trasnmiited on the wire. A label placed near the disabling control describing how to interpret this field when it is not transmitted on the wire.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="disablingControlLabelOrientation">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="Left"/>
+              <xs:enumeration value="Right"/>
+              <xs:enumeration value="Above"/>
+              <xs:enumeration value="Below"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="displayableDate" type="xs:boolean" default="true"/>
+        <xs:attribute name="editableDate" type="xs:boolean" default="true"/>
+        <xs:attribute name="displayableTimeZone" type="xs:boolean" default="true"/>
+        <xs:attribute name="editableTimeZone" type="xs:boolean" default="true"/>
+    	</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+  
+	<xs:complexType name="TextField_t">
+		<xs:complexContent>
+			<xs:extension base="lay:Control_t">
+				<xs:attribute name="initValue" type="xs:string"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="SingleSelectList_t">
+		<xs:complexContent>
+			<xs:extension base="lay:Control_t">
+				<xs:sequence>
+					<xs:element name="ListItem" type="lay:ListItem_t" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="initValue" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Refers to an item in the list. Must be an enumID value from one of the listItems.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="MultiSelectList_t">
+		<xs:complexContent>
+			<xs:extension base="lay:Control_t">
+				<xs:sequence>
+					<xs:element name="ListItem" type="lay:ListItem_t" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="initValue" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>
+              Refers to items in the list. Must be one or more enumID values from the listItems.
+              For multiple items use a space delimiter.
+            </xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Slider_t">
+		<xs:complexContent>
+			<xs:extension base="lay:Control_t">
+				<xs:sequence>
+					<xs:element name="ListItem" type="lay:ListItem_t" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="initValue" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Refers to an item in the list. Must be an enumID value from one of the listItems.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CheckBox_t">
+		<xs:complexContent>
+			<xs:extension base="lay:Control_t">
+				<xs:attribute name="initValue" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>True indicates the checkbox should be checked. False iundicates it should be unchecked. For rule evaluation, checked=true and unchecked=false.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="checkedEnumRef" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Output enumID if checkbox is checked.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="uncheckedEnumRef" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Output enumID if checkbox is unchecked.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CheckBoxList_t">
+		<xs:complexContent>
+			<xs:extension base="lay:Control_t">
+				<xs:sequence>
+					<xs:element name="ListItem" type="lay:ListItem_t" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="initValue" type="core:MultipleStringValue">
+					<xs:annotation>
+						<xs:documentation>Refers to enumIDs of child ListItems. If a ListItem's enumID is included then the associated checkbox should be checked when initially rendered. If it is not included then the checkbox should be unchecked when initially rendered.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="orientation" type="lay:PanelOrientation_t">
+					<xs:annotation>
+						<xs:documentation>Indicates how items in this panel should be layed-out. Valid values are HORIZONTAL or VERTICAL.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="SingleSpinner_t">
+		<xs:complexContent>
+			<xs:extension base="lay:Control_t">
+				<xs:attribute name="initValue" type="xs:double"/>
+				<xs:attribute name="increment" type="xs:double" use="optional"/>
+				<xs:attribute name="incrementPolicy" use="optional">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+                Describes how to use increment. If undefined then take value from increment
+                attribute, if LotSize use value based on symbol lot size. (If lot size is not available use value of
+                increment attribute.) If Tick use value based on symbol tick size. (If tick size is not available
+                use value of increment attribute.) If increment is to be used and is not defined then use a system
+                default value.
+              </xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="Tick"/>
+							<xs:enumeration value="LotSize"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DoubleSpinner_t">
+		<xs:complexContent>
+			<xs:extension base="lay:Control_t">
+				<xs:attribute name="initValue" type="xs:double"/>
+				<xs:attribute name="innerIncrement" type="xs:double" use="optional"/>
+				<xs:attribute name="innerIncrementPolicy" use="optional">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+                Describes how to use increment. If undefined then take value from increment
+                attribute, if LotSize use value based on symbol lot size. (If lot size is not available use value of
+                increment attribute.) If Tick use value based on symbol tick size. (If tick size is not available
+                use value of increment attribute.) If increment is to be used and is not defined then use a system
+                default value.
+              </xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="Tick"/>
+							<xs:enumeration value="LotSize"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+				<xs:attribute name="outerIncrement" type="xs:double" use="optional"/>
+				<xs:attribute name="outerIncrementPolicy" use="optional">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="Tick"/>
+							<xs:enumeration value="LotSize"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DropDownList_t">
+		<xs:complexContent>
+			<xs:extension base="lay:Control_t">
+				<xs:sequence>
+					<xs:element name="ListItem" type="lay:ListItem_t" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="initValue" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Refers to an item in the list. Must be an enumID value from one of the listItems.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="EditableDropDownList_t">
+		<xs:complexContent>
+			<xs:extension base="lay:Control_t">
+				<xs:sequence>
+					<xs:element name="ListItem" type="lay:ListItem_t" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="initValue" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Refers to an item in the list. Must be an enumID value from one of the listItems.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RadioButton_t">
+		<xs:complexContent>
+			<xs:extension base="lay:Control_t">
+				<xs:attribute name="radioGroup" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Indicates a group of radio buttons, among which only one radio button may be selected at a time.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="initValue" type="xs:boolean">
+					<xs:annotation>
+						<xs:documentation>True indicates the radio button should initially be checked. False indicates it should be unchecked. For rule evaluation, checked=true and unchecked=false.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="checkedEnumRef" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Output enumID if the radio button is checked.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="uncheckedEnumRef" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Output enumID if the radio button is unchecked.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RadioButtonList_t">
+		<xs:complexContent>
+			<xs:extension base="lay:Control_t">
+				<xs:sequence>
+					<xs:element name="ListItem" type="lay:ListItem_t" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="initValue" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Refers to an item in the list. Must be an enumID value from one of the listItems.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="orientation" type="lay:PanelOrientation_t">
+					<xs:annotation>
+						<xs:documentation>Indicates how items in this panel should be layed-out.Valid values are HORIZONTAL or VERTICAL.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Label_t">
+		<xs:complexContent>
+			<xs:extension base="lay:Control_t">
+				<xs:attribute name="initValue" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>N/A. Use the label attribute from Control_t to set the displayed label.</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="HiddenField_t">
+		<xs:complexContent>
+			<xs:extension base="lay:Control_t">
+				<xs:attribute name="initValue" type="xs:string"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+  
+	<xs:complexType name="ListItem_t">
+		<xs:sequence>
+			<xs:element ref="flow:StateRule" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="enumID" use="optional">
+			<xs:annotation>
+				<xs:documentation>A reference to the enum specified in the parameter definition. Use is optional when the control does not refer to a parameter.</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="[A-Za-z][A-za-z0-9_]{0,255}"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="uiRep" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>The value shown in the list. These are the values that go into Java or .Net list controls.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+    <xs:attribute name="filter" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>A reference to a Filter element defined in the Strategies scope.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+	</xs:complexType>
+  
+	<xs:simpleType name="HelpText_t">
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="preserve"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PanelOrientation_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="HORIZONTAL"/>
+			<xs:enumeration value="VERTICAL"/>
+      <xs:enumeration value="GRID"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Border_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="None"/>
+			<xs:enumeration value="Line"/>
+		</xs:restriction>
+	</xs:simpleType>
+  <xs:simpleType name="FillOrder_t">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ROW-MAJOR"/>
+      <xs:enumeration value="COL-MAJOR"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
