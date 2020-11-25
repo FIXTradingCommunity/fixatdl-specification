@@ -72,36 +72,36 @@ For example, data contract functions, such as parameter validation,
 may be performed in an application downstream from the E/OMS without
 the need for the XML that describes the GUI.
 
-The FIXatdl language definition, ver. 1.1, is contained within six XML
+The FIXatdl language definition is contained within six XML
 Schema files:
 
 +---------------------------------------------------+-----------------------------------------------------------------------------------------------+
 | **XML Schema file / namespace**                   | **Purpose**                                                                                   |
 +===================================================+===============================================================================================+
-| fixatdl-core-1-1.xsd                              | Data: Defines attributes and elements that are used to describe the data content of the       |
+| fixatdl-core-1-2.xsd                              | Data: Defines attributes and elements that are used to describe the data content of the       |
 |                                                   | algorithm and the parameters.                                                                 |
-| http://www.fixprotocol.org/FIXatdl-1-1/Core       |                                                                                               |
+| http://www.fixprotocol.org/FIXatdl-1-2/Core       |                                                                                               |
 +---------------------------------------------------+-----------------------------------------------------------------------------------------------+
-| fixatdl-validation-1-1.xsd                        | Data: Defines attributes and elements used to author rules that are applied to the parameter  |
+| fixatdl-validation-1-2.xsd                        | Data: Defines attributes and elements used to author rules that are applied to the parameter  |
 |                                                   | values as a validation check. These rules can be simple where boundary conditions are         |
-| http://www.fixprotocol.org/FIXatdl-1-1/Validation | checked, or complex where compound boolean expressions involving several parameters are       |
+| http://www.fixprotocol.org/FIXatdl-1-2/Validation | checked, or complex where compound boolean expressions involving several parameters are       |
 |                                                   | evaluated.                                                                                    |
 +---------------------------------------------------+-----------------------------------------------------------------------------------------------+
-| fixatdl-layout-1-1.xsd                            | GUI: XML constructs to describe how a parameter should be rendered within a user interface -- |
+| fixatdl-layout-1-2.xsd                            | GUI: XML constructs to describe how a parameter should be rendered within a user interface -- |
 |                                                   | this includes recommendations about GUI controls and their relative location within the       |
-| http://www.fixprotocol.org/FIXatdl-1-1/Layout     | interface.                                                                                    |
+| http://www.fixprotocol.org/FIXatdl-1-2/Layout     | interface.                                                                                    |
 +---------------------------------------------------+-----------------------------------------------------------------------------------------------+
-| fixatdl-flow-1-1.xsd                              | GUI: Provides the ability to dynamically affect the behavior of a GUI control. Rules can be   |
+| fixatdl-flow-1-2.xsd                              | GUI: Provides the ability to dynamically affect the behavior of a GUI control. Rules can be   |
 |                                                   | created to enable or disable parameters based on values entered by the user in other          |
-| http://www.fixprotocol.org/FIXatdl-1-1/Flow       | parameters.                                                                                   |
+| http://www.fixprotocol.org/FIXatdl-1-2/Flow       | parameters.                                                                                   |
 +---------------------------------------------------+-----------------------------------------------------------------------------------------------+
-| fixatdl-regions-1-1.xsd                           | Data: Enumeration values for countries within three regions: TheAmericas,                     |
+| fixatdl-regions-1-2.xsd                           | Data: Enumeration values for countries within three regions: TheAmericas,                     |
 |                                                   | EuropeMiddleEastAfrica and AsiaPacificJapan.                                                  |
-| http://www.fixprotocol.org/FIXatdl-1-1/Regions    |                                                                                               |
+| http://www.fixprotocol.org/FIXatdl-1-2/Regions    |                                                                                               |
 +---------------------------------------------------+-----------------------------------------------------------------------------------------------+
-| fixatdl-timezones-1-1.xsd                         | Data: Lists enumeration values for world timezones based on zoneinfo database.                |
+| fixatdl-timezones-1-2.xsd                         | Data: Lists enumeration values for world timezones based on zoneinfo database.                |
 |                                                   |                                                                                               |
-| http://www.fixprotocol.org/FIXatdl-1-1/Timezones  |                                                                                               |
+| http://www.fixprotocol.org/FIXatdl-1-2/Timezones  |                                                                                               |
 +---------------------------------------------------+-----------------------------------------------------------------------------------------------+
 
 # Key Concepts
@@ -135,8 +135,8 @@ root element, Strategies, and follow the hierarchy:
 ```
 \
 At the root level, the algorithm provider must specify which tag to use
-to identify the individual strategies. (At one time TargetStrategy (tag
-847) was intended to carry this information. However, most providers use
+to identify the individual strategies. (At one time TargetStrategy(847) was
+intended to carry this information. However, most providers use
 a user-defined field for this purpose.) For example to indicate that tag
 5009 will be used to identify strategies the Strategies element would be
 written as
@@ -210,7 +210,7 @@ of a New Order Single, Order Cancel Request or Order Cancel/Replace
 Request. (In some cases a parameter may also refer to a standard FIX
 field, one with a tag number in the range 1-5000, that broker-dealers
 commonly included in their algorithmic interface specifications, such as
-EffectiveTime (tag 168) and ExpireTime (tag 128).)
+EffectiveTime(168) and ExpireTime(128).)
 
 Parameters are strictly described in FIXatdl by the target firm who will
 receive them (*order recipients*), and are communicated via an XML file
@@ -230,9 +230,9 @@ use="optional" minValue="1" maxValue="9"/>
 ```
 \
 This listing describes a parameter named "SampleRate" which can
-optionally be populated in tag 8000 of an Order message. The attributes
+optionally be populated in tag 8000 of an order message. The attributes
 "minValue" and "maxValue" describes the minimum and maximum values that
-the recipient of an Order messages is expecting. Orders with SampleRate
+the recipient of an order message is expecting. Orders with SampleRate
 values outside that range may be rejected. The attribute "xsi:type"
 describes the parameter's type which must be one of the datatypes
 specified by the FIX Protocol. FIXatdl provides enumeration values for
@@ -255,7 +255,7 @@ enumerated values expected to be transmitted over the wire. For example:
 \
 This describes the "Aggression" parameter. An order recipient would
 expect to receive one of the values, "L", "M" or "H" in tag 8001 of an
-Order message. The attribute EnumPair/@enumID is a unique identifier of
+order message. The attribute EnumPair/@enumID is a unique identifier of
 EnumPair elements.
 
 If a user of an order-entry system were to submit an order with
@@ -263,7 +263,7 @@ If a user of an order-entry system were to submit an order with
 recipient would expect to receive a FIX message containing a substring
 similar to:
 
-...35=D|11=0001|55=AXP|44=77.25| ... 8000=5|8001=H ...
+`...35=D|11=0001|55=AXP|44=77.25| ... 8000=5|8001=H ...`
 
 ## Validation Rules
 
@@ -373,10 +373,10 @@ be between 1 and 25">
 </StrategyEdit>
 ```
 \
-This rule incorporates the value of TimeInForce which is a standard tag
+This rule incorporates the value of TimeInForce(59) which is a standard tag
 found in most order messages. The values associated with standard tags
-are those that are sent over the wire. For example, TimeInForce is an
-enumeration of char values ranging from "1" to "7". So care must be
+are those that are sent over the wire. For example, TimeInForce(59) is an
+enumeration of char values ranging from "0" to "9" and "A" to "C" (FIX Latest as of EP264). So care must be
 taken to assure the corresponding operand, "value", is of a similar
 type. Support for these types of expressions is highly dependent on a
 vendor's implementation of FIXatdl. Not all standard tags may be
@@ -497,8 +497,8 @@ following image:
 ## Flow Control Rules
 
 Interdependencies among standard FIX tags affecting their applicability
-are quite common. For example, Price (44) is not applicable when OrdType
-(40) is set to Market. The same can be said for algorithmic order types
+are quite common. For example, Price(44) is not applicable when OrdType(40)
+is set to Market. The same can be said for algorithmic order types
 and their parameters. Many algorithmic order types will have parameters
 whose applicability is dependent on the value of one or more other
 parameters. These rules are often listed in algorithmic order
@@ -709,7 +709,7 @@ originator and order recipient. FIXatdl provides a means for the order
 recipient to inform the order originator which of these methods to use.
 
 An algorithmic order provider indicates that it can receive parameters
-through the StrategyParametersGrp component block (tags 957-960) by
+through the StrategyParametersGrp component (tags 957-960) by
 setting the attribute of the Strategies element, tag957Support, to true.
 The recipient can also indicate that it is able to receive parameters
 via user-defined tags by proving values for the fixTag attributes of
@@ -736,20 +736,19 @@ To illustrate, consider the following listing:
 This document instance describes an algorithm with two parameters,
 PctVol and ForceCompletion. The algorithm provider has also indicated
 that it supports receipt of these parameters via StrategyParametersGrp
-and via the custom tags, 7002 and 7003. So an E/OMS would be free to
+and via the custom tags 7002 and 7003. So an E/OMS would be free to
 choose between the two methods when it transmits the parameters. If this
-
 were to be rendered by an E/OMS and a user was to enter a PctVol value
 of 0.15 and check the Force Completion checkbox, then the order
 generated may contain a substring similar to:
 
-. . 35=D|11=1234|55=AXP|. . |7000=v|7001=1|957=2|958=PctVol|959=11|960=0.15|958=FC|959=13|960=Y
+`. . 35=D|11=1234|55=AXP|. . |7000=v|7001=1|957=2|958=PctVol|959=11|960=0.15|958=FC|959=13|960=Y`
 
 In this case the E/OMS has decided to use the StrategyParametersGrp
 repeating group. If tag957Support were set to false then the E/OMS
 would be forced to use the UDFs, 7002 and 7003, as in:
 
-. . 35=D|11=1234|55=AXP|. . |7000=v|7001=1|7002=0.15|7003=Y
+`. . 35=D|11=1234|55=AXP|. . |7000=v|7001=1|7002=0.15|7003=Y`
 
 The general rule for determining which method to use is as follows.
 
@@ -802,7 +801,7 @@ table.
 +------------------+-------------------------------------------------+---------------------------------------------------------------+
 | ListItem         | Control                                         | Used for controls that let the user choose from a list of     |
 |                  |                                                 | items. When a Control element is mapped top a Parameter       |
-|                  |                                                 | element, via means of the Control element\'s \"parameterRef\" |
+|                  |                                                 | element, via means of the Control element's "parameterRef"    |
 |                  |                                                 | attribute, each ListItem will contain a reference to an       |
 |                  |                                                 | EnumPair defined within the Parameter element.                |
 +------------------+-------------------------------------------------+---------------------------------------------------------------+
@@ -816,23 +815,23 @@ table.
 |                  |                                                 | Code) of which the strategy is applicable. If no Markets      |
 |                  |                                                 | element is defined then the strategy is applicable for        |
 |                  |                                                 | \*ALL\* markets. If a market is defined and has its           |
-|                  |                                                 | \'inclusion\' attribute set to \"Include\", then it is        |
+|                  |                                                 | 'inclusion' attribute set to "Include", then it is            |
 |                  |                                                 | implied that the strategy is applicable for \*ONLY\* that     |
-|                  |                                                 | market.  If a region is defined and is set to \"Exclude\",    |
+|                  |                                                 | market.  If a region is defined and is set to "Exclude",      |
 |                  |                                                 | then it is implied that the strategy is applicable for all    |
-|                  |                                                 | markets \*EXCEPT\* that market.\                              |
-|                  |                                                 | \                                                             |
+|                  |                                                 | markets \*EXCEPT\* that market.                               |
+|                  |                                                 |                                                               |
 |                  |                                                 | Include takes precedence over Exclude - for example, if XNAS  |
-|                  |                                                 | is defined and set to \"Include\" and XLON is defined and set |
-|                  |                                                 | to \"Exclude\" then all other markets will also be excluded   |
-|                  |                                                 | since the \"Include\" on XNAS takes precedence over the       |
-|                  |                                                 | \"Exclude\" on XLON.  In this example, the definition of XLON |
-|                  |                                                 | as \"Exclude\" is unnecessary.\                               |
-|                  |                                                 | \                                                             |
+|                  |                                                 | is defined and set to "Include" and XLON is defined and set   |
+|                  |                                                 | to "Exclude" then all other markets will also be excluded     |
+|                  |                                                 | since the "Include" on XNAS takes precedence over the         |
+|                  |                                                 | "Exclude" on XLON.  In this example, the definition of XLON   |
+|                  |                                                 | as "Exclude" is unnecessary.                                  |
+|                  |                                                 |                                                               |
 |                  |                                                 | Markets are used in conjunction with regions and countries to |
 |                  |                                                 | define the scope of the strategy.  Markets take precedence    |
 |                  |                                                 | over regions and countries.  For example, if AsiaPacificJapan |
-|                  |                                                 | is defined as \"Exclude\" but the Fukuoka Stock Exchange      |
+|                  |                                                 | is defined as "Exclude" but the Fukuoka Stock Exchange        |
 |                  |                                                 | (XFKA) is defined as an included market, the strategy will be |
 |                  |                                                 | applicable for all markets in The Americas and EMEA, as well  |
 |                  |                                                 | as only the Fukuoka Stock Exchange in the APAC region.        |
@@ -852,25 +851,25 @@ table.
 |                  |                                                 |                                                               |
 |                  |                                                 | If no Regions element is defined then the strategy is         |
 |                  |                                                 | applicable for \*ALL\* regions. If a region is defined and    |
-|                  |                                                 | has its \'inclusion\' attribute set to \'Include\', then it   |
+|                  |                                                 | has its 'inclusion' attribute set to 'Include', then it       |
 |                  |                                                 | is implied that the strategy is applicable for \*ONLY\* that  |
-|                  |                                                 | region. If a region is defined and is set to \'Exclude\',     |
+|                  |                                                 | region. If a region is defined and is set to 'Exclude',       |
 |                  |                                                 | then it is implied that the strategy is applicable for all    |
 |                  |                                                 | regions \*EXCEPT\* that region.                               |
 |                  |                                                 |                                                               |
-|                  |                                                 | \'Include\' takes precedence over \'Exclude\' - for example,  |
-|                  |                                                 | if TheAmericas is defined and set to \'Include\' and          |
-|                  |                                                 | EuropeMiddleEastAfrica is defined and set to \'Exclude\' then |
-|                  |                                                 | AsiaPacificJapan will also be excluded since the \'Include\'  |
-|                  |                                                 | on TheAmericas takes precedence over the \'Exclude\' on       |
+|                  |                                                 | 'Include' takes precedence over 'Exclude' - for example,      |
+|                  |                                                 | if TheAmericas is defined and set to 'Include' and            |
+|                  |                                                 | EuropeMiddleEastAfrica is defined and set to 'Exclude' then   |
+|                  |                                                 | AsiaPacificJapan will also be excluded since the 'Include'    |
+|                  |                                                 | on TheAmericas takes precedence over the 'Exclude' on         |
 |                  |                                                 | EuropeMiddleEastAfrica. In this example, the definition of    |
-|                  |                                                 | \"EuropeMiddleEastAfrica\" as \'Exclude\' is unnecessary.     |
+|                  |                                                 | "EuropeMiddleEastAfrica" as 'Exclude' is unnecessary.         |
 |                  |                                                 |                                                               |
-|                  |                                                 | Regions also contain a child element called \"Country\" that  |
+|                  |                                                 | Regions also contain a child element called "Country" that    |
 |                  |                                                 | allows the algo author to further specify the geographic      |
 |                  |                                                 | scope of the strategy. Countries can be included and excluded |
 |                  |                                                 | in the same manner as regions and the same rules of           |
-|                  |                                                 | precedence apply. Please see fixatdl-regions-1-1.xsd for the  |
+|                  |                                                 | precedence apply. Please see fixatdl-regions-1-2.xsd for the  |
 |                  |                                                 | list of ISO 3166 Country Code to region mappings.             |
 +------------------+-------------------------------------------------+---------------------------------------------------------------+
 | RepeatingGroup   | Strategy                                        | Container of a group of Parameter elements that are intended  |
@@ -888,9 +887,9 @@ table.
 | SecurityType     | SecurityTypes                                   | An element used to describe a security type that may be       |
 |                  |                                                 | included or excluded from the list built by the parent        |
 |                  |                                                 | element, SecurityTypes. Its attribute, "name", contains a FIX |
-|                  |                                                 | SecurityType (tag 167) value.                                 |
+|                  |                                                 | SecurityType(167) value.                                      |
 +------------------+-------------------------------------------------+---------------------------------------------------------------+
-| SecurityTypes    | Strategy                                        | The list of security types (by SecurityType (tag 167)) for    |
+| SecurityTypes    | Strategy                                        | The list of security types (by SecurityType(167)) for         |
 |                  |                                                 | which the given strategy is valid. The absence of any         |
 |                  |                                                 | security types implies that the strategy is valid for all     |
 |                  |                                                 | security types.                                               |
@@ -898,7 +897,7 @@ table.
 | StateRule        | Control                                         | Defines workflow rule for a Control. Defines a workflow rule  |
 |                  |                                                 | for a GUI control. Using StateRule as a child element of a    |
 |                  |                                                 | Control element, rules can be defined which affect the        |
-|                  |                                                 | \"enabled\" and \"hidden\" properties of the underlying       |
+|                  |                                                 | "enabled" and "hidden" properties of the underlying           |
 |                  |                                                 | Java/.Net/Web/etc. rendered on the screen.                    |
 |                  |                                                 |                                                               |
 |                  |                                                 | A StateRule element must contain a child Edit element. The    |
@@ -907,7 +906,7 @@ table.
 |                  |                                                 | action is not in-effect when the condition described by its   |
 |                  |                                                 | child Edit element is false.                                  |
 +------------------+-------------------------------------------------+---------------------------------------------------------------+
-| Strategies       | \[n/a\]                                         | Container for all strategy elements. It is the root element   |
+| Strategies       | [n/a]                                           | Container for all strategy elements. It is the root element   |
 |                  |                                                 | of all FIXatdl conforming documents.                          |
 +------------------+-------------------------------------------------+---------------------------------------------------------------+
 | Strategy         | Strategies                                      | Root level of a strategy definition.                          |
@@ -945,9 +944,9 @@ their description.
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
 | **Attribute**                       | **Type**                                   | **Req'd** | **Description**                            |
 +=====================================+============================================+===========+============================================+
-| Control/\@checkedEnumRef            | StringID                                   | N         | Refers to an enumID defined in the         |
+| Control/@checkedEnumRef             | StringID                                   | N         | Refers to an enumID defined in the         |
 |                                     |                                            |           | definition of the Parameter referred by    |
-|                                     |                                            |           | Control/\@parameterRef. This enumID is the |
+|                                     |                                            |           | Control/@parameterRef. This enumID is the  |
 |                                     |                                            |           | output from this control if it is          |
 |                                     |                                            |           | checked/selected.                          |
 |                                     |                                            |           |                                            |
@@ -956,10 +955,10 @@ their description.
 |                                     |                                            |           | Examine the Parameter "AllowDarkPoolExec"  |
 |                                     |                                            |           | and Control "DPOption" for details.)**     |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Applicable when xsi:type is CheckBox\_t or |
-|                                     |                                            |           | RadioButton\_t.                            |
+|                                     |                                            |           | Applicable when xsi:type is CheckBox_t or  |
+|                                     |                                            |           | RadioButton_t.                             |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Control/\@disableForTemplate        | boolean                                    | N         | For implementing systems that support      |
+| Control/@disableForTemplate         | boolean                                    | N         | For implementing systems that support      |
 |                                     |                                            |           | saving order templates or pre-populated    |
 |                                     |                                            |           | orders for basket trading/list trading     |
 |                                     |                                            |           | this attribute specifies that the control  |
@@ -967,26 +966,26 @@ their description.
 |                                     |                                            |           | is going to be saved as a template and not |
 |                                     |                                            |           | actually used to place an order.           |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Control/\@ID                        | StringID                                   | Y         | Unique identifier of this control. No two  |
+| Control/@ID                         | StringID                                   | Y         | Unique identifier of this control. No two  |
 |                                     |                                            |           | controls of the same strategy can have the |
 |                                     |                                            |           | same ID.                                   |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Control/\@increment                 | decimal                                    | N         | Limits the granularity of a spinner        |
+| Control/@increment                  | decimal                                    | N         | Limits the granularity of a spinner        |
 |                                     |                                            |           | control. Useful in spinner objects to      |
 |                                     |                                            |           | enforce odd-lot and sub-penny              |
 |                                     |                                            |           | restrictions.                              |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Applicable when xsi:type is                |
-|                                     |                                            |           | SingleSpinner\_t or Slider\_t. (In this    |
-|                                     |                                            |           | case a Slider\_t must be used to select a  |
+|                                     |                                            |           | SingleSpinner_t or Slider_t. (In this      |
+|                                     |                                            |           | case a Slider_t must be used to select a   |
 |                                     |                                            |           | value within a continuous range, say a     |
 |                                     |                                            |           | decimal value between a minimum and        |
 |                                     |                                            |           | maximum value. As opposed to the case      |
-|                                     |                                            |           | where the Slider\_t is used to select from |
+|                                     |                                            |           | where the Slider_t is used to select from  |
 |                                     |                                            |           | a set of values not unlike a               |
-|                                     |                                            |           | DropDownList\_t.)                          |
+|                                     |                                            |           | DropDownList_t.)                           |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Control/\@incrementPolicy           | string                                     | N         | For single spinner control, defines how to |
+| Control/@incrementPolicy            | string                                     | N         | For single spinner control, defines how to |
 |                                     |                                            |           | determine the increment.                   |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Valid values:                              |
@@ -999,45 +998,45 @@ their description.
 |                                     |                                            |           |     available, use the value from the      |
 |                                     |                                            |           |     increment attribute.)                  |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | -   "Tick" -- use symbol minimum tick size. |
+|                                     |                                            |           | -   "Tick" -- use symbol minimum tick size.|
 |                                     |                                            |           |     (If this value is not available, use   |
 |                                     |                                            |           |     the value from the increment           |
 |                                     |                                            |           |     attribute.)                            |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Applicable when xsi:type is                |
-|                                     |                                            |           | SingleSpinner\_t.                          |
+|                                     |                                            |           | SingleSpinner_t.                           |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | If no value is supplied then use value     |
 |                                     |                                            |           | from increment attribute.                  |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | **Please note: The schema file,            |
-|                                     |                                            |           | fixatdl-layout-1-1.xsd, does not include   |
+|                                     |                                            |           | fixatdl-layout-1-2.xsd, does not include   |
 |                                     |                                            |           | the "Static" enumeration value. If         |
 |                                     |                                            |           | "Static" behavior is desired then do not   |
 |                                     |                                            |           | populate this attribute.**                 |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Control/\@initFixField              | pos int                                    | N         | Indicates the initialization value is to   |
+| Control/@initFixField               | pos int                                    | N         | Indicates the initialization value is to   |
 |                                     |                                            |           | be taken from this standard FIX field.     |
-|                                     |                                            |           | Format: \"FIX\_\" + FIXFieldName. E.g.     |
-|                                     |                                            |           | \"FIX\_OrderQty\".                         |
+|                                     |                                            |           | Format: "FIX_" + FIXFieldName. E.g.        |
+|                                     |                                            |           | "FIX_OrderQty".                            |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Required when initPolicy="UseFixField".    |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Control/\@initPolicy                | string                                     | N         | Describes how to initialize the control.   |
+| Control/@initPolicy                 | string                                     | N         | Describes how to initialize the control.   |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | If the value of this attribute is          |
-|                                     |                                            |           | undefined or equal to \"UseValue\" and     |
+|                                     |                                            |           | undefined or equal to "UseValue" and       |
 |                                     |                                            |           | initValue is defined then initialize with  |
 |                                     |                                            |           | initValue.                                 |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | If the value is equal to \"UseFixField\"   |
+|                                     |                                            |           | If the value is equal to "UseFixField"     |
 |                                     |                                            |           | then attempt to initialize with the value  |
 |                                     |                                            |           | of the tag specified in initFixField. If   |
-|                                     |                                            |           | the value is equal to \"UseFixField\" and  |
+|                                     |                                            |           | the value is equal to "UseFixField" and    |
 |                                     |                                            |           | it is not possible to access the value of  |
 |                                     |                                            |           | the specified fix tag then revert to using |
 |                                     |                                            |           | initValue. If the value is equal to        |
-|                                     |                                            |           | \"UseFixField\", the field is not          |
+|                                     |                                            |           | "UseFixField", the field is not            |
 |                                     |                                            |           | accessible, and initValue is not defined,  |
 |                                     |                                            |           | then do not initialize.                    |
 |                                     |                                            |           |                                            |
@@ -1046,11 +1045,11 @@ their description.
 |                                     |                                            |           | -   UseValue                               |
 |                                     |                                            |           | -   UseFixField                            |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Control/\@initValue                 | (Depends on value of xsi:type)             | N         | The value used to pre-populate the GUI     |
+| Control/@initValue                  | (Depends on value of xsi:type)             | N         | The value used to pre-populate the GUI     |
 |                                     |                                            |           | component when the order entry screen is   |
 |                                     |                                            |           | initially rendered. The type of initValue  |
 |                                     |                                            |           | is dependent on the value of               |
-|                                     |                                            |           | Control/\@xsi:type.                        |
+|                                     |                                            |           | Control/@xsi:type.                         |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | The following list gives the type of this  |
 |                                     |                                            |           | attribute based on the value of xsi:type.  |
@@ -1095,7 +1094,7 @@ their description.
 |                                     |                                            |           | [initValue use]{.underline}                |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | **Clock_t:** A time (expressed in          |
-|                                     |                                            |           | Control/\@localMktTz)                      |
+|                                     |                                            |           | Control/@localMktTz)                       |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | **TextField_t:** string                    |
 |                                     |                                            |           |                                            |
@@ -1136,24 +1135,24 @@ their description.
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Required when initPolicy="UseValue".       |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Control/\@initValueMode             | int                                        | N         | Defines the treatment of initValue time.   |
+| Control/@initValueMode              | int                                        | N         | Defines the treatment of initValue time.   |
 |                                     |                                            |           | 0: use initValue; 1: use current time if   |
 |                                     |                                            |           | initValue time has passed.                 |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | The default value is 0.                    |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Applicable only when Control/\@xsi:type is |
-|                                     |                                            |           | Clock\_t.                                  |
+|                                     |                                            |           | Applicable only when Control/@xsi:type is  |
+|                                     |                                            |           | Clock_t.                                   |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Control/\@innerIncrement            | decimal                                    | N         | Limits the granularity of the inner        |
+| Control/@innerIncrement             | decimal                                    | N         | Limits the granularity of the inner        |
 |                                     |                                            |           | spinner of a double spinner control.       |
 |                                     |                                            |           | Useful in spinner objects to enforce       |
 |                                     |                                            |           | odd-lot and sub-penny restrictions.        |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Applicable when xsi:type is                |
-|                                     |                                            |           | DoubleSpinner\_t.                          |
+|                                     |                                            |           | DoubleSpinner_t.                           |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Control/\@innerIncrementPolicy      | string                                     | N         | For double spinner control, defines how to |
+| Control/@innerIncrementPolicy       | string                                     | N         | For double spinner control, defines how to |
 |                                     |                                            |           | determine the increment for the inner set  |
 |                                     |                                            |           | of spinners.                               |
 |                                     |                                            |           |                                            |
@@ -1165,53 +1164,53 @@ their description.
 |                                     |                                            |           | -   "LotSize" -- use the round lot size of |
 |                                     |                                            |           |     symbol                                 |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | -   "Tick" -- use symbol minimum tick size  |
+|                                     |                                            |           | -   "Tick" -- use symbol minimum tick size |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Applicable when xsi:type is                |
-|                                     |                                            |           | DoubleSpinner\_t.                          |
+|                                     |                                            |           | DoubleSpinner_t.                           |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | If no value is supplied then use value     |
 |                                     |                                            |           | from innerIincrement attribute.            |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | **Please note: The schema file,            |
-|                                     |                                            |           | fixatdl-layout-1-1.xsd, does not include   |
+|                                     |                                            |           | fixatdl-layout-1-2.xsd, does not include   |
 |                                     |                                            |           | the "Static" enumeration value. If         |
 |                                     |                                            |           | "Static" behavior is desired then do not   |
 |                                     |                                            |           | populate this attribute.**                 |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Control/\@label                     | string                                     | N         | A title for this control which may be      |
+| Control/@label                      | string                                     | N         | A title for this control which may be      |
 |                                     |                                            |           | displayed.                                 |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | If the control is a Label\_t then          |
-|                                     |                                            |           | Control/\@label or Control/\@initValue     |
+|                                     |                                            |           | If the control is a Label_t then           |
+|                                     |                                            |           | Control/@label or Control/@initValue       |
 |                                     |                                            |           | must be used to define the string which is |
 |                                     |                                            |           | to be rendered. If both attributes are     |
-|                                     |                                            |           | provided then Control/\@initValue takes    |
+|                                     |                                            |           | provided then Control/@initValue takes     |
 |                                     |                                            |           | precedence.                                |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Control/\@localMktTz                | LocalMktTz                                 | N         | The timezone in which initValue is         |
+| Control/@localMktTz                 | LocalMktTz                                 | N         | The timezone in which initValue is         |
 |                                     |                                            |           | represented in. Required when initValue is |
 |                                     |                                            |           | supplied.                                  |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Applicable when xsi:type is Clock\_t.      |
+|                                     |                                            |           | Applicable when xsi:type is Clock_t.       |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Control/\@orientation               | Orientation                                | Y         | Must be "HORIZONTAL" or "VERTICAL".        |
+| Control/@orientation                | Orientation                                | Y         | Must be "HORIZONTAL" or "VERTICAL".        |
 |                                     |                                            |           | Declares the orientation of the radio      |
 |                                     |                                            |           | buttons within a RadioButtonList or the    |
 |                                     |                                            |           | checkboxes within a CheckBoxList.          |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Applicable when xsi:type is                |
-|                                     |                                            |           | RadioButtonList\_t or CheckBoxList\_t.     |
+|                                     |                                            |           | RadioButtonList_t or CheckBoxList_t.       |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Control/\@outerIncrement            | decimal                                    | N         | Limits the granularity an outer spinner of |
+| Control/@outerIncrement             | decimal                                    | N         | Limits the granularity an outer spinner of |
 |                                     |                                            |           | a double spinner control. Useful in        |
 |                                     |                                            |           | spinner objects to enforce odd-lot and     |
 |                                     |                                            |           | sub-penny restrictions.                    |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Applicable when xsi:type is                |
-|                                     |                                            |           | DoubleSpinner\_t.                          |
+|                                     |                                            |           | DoubleSpinner_t.                           |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Control/\@outerIncrementPolicy      | string                                     | N         | For double spinner control, defines how to |
+| Control/@outerIncrementPolicy       | string                                     | N         | For double spinner control, defines how to |
 |                                     |                                            |           | determine the increment for the outer set  |
 |                                     |                                            |           | of spinners.                               |
 |                                     |                                            |           |                                            |
@@ -1223,38 +1222,38 @@ their description.
 |                                     |                                            |           | -   "LotSize" -- use the round lot size of |
 |                                     |                                            |           |     symbol                                 |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | -   "Tick" -- use symbol minimum tick size  |
+|                                     |                                            |           | -   "Tick" -- use symbol minimum tick size |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Applicable when xsi:type is                |
-|                                     |                                            |           | DoubleSpinner\_t.                          |
+|                                     |                                            |           | DoubleSpinner_t.                           |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | If no value is supplied then use value     |
 |                                     |                                            |           | from outerIincrement attribute.            |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | **Please note: The schema file,            |
-|                                     |                                            |           | fixatdl-layout-1-1.xsd, does not include   |
+|                                     |                                            |           | fixatdl-layout-1-2.xsd, does not include   |
 |                                     |                                            |           | the "Static" enumeration value. If         |
 |                                     |                                            |           | "Static" behavior is desired then do not   |
 |                                     |                                            |           | populate this attribute.**                 |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Control/\@parameterRef              | StringID                                   | N         | The name of the parameter for which this   |
+| Control/@parameterRef               | StringID                                   | N         | The name of the parameter for which this   |
 |                                     |                                            |           | control gives the visual representation. A |
 |                                     |                                            |           | parameter with this name must be defined   |
 |                                     |                                            |           | within the same strategy as this control.  |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Control/\@radioGroup                | String                                     | N         | Identifies a common group name used by a   |
-|                                     |                                            |           | set of RadioButton\_t among which only one |
+| Control/@radioGroup                 | String                                     | N         | Identifies a common group name used by a   |
+|                                     |                                            |           | set of RadioButton_t among which only one  |
 |                                     |                                            |           | radio button may be selected at a time.    |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Applicable when xsi:type is                |
-|                                     |                                            |           | RadioButton\_t.                            |
+|                                     |                                            |           | RadioButton_t.                             |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Control/\@tooltip                   | string                                     | N         | Tool tip text for rendered GUI objects     |
+| Control/@tooltip                    | string                                     | N         | Tool tip text for rendered GUI objects     |
 |                                     |                                            |           | rendered for the parameter.                |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Control/\@uncheckedEnumRef          | StringID                                   | N         | Refers to an enumID defined in the         |
+| Control/@uncheckedEnumRef           | StringID                                   | N         | Refers to an enumID defined in the         |
 |                                     |                                            |           | definition of the Parameter referred by    |
-|                                     |                                            |           | Control/\@parameterRef. This enumID is the |
+|                                     |                                            |           | Control/@parameterRef. This enumID is the  |
 |                                     |                                            |           | output from this control if it is          |
 |                                     |                                            |           | unchecked/unselected.                      |
 |                                     |                                            |           |                                            |
@@ -1263,10 +1262,10 @@ their description.
 |                                     |                                            |           | Examine the Parameter "AllowDarkPoolExec"  |
 |                                     |                                            |           | and Control "DPOption" for details.)**     |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Applicable when xsi:type is CheckBox\_t or |
-|                                     |                                            |           | RadioButton\_t.                            |
+|                                     |                                            |           | Applicable when xsi:type is CheckBox_t or  |
+|                                     |                                            |           | RadioButton_t.                             |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Control/\@xsi:type                  | string                                     | Y         | Indicates the type of GUI control that     |
+| Control/@xsi:type                   | string                                     | Y         | Indicates the type of GUI control that     |
 |                                     |                                            |           | should be rendered on the screen.          |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Valid values:                              |
@@ -1287,15 +1286,15 @@ their description.
 |                                     |                                            |           | -   Slider_t                               |
 |                                     |                                            |           | -   TextField_t                            |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Country/\@CountryCode               | String restricted to \"\[A-Z0-9\]{2}\"     | Y         | ISO 3166-1 alpha-2 code for the countries  |
+| Country/@CountryCode                | String restricted to "[A-Z0-9]{2}"         | Y         | ISO 3166-1 alpha-2 code for the countries  |
 |                                     |                                            |           | to include or exclude in a given region.   |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Country/\@inclusion                 | string                                     | Y         | Indicates whether this country should be   |
+| Country/@inclusion                  | string                                     | Y         | Indicates whether this country should be   |
 |                                     |                                            |           | included or excluded from encompassing     |
 |                                     |                                            |           | list. Valid values:     "Include",         |
 |                                     |                                            |           | "Exclude".                                 |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Edit/\@field                        | string                                     | N         | Field name for comparison. When the edit   |
+| Edit/@field                         | string                                     | N         | Field name for comparison. When the edit   |
 |                                     |                                            |           | is used within a stateRule, this field     |
 |                                     |                                            |           | must refer to the ID of a Control. When    |
 |                                     |                                            |           | the edit is used within a strategyEdit,    |
@@ -1303,28 +1302,28 @@ their description.
 |                                     |                                            |           | of a parameter or a standard FIX field     |
 |                                     |                                            |           | name. When referring to a standard FIX tag |
 |                                     |                                            |           | then the name must be pre-pended with the  |
-|                                     |                                            |           | string "FIX\_", e.g. "FIX\_OrderQty".      |
+|                                     |                                            |           | string "FIX_", e.g. "FIX_OrderQty".        |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Required when: Edit/\@operator is defined. |
+|                                     |                                            |           | Required when: Edit/@operator is defined.  |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Edit/\@field2                       | string                                     | N         | Value used as the second operand. Used in  |
-|                                     |                                            |           | conjunction with Edit/\@field and          |
-|                                     |                                            |           | Edit/\@operator. Similar definition to     |
-|                                     |                                            |           | Edit/\@field except that it is mutually    |
-|                                     |                                            |           | exclusive with Edit/\@value.               |
+| Edit/@field2                        | string                                     | N         | Value used as the second operand. Used in  |
+|                                     |                                            |           | conjunction with Edit/@field and           |
+|                                     |                                            |           | Edit/@operator. Similar definition to      |
+|                                     |                                            |           | Edit/@field except that it is mutually     |
+|                                     |                                            |           | exclusive with Edit/@value.                |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Required when: Edit/\@operator is in {GE,  |
-|                                     |                                            |           | GT, LE, LT, EQ, NE} and Edit/\@value is    |
+|                                     |                                            |           | Required when: Edit/@operator is in {GE,   |
+|                                     |                                            |           | GT, LE, LT, EQ, NE} and Edit/@value is     |
 |                                     |                                            |           | not specified.                             |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Edit/\@id                           | string                                     | N         | Optional identifier. Allows for re-use of  |
+| Edit/@id                            | string                                     | N         | Optional identifier. Allows for re-use of  |
 |                                     |                                            |           | this edit within stateRule or editRef      |
 |                                     |                                            |           | elements. This attribute is required if    |
 |                                     |                                            |           | the Edit element is a direct child of      |
 |                                     |                                            |           | either the Strategies or Strategy          |
 |                                     |                                            |           | elements.                                  |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Edit/\@logicOperator                | LogicalOperator                            | N         | Operator where operands are one or more    |
+| Edit/@logicOperator                 | LogicalOperator                            | N         | Operator where operands are one or more    |
 |                                     |                                            |           | Edit elements. Short-circuit evaluation is |
 |                                     |                                            |           | assumed in all edit statements. Valid      |
 |                                     |                                            |           | values are one of the following enumerated |
@@ -1343,7 +1342,7 @@ their description.
 |                                     |                                            |           | By convention, XOR returns true when **one |
 |                                     |                                            |           | and only one** of its operands is true.    |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Edit/\@operator                     | Operator                                   | N         | One of the following enumerated types:     |
+| Edit/@operator                      | Operator                                   | N         | One of the following enumerated types:     |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | -   EX (Exists. I.e. the user has entered  |
 |                                     |                                            |           |     a value)                               |
@@ -1361,44 +1360,44 @@ their description.
 |                                     |                                            |           | either a logicOperator attribute or an     |
 |                                     |                                            |           | operator attribute, but never both.        |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Edit/\@value                        | string                                     | N         | Value used as the second operand. Used in  |
-|                                     |                                            |           | conjunction with Edit/\@field and          |
-|                                     |                                            |           | Edit/\@operator. Represents a string       |
+| Edit/@value                         | string                                     | N         | Value used as the second operand. Used in  |
+|                                     |                                            |           | conjunction with Edit/@field and           |
+|                                     |                                            |           | Edit/@operator. Represents a string        |
 |                                     |                                            |           | literal value and not a reference.         |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | When Edit is a descendant of a StateRule   |
-|                                     |                                            |           | element, Edit/\@value refers to the value  |
-|                                     |                                            |           | of the control referred by Edit/\@field.   |
-|                                     |                                            |           | If the control referred by Edit/\@field    |
-|                                     |                                            |           | has enumerated values then Edit/\@value    |
+|                                     |                                            |           | element, Edit/@value refers to the value   |
+|                                     |                                            |           | of the control referred by Edit/@field.    |
+|                                     |                                            |           | If the control referred by Edit/@field     |
+|                                     |                                            |           | has enumerated values then Edit/@value     |
 |                                     |                                            |           | refers to the enumID of one of the         |
 |                                     |                                            |           | control's ListItem elements.               |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | When Edit is a descendant of a             |
-|                                     |                                            |           | StrategyEdit element, Edit/\@value refers  |
+|                                     |                                            |           | StrategyEdit element, Edit/@value refers   |
 |                                     |                                            |           | to the wireValue of the parameter referred |
-|                                     |                                            |           | by Edit/\@field.                           |
+|                                     |                                            |           | by Edit/@field.                            |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | Required when: Edit/\@operator is in {GE,  |
-|                                     |                                            |           | GT, LE, LT, EQ, NE} and Edit/\@field2 is   |
+|                                     |                                            |           | Required when: Edit/@operator is in {GE,   |
+|                                     |                                            |           | GT, LE, LT, EQ, NE} and Edit/@field2 is    |
 |                                     |                                            |           | not specified.                             |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| EditRef/\@id                        | string                                     | Y         | Refers to an ID of a previously defined    |
+| EditRef/@id                         | string                                     | Y         | Refers to an ID of a previously defined    |
 |                                     |                                            |           | edit element. The edit element may be      |
 |                                     |                                            |           | defined at the strategy level or at the    |
 |                                     |                                            |           | strategies level.                          |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| EnumPair/\@enumID                   | StringID                                   | Y         | A unique identifier of an enumPair element |
+| EnumPair/@enumID                    | StringID                                   | Y         | A unique identifier of an enumPair element |
 |                                     |                                            |           | per parameter.                             |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| EnumPair/\@index                    | integer                                    | N         | **Deprecated.** Previously defined an      |
+| EnumPair/@index                     | integer                                    | N         | **Deprecated.** Previously defined an      |
 |                                     |                                            |           | ordering of the enumerated values. If      |
 |                                     |                                            |           | defined it should be ignored.              |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| EnumPair/\@wireValue                | string                                     | Y         | The corresponding value that is used to    |
+| EnumPair/@wireValue                 | string                                     | Y         | The corresponding value that is used to    |
 |                                     |                                            |           | populate the FIX message.                  |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| ListItem/\@enumID                   | StringID                                   | N         | A reference to the enumPair specified in   |
+| ListItem/@enumID                    | StringID                                   | N         | A reference to the enumPair specified in   |
 |                                     |                                            |           | the parameter definition specified by the  |
 |                                     |                                            |           | parent Control's parameterRef attribute.   |
 |                                     |                                            |           | Use is optional when the parent Control    |
@@ -1407,19 +1406,19 @@ their description.
 |                                     |                                            |           | Required when: the parent Control element  |
 |                                     |                                            |           | has a defined parameterRef attribute.      |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| ListItem/\@uiRep                    | string                                     | Y         | The value shown in the list. These are the |
+| ListItem/@uiRep                     | string                                     | Y         | The value shown in the list. These are the |
 |                                     |                                            |           | values that go into Java, .Net or Web list |
 |                                     |                                            |           | controls.                                  |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Market/\@inclusion                  | string                                     | Y         | Indicates whether this market should be    |
+| Market/@inclusion                   | string                                     | Y         | Indicates whether this market should be    |
 |                                     |                                            |           | included or excluded from encompassing     |
 |                                     |                                            |           | list. Valid values:     "Include",         |
 |                                     |                                            |           | "Exclude".                                 |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Market/\@MICCode                    | string                                     | Y         | String representing a market or exchange - |
+| Market/@MICCode                     | string                                     | Y         | String representing a market or exchange - |
 |                                     |                                            |           | ISO 10383 Market Identifier Code (MIC).    |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Parameter/\@constValue              | (Depends on value of xsi:type)             | N         | The value of a parameter that is constant  |
+| Parameter/@constValue               | (Depends on value of xsi:type)             | N         | The value of a parameter that is constant  |
 |                                     |                                            |           | and is not referred by a Control element.  |
 |                                     |                                            |           | This value must be sent on the wire by the |
 |                                     |                                            |           | order generating application.              |
@@ -1489,14 +1488,14 @@ their description.
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | **Tenor_t:** Tenor                         |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | When defined in UTCTimestamp\_t elements   |
+|                                     |                                            |           | When defined in UTCTimestamp_t elements    |
 |                                     |                                            |           | the following apply:                       |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | -   Contains only time information - not   |
 |                                     |                                            |           |     day, month or year.                    |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | -   Used in conjunction with               |
-|                                     |                                            |           |     Parameter\@localMktTz, this value must |
+|                                     |                                            |           |     Parameter@localMktTz, this value must  |
 |                                     |                                            |           |     be used for the time portion of a      |
 |                                     |                                            |           |     UTCTimestamp that is sent on the wire  |
 |                                     |                                            |           |     by the order generating application.   |
@@ -1507,12 +1506,12 @@ their description.
 |                                     |                                            |           |     value "20100701-13:30:00" would be     |
 |                                     |                                            |           |     sent on the wire.                      |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Parameter/\@definedByFIX            | boolean                                    | N         | Indicates whether the parameter is a       |
+| Parameter/@definedByFIX             | boolean                                    | N         | Indicates whether the parameter is a       |
 |                                     |                                            |           | redefinition of a standard FIX tag. The    |
 |                                     |                                            |           | default value is False.                    |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | For example, if the algorithm redefines    |
-|                                     |                                            |           | the order qty (tag 38) then the Parameter  |
+|                                     |                                            |           | the OrderQty(38) then the Parameter        |
 |                                     |                                            |           | declaration may be similar to:             |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | ```xml                                     |
@@ -1521,16 +1520,16 @@ their description.
 |                                     |                                            |           | definedByFIX="true" use="required"/>       |
 |                                     |                                            |           | ```                                        |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Parameter/\@falseWireValue          | string                                     | N         | Applicable only when xsi:type is           |
-|                                     |                                            |           | Boolean\_t.                                |
+| Parameter/@falseWireValue           | string                                     | N         | Applicable only when xsi:type is           |
+|                                     |                                            |           | Boolean_t.                                 |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | **This attribute is targeted for           |
 |                                     |                                            |           | deprecation.**                             |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | **To achieve the same functionality, it is |
-|                                     |                                            |           | recommended that a Char\_t or String\_t    |
+|                                     |                                            |           | recommended that a Char_t or String_t      |
 |                                     |                                            |           | type parameter be used instead of a        |
-|                                     |                                            |           | Boolean\_t. The parameter should have two  |
+|                                     |                                            |           | Boolean_t. The parameter should have two   |
 |                                     |                                            |           | EnumPairs defined with one defining the    |
 |                                     |                                            |           | false wire-value and the other defining    |
 |                                     |                                            |           | the true wire-value. The parameter should  |
@@ -1560,7 +1559,7 @@ their description.
 |                                     |                                            |           | falseWireValue should be defined as        |
 |                                     |                                            |           | "{NULL}".                                  |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Parameter/\@fixTag                  | pos int                                    | N         | The tag that will hold the value of the    |
+| Parameter/@fixTag                   | pos int                                    | N         | The tag that will hold the value of the    |
 |                                     |                                            |           | parameter.                                 |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Required when: parameter value is intended |
@@ -1573,15 +1572,15 @@ their description.
 |                                     |                                            |           | parameters in the StrategyParameterGrp     |
 |                                     |                                            |           | repeating group beginning at tag 957.      |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Parameter/\@invertOnWire            | boolean                                    | N         | Applicable when: xsi:type is               |
-|                                     |                                            |           | MultipleStringValue\_t or                  |
-|                                     |                                            |           | MultipleCharValue\_t.                      |
+| Parameter/@invertOnWire             | boolean                                    | N         | Applicable when: xsi:type is               |
+|                                     |                                            |           | MultipleStringValue_t or                   |
+|                                     |                                            |           | MultipleCharValue_t.                       |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Instructs the OMS whether to perform a     |
 |                                     |                                            |           | bitwise "not" operation on each element of |
 |                                     |                                            |           | these lists.                               |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Parameter/\@localMktTz              | string                                     | N         | Describes the time zone without indicating |
+| Parameter/@localMktTz               | string                                     | N         | Describes the time zone without indicating |
 |                                     |                                            |           | whether daylight savings is in effect.     |
 |                                     |                                            |           | Valid values are taken from names in the   |
 |                                     |                                            |           | Olson time zone database. All are of the   |
@@ -1591,16 +1590,16 @@ their description.
 |                                     |                                            |           | that region. E.g. America/Chicago.         |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Applicable when xsi:type is                |
-|                                     |                                            |           | UTCTimestamp\_t.                           |
+|                                     |                                            |           | UTCTimestamp_t.                            |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Parameter/\@maxLength               | non-neg int                                | N         | Applicable when xsi:type is String\_t,     |
-|                                     |                                            |           | MultipleCharValue\_t or                    |
-|                                     |                                            |           | MultipleStringValue\_t.                    |
+| Parameter/@maxLength                | non-neg int                                | N         | Applicable when xsi:type is String_t,      |
+|                                     |                                            |           | MultipleCharValue_t or                     |
+|                                     |                                            |           | MultipleStringValue_t.                     |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | The maximum allowable length of the        |
 |                                     |                                            |           | parameter.                                 |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Parameter/\@maxValue                | (Depends on value of xsi:type)             | N         | Maximum value of the parameter accepted by |
+| Parameter/@maxValue                 | (Depends on value of xsi:type)             | N         | Maximum value of the parameter accepted by |
 |                                     |                                            |           | the algorithm provider.                    |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | The following list give the type of this   |
@@ -1644,7 +1643,7 @@ their description.
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | maxValue has no default value.             |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | When defined in UTCTimestamp_t elements **   |
+|                                     |                                            |           | When defined in UTCTimestamp_t elements    |
 |                                     |                                            |           | the following applies:                     |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | -   Maximum local market time. Represents  |
@@ -1653,16 +1652,16 @@ their description.
 |                                     |                                            |           |     not day, month or year.                |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | -   Used in conjunction with               |
-|                                     |                                            |           |     Parameter\@localMktTz, this value      |
+|                                     |                                            |           |     Parameter@localMktTz, this value       |
 |                                     |                                            |           |     represents the maximum time of day     |
 |                                     |                                            |           |     allowed for the parameter.             |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Parameter/\@minLength               | non-neg int                                | N         | Applicable when xsi:type is String_t.      |
+| Parameter/@minLength                | non-neg int                                | N         | Applicable when xsi:type is String_t.      |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | The minimum allowable length of the        |
 |                                     |                                            |           | parameter.                                 |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Parameter/\@minValue                | (Depends on value of xsi:type)             | N         | Minimum value of the parameter accepted by |
+| Parameter/@minValue                 | (Depends on value of xsi:type)             | N         | Minimum value of the parameter accepted by |
 |                                     |                                            |           | the algorithm provider.                    |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | The following list give the type of this   |
@@ -1717,11 +1716,11 @@ their description.
 |                                     |                                            |           |     not day, month or year.                |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | -   Used in conjunction with               |
-|                                     |                                            |           |     Parameter\@localMktTz, this value      |
+|                                     |                                            |           |     Parameter@localMktTz, this value       |
 |                                     |                                            |           |     represents the minimum time of day     |
 |                                     |                                            |           |     allowed for the parameter.             |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Parameter/\@multiplyBy100           | boolean                                    | N         | Applicable for xsi:type of Percentage_t.   |
+| Parameter/@multiplyBy100            | boolean                                    | N         | Applicable for xsi:type of Percentage_t.   |
 |                                     |                                            |           | If true then percent values must be        |
 |                                     |                                            |           | multiplied by 100 before being sent on the |
 |                                     |                                            |           | wire. For example, if multiplyBy100 were   |
@@ -1742,14 +1741,14 @@ their description.
 |                                     |                                            |           | integer parameter should be used instead   |
 |                                     |                                            |           | of a percentage.**                         |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Parameter/\@mutableOnCxlRpl         | boolean                                    | N         | Indication of whether the parameter's      |
+| Parameter/@mutableOnCxlRpl          | boolean                                    | N         | Indication of whether the parameter's      |
 |                                     |                                            |           | value can be modified by an Order          |
 |                                     |                                            |           | Cancel/Replace Request message.            |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Default value: true                        |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Parameter/\@name                    | string restricted to                       | Y         | The name of the parameter. No two          |
-|                                     | \"\[A-Za-z\]\[A-za-z0-9\_\]{0,255}\"       |           | parameters of any strategy may have the    |
+| Parameter/@name                     | string restricted to                       | Y         | The name of the parameter. No two          |
+|                                     | "[A-Za-z][A-za-z0-9_]{0,255}"              |           | parameters of any strategy may have the    |
 |                                     |                                            |           | same name. The name may be used as a       |
 |                                     |                                            |           | unique key when referenced from the other  |
 |                                     |                                            |           | sub-schemas. Names must begin with an      |
@@ -1757,7 +1756,7 @@ their description.
 |                                     |                                            |           | alpha-numeric characters and must not      |
 |                                     |                                            |           | contain whitespace characters.             |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Parameter/\@precision               | non-neg int                                | N         | The number of digits to the right of the   |
+| Parameter/@precision                | non-neg int                                | N         | The number of digits to the right of the   |
 |                                     |                                            |           | decimal point in which to round when       |
 |                                     |                                            |           | populating the FIX message. Lack of this   |
 |                                     |                                            |           | attribute indicates that the value entered |
@@ -1767,17 +1766,19 @@ their description.
 |                                     |                                            |           | **Applicable when** xsi:type is Float_t,   |
 |                                     |                                            |           | Price_t, PriceOffset_t and Qty_t.          |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Parameter/\@revertOnCxlRpl          | boolean                                    | N         | Indicates how to interpret those tags that |
+| Parameter/@revertOnCxlRpl           | boolean                                    | N         | Indicates how to interpret those tags that |
 |                                     |                                            |           | were populated in an original order but    |
 |                                     |                                            |           | are not populated in a subsequent          |
 |                                     |                                            |           | cancel/replace of the order message. If    |
 |                                     |                                            |           | this value is true then revert to the      |
 |                                     |                                            |           | value of the original order, otherwise a   |
 |                                     |                                            |           | null value or the parameter's default      |
-|                                     |                                            |           | value (Control/\@initValue) is to be used  |
+|                                     |                                            |           | value (Control/@initValue) is to be used   |
 |                                     |                                            |           | or if none is specified, the parameter is  |
-|                                     |                                            |           | to be omitted.\                            |
-|                                     |                                            |           | Default value: false\                      |
+|                                     |                                            |           | to be omitted.                             |
+|                                     |                                            |           |                                            |
+|                                     |                                            |           | Default value: false                       |
+|                                     |                                            |           |                                            |
 |                                     |                                            |           | **NOTE:** Although revertOnCxlRpl and      |
 |                                     |                                            |           | mutableOnCxlRpl might appear to be         |
 |                                     |                                            |           | mutually exclusive, this is not strictly   |
@@ -1789,16 +1790,16 @@ their description.
 |                                     |                                            |           | parameter (assuming of course this is the  |
 |                                     |                                            |           | intended behaviour).                       |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Parameter/\@trueWireValue           | string                                     | N         | Applicable only when xsi:type is           |
-|                                     |                                            |           | Boolean\_t.                                |
+| Parameter/@trueWireValue            | string                                     | N         | Applicable only when xsi:type is           |
+|                                     |                                            |           | Boolean_t.                                 |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | **This attribute is targeted for           |
 |                                     |                                            |           | deprecation.**                             |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | **To achieve the same functionality, it is |
-|                                     |                                            |           | recommended that a Char\_t or String\_t    |
+|                                     |                                            |           | recommended that a Char_t or String_t      |
 |                                     |                                            |           | type parameter be used instead of a        |
-|                                     |                                            |           | Boolean\_t. The parameter should have two  |
+|                                     |                                            |           | Boolean_t. The parameter should have two   |
 |                                     |                                            |           | EnumPairs defined with one defining the    |
 |                                     |                                            |           | false wire-value and the other defining    |
 |                                     |                                            |           | the true wire-value. The parameter should  |
@@ -1830,13 +1831,13 @@ their description.
 |                                     |                                            |           | trueWireValue should be defined as         |
 |                                     |                                            |           | "{NULL}".                                  |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Parameter/\@use                     | Use\_t                                     | N         | Indicates whether a parameter is optional  |
+| Parameter/@use                      | Use_t                                      | N         | Indicates whether a parameter is optional  |
 |                                     |                                            |           | or required. Valid values are "optional"   |
 |                                     |                                            |           | and "required".                            |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Default value: "optional"                  |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Parameter/\@xsi:type                | string                                     | Y         | Indicates the type of the parameter. The   |
+| Parameter/@xsi:type                 | string                                     | Y         | Indicates the type of the parameter. The   |
 |                                     |                                            |           | type of the parameter determines which of  |
 |                                     |                                            |           | the extended attributes are applicable.    |
 |                                     |                                            |           | The namespace, xsi, must be declared       |
@@ -1877,18 +1878,18 @@ their description.
 |                                     |                                            |           | -   UTCTimeOnly_t                          |
 |                                     |                                            |           | -   UTCTimestamp_t                         |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Region/\@inclusion                  | string                                     | Y         | Indicates whether this region should be    |
+| Region/@inclusion                   | string                                     | Y         | Indicates whether this region should be    |
 |                                     |                                            |           | included or excluded when declared within  |
 |                                     |                                            |           | a list of regions. Valid values:           |
 |                                     |                                            |           | "Include", "Exclude".                      |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Region/\@name                       | String                                     | Y         | The name of the region. Valid values:      |
+| Region/@name                        | String                                     | Y         | The name of the region. Valid values:      |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | -   "TheAmericas"                          |
 |                                     |                                            |           | -   "EuropeMiddleEastAfrica"               |
 |                                     |                                            |           | -   "AsiaPacificJapan"                     |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| RepeatingGroup/\@fixTag             | int                                        | N         | The FIX tag corresponding to a NoXXX tag.  |
+| RepeatingGroup/@fixTag              | int                                        | N         | The FIX tag corresponding to a NoXXX tag.  |
 |                                     |                                            |           | Indicates that the Parameter elements      |
 |                                     |                                            |           | defined within the RepeatingGroup element  |
 |                                     |                                            |           | are repeating group tags when sent over    |
@@ -1899,61 +1900,33 @@ their description.
 |                                     |                                            |           | fixTag=68, either multiple NewOrder-List   |
 |                                     |                                            |           | messages may be sent where the total       |
 |                                     |                                            |           | number of orders over the entire list must |
-|                                     |                                            |           | be equal to Strategy/\@totalOrders, or     |
+|                                     |                                            |           | be equal to Strategy/@totalOrders, or      |
 |                                     |                                            |           | multiple NewOrder-Single messages may be   |
 |                                     |                                            |           | sent where total number of orders must be  |
-|                                     |                                            |           | equal to Strategy/\@totalOrders.           |
+|                                     |                                            |           | equal to Strategy/@totalOrders.            |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| RepeatingGroup/\@maxSize            | int                                        | N         | The maximum number of legs or list orders. |
+| RepeatingGroup/@maxSize             | int                                        | N         | The maximum number of legs or list orders. |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| RepeatingGroup/\@minSize            | int                                        | Y         | The minimum number of legs or list orders. |
+| RepeatingGroup/@minSize             | int                                        | Y         | The minimum number of legs or list orders. |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| RepeatingGroup/\@name               | string                                     | N         | FIX Field name of the repeating group.     |
+| RepeatingGroup/@name                | string                                     | N         | FIX Field name of the repeating group.     |
 |                                     |                                            |           | Must refer to a FIX field of NumInGroup    |
-|                                     |                                            |           | type. Valid values: \"TotNoOrders\"        |
+|                                     |                                            |           | type. Valid values: "TotNoOrders"          |
 |                                     |                                            |           | (when NewOrder-List messages are           |
-|                                     |                                            |           | expected), \"NoLegs\" (when                |
+|                                     |                                            |           | expected), "NoLegs" (when                  |
 |                                     |                                            |           | NewOrder-Multileg messages are expected).  |
 |                                     |                                            |           | This field should be omitted when          |
 |                                     |                                            |           | NewOrder-Single message are expected.      |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| SecurityType/\@inclusion            | string                                     | Y         | Indicates whether this security type       |
+| SecurityType/@inclusion             | string                                     | Y         | Indicates whether this security type       |
 |                                     |                                            |           | should be included or excluded from        |
 |                                     |                                            |           | encompassing list. Valid values:           |
 |                                     |                                            |           | "Include", "Exclude".                      |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| SecurityType/\@name                 | string                                     | Y         | Indicates type of security. Valid values   |
-|                                     |                                            |           | equivalent to FIX tag 167 values.          |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | Previous versions of FIXatdl had required  |
-|                                     |                                            |           | the use of the first character of a        |
-|                                     |                                            |           | CFICode to describe security types. To     |
-|                                     |                                            |           | migrate from CFICode refer to the          |
-|                                     |                                            |           | following mapping:                         |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | [FIXatdl 1.0]{.underline}                  |
-|                                     |                                            |           | [FIXatdl1.1]{.underline}                   |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | E \[Equities\] CS \[Common Stock\]         |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | D \[Debt Instruments\] \<see tag 167       |
-|                                     |                                            |           | list\>                                     |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | R \[Entitlement Rights\] \<see tag 167     |
-|                                     |                                            |           | list\>                                     |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | O \[Options\] OPT \[Options\]              |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | F \[Futures\] FUT \[Futures\]              |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | M \[Other/Miscellaneous\] \<see tag 167    |
-|                                     |                                            |           | list\>                                     |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | FXSPOT \[FX Spot\]                         |
-|                                     |                                            |           |                                            |
-|                                     |                                            |           | FXFWD \[FX Forward\]                       |
+| SecurityType/@name                  | string                                     | Y         | Indicates type of security. Valid values   |
+|                                     |                                            |           | equivalent to FIX SecurityType(167) values.|
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| StateRule/\@enabled                 | boolean                                    | N         | Indicates whether or not to enable the     |
+| StateRule/@enabled                  | boolean                                    | N         | Indicates whether or not to enable the     |
 |                                     |                                            |           | control when the edit expression of the    |
 |                                     |                                            |           | strategyEdit element evaluates to True.    |
 |                                     |                                            |           | The desired behavior is as follows: when   |
@@ -1973,7 +1946,7 @@ their description.
 |                                     |                                            |           | A control's "enabled" property does not    |
 |                                     |                                            |           | influence what goes out on the wire.       |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| StateRule/\@value                   | string                                     | N         | GUI control\'s displayed value should be   |
+| StateRule/@value                    | string                                     | N         | GUI control's displayed value should be    |
 |                                     |                                            |           | set to this value when edit condition is   |
 |                                     |                                            |           | true. Although the type of this attribute  |
 |                                     |                                            |           | has been listed as string, ultimately the  |
@@ -1985,7 +1958,7 @@ their description.
 |                                     |                                            |           | (e.g. "15").                               |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | If the control contains ListItem elements  |
-|                                     |                                            |           | then allowable values of StateRule/\@value |
+|                                     |                                            |           | then allowable values of StateRule/@value  |
 |                                     |                                            |           | is restricted to the enumIDs of the        |
 |                                     |                                            |           | ListItem elements.                         |
 |                                     |                                            |           |                                            |
@@ -2010,7 +1983,7 @@ their description.
 |                                     |                                            |           | initialized. (They are either checked or   |
 |                                     |                                            |           | unchecked.)                                |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| StateRule/\@visible                 | boolean                                    | N         | Indicates whether or not to show the       |
+| StateRule/@visible                  | boolean                                    | N         | Indicates whether or not to show the       |
 |                                     |                                            |           | control when the boolean expression,       |
 |                                     |                                            |           | defined by the Edit element, evaluates to  |
 |                                     |                                            |           | True. The desired behavior is as follows:  |
@@ -2023,124 +1996,124 @@ their description.
 |                                     |                                            |           | the edit condition is false and            |
 |                                     |                                            |           | enabled=false then display the control.    |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Strategies/\@changeStrategyOnCxlRpl | boolean                                    | N         | Indicates whether a new strategy can be    |
+| Strategies/@changeStrategyOnCxlRpl  | boolean                                    | N         | Indicates whether a new strategy can be    |
 |                                     |                                            |           | chosen during a Cancel/Replace.            |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Strategies/\@draftFlagIdentifierTag | pos int                                    | N         | The tag within the FIX order message to be |
-|                                     |                                            |           | populated with a boolean (\'Y\'/\'N\')     |
+| Strategies/@draftFlagIdentifierTag  | pos int                                    | N         | The tag within the FIX order message to be |
+|                                     |                                            |           | populated with a boolean ('Y'/'N')         |
 |                                     |                                            |           | indicating whether the order is a draft.   |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Strategies/\@imageLocation          | string                                     | N         | Filepath or URL of an image file or logo   |
+| Strategies/@imageLocation           | string                                     | N         | Filepath or URL of an image file or logo   |
 |                                     |                                            |           | of the algo providing firm.                |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Strategies/\@strategyIdentifierTag  | pos int                                    | Y         | The tag within the FIX order message to be |
+| Strategies/@strategyIdentifierTag   | pos int                                    | Y         | The tag within the FIX order message to be |
 |                                     |                                            |           | populated with a value identifying the     |
 |                                     |                                            |           | chosen strategy. E.g. if                   |
 |                                     |                                            |           | strategyIdentifierTag is 5001 and the      |
 |                                     |                                            |           | chosen strategy is identified by the value |
-|                                     |                                            |           | \'VWAP\' then the FIX order message would  |
+|                                     |                                            |           | 'VWAP' then the FIX order message would    |
 |                                     |                                            |           | contain the tag-value pair 5001=VWAP.      |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Strategies/\@versionIdentifierTag   | pos int                                    | N         | The tag within the FIX order message to be |
+| Strategies/@versionIdentifierTag    | pos int                                    | N         | The tag within the FIX order message to be |
 |                                     |                                            |           | populated with a value identifying the     |
 |                                     |                                            |           | version of a chosen strategy. For example, |
 |                                     |                                            |           | if versionIdentifierTag is 5002 and the    |
-|                                     |                                            |           | version of the chosen strategy is \'2.01\' |
+|                                     |                                            |           | version of the chosen strategy is '2.01'   |
 |                                     |                                            |           | then the FIX order message would contain   |
 |                                     |                                            |           | the tag-value pair 5001=2.01               |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Strategies/\@tag957Support          | boolean                                    | N         | Indicates whether the order recipient can  |
+| Strategies/@tag957Support           | boolean                                    | N         | Indicates whether the order recipient can  |
 |                                     |                                            |           | receive algorithmic parameters in the      |
 |                                     |                                            |           | StrategyParametersGrp component block, a   |
-|                                     |                                            |           | repeating group starting at tag 957. If    |
+|                                     |                                            |           | repeating group starting at                |
+|                                     |                                            |           | NoStrategyParameters(957). If              |
 |                                     |                                            |           | this mode of parameter transport is not    |
 |                                     |                                            |           | supported then the fixTag attribute of all |
 |                                     |                                            |           | Parameter elements is required.            |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Default value: false.                      |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Strategy/\@commonIDTag              | non-neg int                                | N         | Used to denote where to place a common     |
+| Strategy/@commonIDTag               | non-neg int                                | N         | Used to denote where to place a common     |
 |                                     |                                            |           | basket ID when linking together single     |
 |                                     |                                            |           | orders.                                    |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Strategy/\@disclosureDoc            | anyURI                                     | N         | URL of a disclosure document supplied by   |
+| Strategy/@disclosureDoc             | anyURI                                     | N         | URL of a disclosure document supplied by   |
 |                                     |                                            |           | the algorithm provider.                    |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Strategy/\@fixMsgType               | string                                     | N         | Indicates the FIX message to use when      |
+| Strategy/@fixMsgType                | string                                     | N         | Indicates the FIX message to use when      |
 |                                     |                                            |           | transmitting the order. Values taken from  |
-|                                     |                                            |           | FIX tag 35. Can be one of "D"              |
-|                                     |                                            |           | (NewOrder-Single), "E" (NewOrder-List),    |
-|                                     |                                            |           | "AB" (NewOrder-Multileg), or "s"           |
-|                                     |                                            |           | (NewOrder-Cross).                          |
+|                                     |                                            |           | FIX field MsgType(35). Can be one of "D"   |
+|                                     |                                            |           | (NewOrderSingle), "E" (NewOrderList),      |
+|                                     |                                            |           | "AB" (NewOrderMultileg), or "s"            |
+|                                     |                                            |           | (NewOrderCross).                           |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Strategy/\@imageLocation            | string                                     | N         | File path or URL of an image file or logo  |
+| Strategy/@imageLocation             | string                                     | N         | File path or URL of an image file or logo  |
 |                                     |                                            |           | of this particular strategy.               |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Strategy/\@name                     | StringID                                   | Y         | Unique identifier of a strategy. Strategy  |
+| Strategy/@name                      | StringID                                   | Y         | Unique identifier of a strategy. Strategy  |
 |                                     |                                            |           | names must be unique per provider.         |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Strategy/\@orderSequenceTag         | Non-neg int                                | N         | Used to denote the tag which will contain  |
+| Strategy/@orderSequenceTag          | Non-neg int                                | N         | Used to denote the tag which will contain  |
 |                                     |                                            |           | the sequence number of a particular order  |
 |                                     |                                            |           | of a basket.                               |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Strategy/\@providerID               | string                                     | N         | Identifies the firm providing the          |
+| Strategy/@providerID                | string                                     | N         | Identifies the firm providing the          |
 |                                     |                                            |           | algorithm.                                 |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Strategy/\@providerSubID            | string                                     | N         | A further level of firm identification.    |
+| Strategy/@providerSubID             | string                                     | N         | A further level of firm identification.    |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Strategy/\@sentOrderLink            | anyURI                                     | N         | Prefix portion of a URL to access the      |
+| Strategy/@sentOrderLink             | anyURI                                     | N         | Prefix portion of a URL to access the      |
 |                                     |                                            |           | order or draft at the target e.g.          |
-|                                     |                                            |           | ht                                         |
-|                                     |                                            |           | tps://xyz.com/algo/dashboard?SenderCompID= |
-|                                     |                                            |           | OMS appends to this the specific           |
+|                                     |                                            |           | https://xyz.com/algo/dashboard?SenderCompID=OMS |
+|                                     |                                            |           | appends to this the specific               |
 |                                     |                                            |           | SenderCompID string, an ampersand          |
-|                                     |                                            |           | \"ClOrdID=\" and the specific              |
+|                                     |                                            |           | "ClOrdID=" and the specific                |
 |                                     |                                            |           | ClOrdID-string. Trader hits this full URL  |
 |                                     |                                            |           | to communicate regarding the order or      |
 |                                     |                                            |           | draft. See additional documentation.       |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Strategy/\@totalLegs                | non-neg int                                | N         | Used when msgType is AB and denotes number |
+| Strategy/@totalLegs                 | non-neg int                                | N         | Used when msgType is AB and denotes number |
 |                                     |                                            |           | of repeating legs.                         |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Strategy/\@totalOrders              | non-neg int                                | N         | Used to denote number of repeating orders  |
+| Strategy/@totalOrders               | non-neg int                                | N         | Used to denote number of repeating orders  |
 |                                     |                                            |           | in a NewOrder-List message or a basket of  |
 |                                     |                                            |           | NewOrder-Single messages.                  |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Strategy/\@totalOrdersTag           | non-neg int                                | N         | In basket trading, used to denote where to |
+| Strategy/@totalOrdersTag            | non-neg int                                | N         | In basket trading, used to denote where to |
 |                                     |                                            |           | place the total number of orders of a      |
 |                                     |                                            |           | basket.                                    |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Strategy/\@uiRep                    | string                                     | N         | The name of the strategy as rendered in    |
+| Strategy/@uiRep                     | string                                     | N         | The name of the strategy as rendered in    |
 |                                     |                                            |           | the UI. If not provided then the "name"    |
 |                                     |                                            |           | attribute should be used. (This is the     |
 |                                     |                                            |           | value rendered on the UI when the user is  |
 |                                     |                                            |           | presented with a choice of algorithms.)    |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Strategy/\@version                  | string                                     | Y         | Information to facilitate version control  |
+| Strategy/@version                   | string                                     | Y         | Information to facilitate version control  |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| Strategy/\@wireValue                | string                                     | Y         | The value used to identify the algorithm.  |
+| Strategy/@wireValue                 | string                                     | Y         | The value used to identify the algorithm.  |
 |                                     |                                            |           | The tag referred to by                     |
-|                                     |                                            |           | Strategy/\@strategyIdentifierTag will be   |
+|                                     |                                            |           | Strategy/@strategyIdentifierTag will be    |
 |                                     |                                            |           | set to this value.                         |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| StrategyEdit/\@errorMsg             | string                                     | Y         | The error message to display when the      |
+| StrategyEdit/@errorMsg              | string                                     | Y         | The error message to display when the      |
 |                                     |                                            |           | boolean expression defined by              |
 |                                     |                                            |           | StrategyEdit/Edit evaluates to False.      |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| StrategyPanel/\@border              | Border                                     | N         | Recommended border for the panel.          |
+| StrategyPanel/@border               | Border                                     | N         | Recommended border for the panel.          |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Valid values:                              |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | -   None                                   |
 |                                     |                                            |           | -   Line                                   |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| StrategyPanel/\@collapsed           | boolean                                    | N         | Initial visual state of a panel. Indicates |
+| StrategyPanel/@collapsed            | boolean                                    | N         | Initial visual state of a panel. Indicates |
 |                                     |                                            |           | whether a panel is initially drawn in a    |
 |                                     |                                            |           | collapsed state.                           |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Default value: false.                      |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| StrategyPanel/\@collapsible         | boolean                                    | N         | Indicates whether panel can be collapsed.  |
+| StrategyPanel/@collapsible          | boolean                                    | N         | Indicates whether panel can be collapsed.  |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Default value: false.                      |
 |                                     |                                            |           |                                            |
@@ -2151,7 +2124,7 @@ their description.
 |                                     |                                            |           | attribute be treated as a required         |
 |                                     |                                            |           | attribute.)                                |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| StrategyPanel/\@color               | string                                     | N         | The background color of a panel. The value |
+| StrategyPanel/@color                | string                                     | N         | The background color of a panel. The value |
 |                                     |                                            |           | should appear as the RBG combination       |
 |                                     |                                            |           | separated by commas.                       |
 |                                     |                                            |           |                                            |
@@ -2159,12 +2132,12 @@ their description.
 |                                     |                                            |           | this attribute and rely on their own color |
 |                                     |                                            |           | scheme.**                                  |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| StrategyPanel/\@orientation         | Orientation                                | Y         | Must be "HORIZONTAL" or "VERTICAL".        |
+| StrategyPanel/@orientation          | Orientation                                | Y         | Must be "HORIZONTAL" or "VERTICAL".        |
 |                                     |                                            |           | Declares the orientation of the components |
 |                                     |                                            |           | (parameters or nested strategyPanels)      |
 |                                     |                                            |           | within a strategyPanel.                    |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
-| StrategyPanel/\@title               | string                                     | N         | Title that appears in the panel border.    |
+| StrategyPanel/@title                | string                                     | N         | Title that appears in the panel border.    |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
 
 # Parameter Type-Attribute Matrix
@@ -2205,7 +2178,7 @@ All others have been defined explicitly within the FIXatdl schema files.
 |                          |            | market conditions. Refer to Volume 7: FIX Usage by Product for asset classes that support negative price |
 |                          |            | values.                                                                                                  |
 +--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| PriceOffset              | FIXML      | Float value representing a price offset, which can be mathematically added to a \"Price\". Note the      |
+| PriceOffset              | FIXML      | Float value representing a price offset, which can be mathematically added to a "Price". Note the        |
 |                          |            | number of decimal places may vary and some fields such as LastForwardPoints may be negative.             |
 +--------------------------+------------+----------------------------------------------------------------------------------------------------------+
 | Qty                      | FIXML      | float value capable of storing either a whole number (no decimal places) of "shares" (securities         |
@@ -2216,12 +2189,12 @@ All others have been defined explicitly within the FIXatdl schema files.
 +--------------------------+------------+----------------------------------------------------------------------------------------------------------+
 | string                   | XML Schema | The string datatype represents character strings in XML.                                                 |
 +--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| StringID                 | FIXatdl    | String with pattern restriction \"\[A-Za-z\]\[A-za-z0-9\_\]{0,255}\".                                    |
+| StringID                 | FIXatdl    | String with pattern restriction "[A-Za-z][A-za-z0-9_]{0,255}".                                           |
 +--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| time                     | XML Schema | Time specified in the format "hh:mm\[:ss\]" or "hh:mm\[:ss\]{+,-}hh:mm". In the later format the offset  |
+| time                     | XML Schema | Time specified in the format "hh:mm[:ss]" or "hh:mm[:ss]{+,-}hh:mm". In the later format the offset      |
 |                          |            | from UTC is provided.                                                                                    |
 +--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| date                     | XML Schema | The date data type is used to specify a date. The date is specified in the following form \"YYYY-MM-DD\" |
+| date                     | XML Schema | The date data type is used to specify a date. The date is specified in the following form "YYYY-MM-DD"   |
 |                          |            | where:                                                                                                   |
 |                          |            |                                                                                                          |
 |                          |            | -   YYYY indicates the year                                                                              |
@@ -2233,7 +2206,7 @@ All others have been defined explicitly within the FIXatdl schema files.
 | TZTimestamp              | FIXML      | String field representing a time/date combination representing local time with an offset to UTC to allow |
 |                          |            | identification of local time and timezone offset of that time. The representation is based on ISO 8601.  |
 |                          |            |                                                                                                          |
-|                          |            | Format is YYYYMMDD-HH:MM:SS\[Z \| \[ + \| - hh\[:mm\]\]\] where YYYY = 0000 to 9999, MM = 01-12, DD =    |
+|                          |            | Format is YYYYMMDD-HH:MM:SS[Z | [ + | - hh[:mm]]] where YYYY = 0000 to 9999, MM = 01-12, DD =            |
 |                          |            | 01-31 HH = 00-23 hours, MM = 00-59 minutes, SS = 00-59 seconds, hh = 01-12 offset hours, mm = 00-59      |
 |                          |            | offset minutes                                                                                           |
 |                          |            |                                                                                                          |
@@ -2249,7 +2222,7 @@ All others have been defined explicitly within the FIXatdl schema files.
 | TZTimeOnly               | FIXML      | String field representing the time represented based on ISO 8601. This is the time with a UTC offset to  |
 |                          |            | allow identification of local time and timezone of that time.                                            |
 |                          |            |                                                                                                          |
-|                          |            | Format is HH:MM\[:SS\]\[Z \| \[ + \| - hh\[:mm\]\]\] where HH = 00-23 hours, MM = 00-59 minutes, SS =    |
+|                          |            | Format is HH:MM[:SS][Z | [ + | - hh[:mm]]] where HH = 00-23 hours, MM = 00-59 minutes, SS =              |
 |                          |            | 00-59 seconds, hh = 01-12 offset hours, mm = 00-59 offset minutes.                                       |
 |                          |            |                                                                                                          |
 |                          |            | Example: 07:39Z is 07:39 UTC                                                                             |
@@ -2263,13 +2236,13 @@ All others have been defined explicitly within the FIXatdl schema files.
 | Tenor                    | FIXML      | Pattern used to allow the expression of FX standard tenors in addition to the base valid enumerations    |
 |                          |            | defined for the field that uses this pattern data type. This pattern data type is defined as follows:    |
 |                          |            |                                                                                                          |
-|                          |            | Dx = tenor expression for \"days\", e.g. \"D5\", where \"x\" is any integer \> 0                         |
+|                          |            | Dx = tenor expression for "days", e.g. "D5", where "x" is any integer > 0                                |
 |                          |            |                                                                                                          |
-|                          |            | Mx = tenor expression for \"months\", e.g. \"M3\", where \"x\" is any integer \> 0                       |
+|                          |            | Mx = tenor expression for "months", e.g. "M3", where "x" is any integer > 0                              |
 |                          |            |                                                                                                          |
-|                          |            | Wx = tenor expression for \"weeks\", e.g. \"W13\", where \"x\" is any integer \> 0                       |
+|                          |            | Wx = tenor expression for "weeks", e.g. "W13", where "x" is any integer > 0                              |
 |                          |            |                                                                                                          |
-|                          |            | Yx = tenor expression for \"years\", e.g. \"Y1\", where \"x\" is any integer \> 0                        |
+|                          |            | Yx = tenor expression for "years", e.g. "Y1", where "x" is any integer > 0                               |
 +--------------------------+------------+----------------------------------------------------------------------------------------------------------+
 | UTCDateOnly              | FIXML      | String Date represented in UTC (Universal Time Coordinated, also known as "GMT") in YYYYMMDD format.     |
 |                          |            | This special-purpose field is paired with UTCTimeOnly to form a proper UTCTimestamp for                  |
@@ -2279,7 +2252,7 @@ All others have been defined explicitly within the FIXatdl schema files.
 |                          |            |                                                                                                          |
 |                          |            | YYYY = 0000-9999, MM = 01-12, DD = 01-31.                                                                |
 +--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| UTCTimeOnly              | FIXML      | String Time-only represented in UTC (Universal Time Coordinated, also known as \"GMT\") in either        |
+| UTCTimeOnly              | FIXML      | String Time-only represented in UTC (Universal Time Coordinated, also known as "GMT") in either          |
 |                          |            | HH:MM:SS (whole seconds) or HH:MM:SS.sss (milliseconds) format, colons, and period required. This        |
 |                          |            | special-purpose field is paired with UTCDateOnly to form a proper UTCTimestamp for bandwidth-sensitive   |
 |                          |            | messages.                                                                                                |
@@ -2306,8 +2279,8 @@ All others have been defined explicitly within the FIXatdl schema files.
 |                          |            | slowing of the rotation of the earth. Leap second insertion is declared by the International Earth       |
 |                          |            | Rotation Service (IERS) and has, since 1972, only occurred on the night of Dec. 31 or Jun 30. The IERS   |
 |                          |            | considers March 31 and September 30 as secondary dates for leap second insertion, but has never utilized |
-|                          |            | these dates. During a leap second insertion, a UTCTimestamp field may read \"19981231-23:59:59\",        |
-|                          |            | \"19981231-23:59:60\", \"19990101-00:00:00\"                                                             |
+|                          |            | these dates. During a leap second insertion, a UTCTimestamp field may read "19981231-23:59:59",          |
+|                          |            | "19981231-23:59:60", "19990101-00:00:00"                                                                 |
 |                          |            | (see [http://tycho.usno.navy.mil/leapsec.html](http://tycho.usno.navy.mil/leapsec.html).)                |
 +--------------------------+------------+----------------------------------------------------------------------------------------------------------+
 
@@ -2330,7 +2303,7 @@ that tag. FIXatdl requires that any custom parameter to an algorithm
 must be of a type defined by the FIX Protocol. So the schema provides a
 set of complex types that are used to extend the Parameter element.
 These complex types directly correspond to the enumeration type
-description of tag 959 in the FIX 5.0 specification.
+description of StrategyParameterType(959) in the [FIX Latest specification](https://www.fixtrading.org/online-specification/).
 
 It is required that each Parameter element be extended by setting the
 attribute xsi:type equal to the name of one of the FIXatdl parameter
@@ -2356,7 +2329,8 @@ of the wire-value and the extended attributes that apply only to the
 specific parameter extension type.
 
 ------------------------------------------------------------------------------------------------------------------------------
-**Parameter xsi:type**   **Corresponding FIX 5.0 Type**   **Attribute Name[^2]**                         **Attribute Type[^2]**   
+**Parameter xsi:type**   **Corresponding FIX Latest**\    **Attribute Name[^2]**                         **Attribute Type[^2]**
+                         **Types**
 ------------------------ -------------------------------- ---------------------------------------------- ---------------------
 Amt_t                    Amt                              minValue\                                      decimal\
                                                           maxValue\                                      decimal\
@@ -2620,7 +2594,7 @@ compliant.
 |    |                   |                         | elements.                                                                                      |
 +----+-------------------+-------------------------+------------------------------------------------------------------------------------------------+
 | 4  | Edit              | field, field2           | Within an edit element the attributes field and field2 must refer to either a pre-declared     |
-|    |                   |                         | parameter name or a standard FIX tag name (taken from the FIX specification) pre-pended with   |
+|    |                   |                         | parameter name or a standard FIX field name (taken from the FIX specification) pre-pended with |
 |    |                   |                         | the string "FIX\_".                                                                            |
 +----+-------------------+-------------------------+------------------------------------------------------------------------------------------------+
 | 5  | Edit              | value                   | Within an edit element, the type of the value attribute must safely match with the type of     |
@@ -2656,12 +2630,12 @@ vertically aligned. Three validation rules are provided.
 
 ```xml
 <Strategies
-    xmlns="http://www.fixprotocol.org/FIXatdl-1-1/Core"
-    xmlns:val="http://www.fixprotocol.org/FIXatdl-1-1/Validation"
-    xmlns:lay="http://www.fixprotocol.org/FIXatdl-1-1/Layout"
-    xmlns:flow="http://www.fixprotocol.org/FIXatdl-1-1/Flow"
+    xmlns="http://www.fixprotocol.org/FIXatdl-1-2/Core"
+    xmlns:val="http://www.fixprotocol.org/FIXatdl-1-2/Validation"
+    xmlns:lay="http://www.fixprotocol.org/FIXatdl-1-2/Layout"
+    xmlns:flow="http://www.fixprotocol.org/FIXatdl-1-2/Flow"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.fixprotocol.org/FIXatdl-1-1/Core fixatdl-core-1-1.xsd"
+    xsi:schemaLocation="http://www.fixprotocol.org/FIXatdl-1-2/Core fixatdl-core-1-2.xsd"
     strategyIdentifierTag="7620"
     versionIdentifierTag="7621"
 >
@@ -2703,10 +2677,10 @@ vertically aligned. Three validation rules are provided.
             Parameter declarations
 
             Five parameters are declared here. The order recipient may reject
-            orders with: EndTime (tag 7603) values greater than 4pm New York time;
-            SweepDistribution (tag 7640) values other than "U" or "G"; Variance
-            (tag 7641) values outside the range [0.01, 0.50]; and DisplayQty
-            (tag 7645) values less than 0.
+            orders with: EndTime(7603) values greater than 4pm New York time;
+            SweepDistribution(7640) values other than "U" or "G"; Variance(7641)
+            values outside the range [0.01, 0.50]; and DisplayQty(7645)
+            values less than 0.
         -->
         <Parameter name="StartTime" xsi:type="UTCTimestamp_t" fixTag="7602" use="required"/>
         <Parameter name="EndTime" xsi:type="UTCTimestamp_t" fixTag="7603" use="required"

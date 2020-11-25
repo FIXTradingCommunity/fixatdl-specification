@@ -820,15 +820,15 @@ table.
 |                  |                                                 | implied that the strategy is applicable for \*ONLY\* that     |
 |                  |                                                 | market.  If a region is defined and is set to \"Exclude\",    |
 |                  |                                                 | then it is implied that the strategy is applicable for all    |
-|                  |                                                 | markets \*EXCEPT\* that market.\                              |
-|                  |                                                 | \                                                             |
+|                  |                                                 | markets \*EXCEPT\* that market.                               |
+|                  |                                                 |                                                               |
 |                  |                                                 | Include takes precedence over Exclude - for example, if XNAS  |
 |                  |                                                 | is defined and set to \"Include\" and XLON is defined and set |
 |                  |                                                 | to \"Exclude\" then all other markets will also be excluded   |
 |                  |                                                 | since the \"Include\" on XNAS takes precedence over the       |
 |                  |                                                 | \"Exclude\" on XLON.  In this example, the definition of XLON |
-|                  |                                                 | as \"Exclude\" is unnecessary.\                               |
-|                  |                                                 | \                                                             |
+|                  |                                                 | as \"Exclude\" is unnecessary.                                |
+|                  |                                                 |                                                               |
 |                  |                                                 | Markets are used in conjunction with regions and countries to |
 |                  |                                                 | define the scope of the strategy.  Markets take precedence    |
 |                  |                                                 | over regions and countries.  For example, if AsiaPacificJapan |
