@@ -441,7 +441,7 @@ have an associated Parameter. These controls are typically defined in
 order to affect the state of other controls via the use of a StateRule.
 
 The following listing describes four parameters and the layout of their
-four associated controls. (Key identifiers have been highlighted.)[HANNO: to be removed/revised, automatic syntax highlighting] If we
+four associated controls. If we
 examine the code we'll notice that the controls are enclosed in two
 StrategyPanels, one entitled "Time Parameters" and the other entitled
 "Advanced". These two panels are nested horizontally into the top-level
@@ -537,9 +537,9 @@ it describes is true. This differs from validation rules, where the
 action of "raising an error" occurs when the condition is false.
 
 To illustrate the description of a Flow-control rule consider the
-following code snippet. (Note how the highlighted Control/@ID attribute
-matches the highlighted Edit/@field attribute and how the highlighted
-enumID attribute matches the highlighted value attribute):[HANNO: to be removed/revised, automatic syntax highlighting]
+following code snippet. (Note how the Control/@ID attribute
+"c_AlphaMode" matches the Edit/@field attribute "c_AlphaMode" and how the
+enumID attribute "e_Custom" matches the value attribute "e_Custom"):
 
 ```xml
 <Parameter name="AlphaMode" xsi:type="Int_t" fixTag="8300" use="required">
@@ -583,28 +583,28 @@ being false to being true, it is not clear what changes to make when the
 condition becomes false again (or is initially false). So, to clarify
 the behavior of the controls, the following conventions are applied:
 
-i.  A StateRule that changes the "enabled" property of a control to X
-    when its condition becomes true, will implicitly cause the
-    "enabled" property of the control to change to NOT(X) when its
-    condition becomes false, where X is Boolean. (The \"enabled\"
-    property simply controls whether or not the value within the
-    control can be changed (is read-only) and is not a determining
-    factor in whether or not the control\'s value is to be included in
-    the message transmitted over the wire.)
+1. A StateRule that changes the "enabled" property of a control to X
+   when its condition becomes true, will implicitly cause the
+   "enabled" property of the control to change to NOT(X) when its
+   condition becomes false, where X is Boolean. (The \"enabled\"
+   property simply controls whether or not the value within the
+   control can be changed (is read-only) and is not a determining
+   factor in whether or not the control\'s value is to be included in
+   the message transmitted over the wire.)
 
-ii. A StateRule that changes the "visible" property of a control to X
-    when its condition becomes true, will implicitly cause the
-    "visible" property of the control to change to NOT(X) when its
-    condition becomes false, where X is Boolean.
+2. A StateRule that changes the "visible" property of a control to X
+   when its condition becomes true, will implicitly cause the
+   "visible" property of the control to change to NOT(X) when its
+   condition becomes false, where X is Boolean.
 
-iii. A StateRule that changes the value of a control when its condition
-     becomes true will cause no action to take place when its
-     condition becomes false. Provided the vale expressed in the
-     StateRule element is not the special token "{NULL}".
+3. A StateRule that changes the value of a control when its condition
+   becomes true will cause no action to take place when its
+   condition becomes false. Provided the vale expressed in the
+   StateRule element is not the special token "{NULL}".
 
-iv. A StateRule that changes the value of a control to "{NULL}" when its
-    condition becomes true will cause the control's value to revert
-    back to its previous non-{NULL} value or its initial value.
+4. A StateRule that changes the value of a control to "{NULL}" when its
+   condition becomes true will cause the control's value to revert
+   back to its previous non-{NULL} value or its initial value.
 
 Note that due to (iv), when a StateRule condition becomes false it may
 cause the control to become un-initialized. When this occurs the control
@@ -618,12 +618,12 @@ property does not influence whether the control's associated parameter
 is sent on the wire or not. This behavior is governed entirely by the
 control's value. To clarify this, we must adhere to another convention:
 
-v.  To the extent that a control's value determines the "wire-value" of
-    a particular parameter, if the control is un-initialized or has
-    been set to the value of "{NULL}" then the associated parameter
-    will not have a "wire-value" and will not have its tag-value pair
-    included in a New Order Single, Order Cancel Request or Order
-    Cancel/Replace Request message.
+5. To the extent that a control's value determines the "wire-value" of
+   a particular parameter, if the control is un-initialized or has
+   been set to the value of "{NULL}" then the associated parameter
+   will not have a "wire-value" and will not have its tag-value pair
+   included in a New Order Single, Order Cancel Request or Order
+   Cancel/Replace Request message.
 
 In other words, if a user enters a value into a control and subsequently
 the control becomes disabled then the value that was entered would cause
@@ -2149,7 +2149,7 @@ their description.
 
 The types of the attribute listed in the previous table are defined
 here. Many of these datatypes have been leveraged from the FIXML
-schema file fixml-datatypes-5-0.xsd. Some come from the XML Schema
+schema file fixml-datatypes-5-0-SP2.xsd. Some come from the XML Schema
 namespace [http://www.w3.org/2001/XMLSchema](http://www.w3.org/2001/XMLSchema)
 All others have been defined explicitly within the FIXatdl schema files.
 
@@ -2174,8 +2174,7 @@ All others have been defined explicitly within the FIXatdl schema files.
 +--------------------------+------------+----------------------------------------------------------------------------------------------------------+
 | Price                    | FIXML      | Float value representing a price. Note the number of decimal places may vary. For certain asset classes, |
 |                          |            | prices may be negative values. For example, prices for options strategies can be negative under certain  |
-|                          |            | market conditions. Refer to Volume 7: FIX Usage by Product for asset classes that support negative price |
-|                          |            | values.                                                                                                  |
+|                          |            | market conditions.                                                                                       |
 +--------------------------+------------+----------------------------------------------------------------------------------------------------------+
 | PriceOffset              | FIXML      | Float value representing a price offset, which can be mathematically added to a "Price". Note the        |
 |                          |            | number of decimal places may vary and some fields such as LastForwardPoints may be negative.             |
@@ -2831,174 +2830,5 @@ vertically aligned. Three validation rules are provided.
 Appendix 1 - LocalMktTz Type
 :::
 
-The following table shows the valid values of attributes of the type
-LocalMktTz. In the FIXatdl schema a simple type, LocalMktTz_t, has
-been defined as a string which is restricted to the zone names of the
-TZ environment variable.
-
-A reference to the zone environment variable can be found at
-[http://en.wikipedia.org/wiki/List_of_zoneinfo_time_zones](http://en.wikipedia.org/wiki/List_of_zoneinfo_time_zones).
-
------------------------- --------------------------------- ---------------------------------
-Africa/Abidjan           Africa/Libreville                 America/Argentina/La\_Rioja
-Africa/Accra             Africa/Lome                       America/Argentina/Mendoza
-Africa/Addis\_Ababa      Africa/Luanda                     America/Argentina/Rio\_Gallegos
-Africa/Algiers           Africa/Lubumbashi                 America/Argentina/Salta
-Africa/Asmara            Africa/Lusaka                     America/Argentina/San\_Juan
-Africa/Bamako            Africa/Malabo                     America/Argentina/San\_Luis
-Africa/Bangui            Africa/Maputo                     America/Argentina/Tucuman
-Africa/Banjul            Africa/Maseru                     America/Argentina/Ushuaia
-Africa/Bissau            Africa/Mbabane                    America/Aruba
-Africa/Blantyre          Africa/Mogadishu                  America/Asuncion
-Africa/Brazzaville       Africa/Monrovia                   America/Atikokan
-Africa/Bujumbura         Africa/Nairobi                    America/Bahia
-Africa/Cairo             Africa/Ndjamena                   America/Barbados
-Africa/Casablanca        Africa/Niamey                     America/Belem
-Africa/Ceuta             Africa/Nouakchott                 America/Belize
-Africa/Conakry           Africa/Ouagadougou                America/Blanc-Sablon
-Africa/Dakar             Africa/Porto-Novo                 America/Boa\_Vista
-Africa/Dar\_es\_Salaam   Africa/Sao\_Tome                  America/Bogota
-Africa/Djibouti          Africa/Tripoli                    America/Boise
-Africa/Douala            Africa/Tunis                      America/Cambridge\_Bay
-Africa/El\_Aaiun         Africa/Windhoek                   America/Campo\_Grande
-Africa/Freetown          America/Adak                      America/Cancun
-Africa/Gaborone          America/Anchorage                 America/Caracas
-Africa/Harare            America/Anguilla                  America/Cayenne
-Africa/Johannesburg      America/Antigua                   America/Cayman
-Africa/Kampala           America/Araguaina                 America/Chicago
-Africa/Khartoum          America/Argentina/Buenos\_Aires   America/Chihuahua
-Africa/Kigali            America/Argentina/Catamarca       America/Costa\_Rica
-Africa/Kinshasa          America/Argentina/Cordoba         America/Cuiaba
-Africa/Lagos             America/Argentina/Jujuy           America/Curacao
------------------------- --------------------------------- ---------------------------------
-
-::: {custom-style="NewPageSmall"}
-\
-:::
-
------------------------------- ---------------------------------- ---------------------------
-America/Danmarkshavn           America/Managua                    America/Shiprock
-America/Dawson                 America/Manaus                     America/St\_Barthelemy
-America/Dawson\_Creek          America/Marigot                    America/St\_Johns
-America/Denver                 America/Martinique                 America/St\_Kitts
-America/Detroit                America/Mazatlan                   America/St\_Lucia
-America/Dominica               America/Menominee                  America/St\_Thomas
-America/Edmonton               America/Merida                     America/St\_Vincent
-America/Eirunepe               America/Mexico\_City               America/Swift\_Current
-America/El\_Salvador           America/Miquelon                   America/Tegucigalpa
-America/Fortaleza              America/Moncton                    America/Thule
-America/Glace\_Bay             America/Monterrey                  America/Thunder\_Bay
-America/Godthab                America/Montevideo                 America/Tijuana
-America/Goose\_Bay             America/Montreal                   America/Toronto
-America/Grand\_Turk            America/Montserrat                 America/Tortola
-America/Grenada                America/Nassau                     America/Vancouver
-America/Guadeloupe             America/New\_York                  America/Whitehorse
-America/Guatemala              America/Nipigon                    America/Winnipeg
-America/Guayaquil              America/Nome                       America/Yakutat
-America/Guyana                 America/Noronha                    America/Yellowknife
-America/Halifax                America/North\_Dakota/Center       Antarctica/Casey
-America/Havana                 America/North\_Dakota/New\_Salem   Antarctica/Davis
-America/Hermosillo             America/Panama                     Antarctica/DumontDUrville
-America/Indiana/Indianapolis   America/Pangnirtung                Antarctica/Mawson
-America/Indiana/Knox           America/Paramaribo                 Antarctica/McMurdo
-America/Indiana/Marengo        America/Phoenix                    Antarctica/Palmer
-America/Indiana/Petersburg     America/Port-au-Prince             Antarctica/Rothera
-America/Indiana/Tell\_City     America/Port\_of\_Spain            Antarctica/South\_Pole
-America/Indiana/Vevay          America/Porto\_Velho               Antarctica/Syowa
-America/Indiana/Vincennes      America/Puerto\_Rico               Antarctica/Vostok
-America/Indiana/Winamac        America/Rainy\_River               Arctic/Longyearbyen
-America/Inuvik                 America/Rankin\_Inlet              Asia/Aden
-America/Iqaluit                America/Recife                     Asia/Almaty
-America/Jamaica                America/Regina                     Asia/Amman
-America/Juneau                 America/Resolute                   Asia/Anadyr
-America/Kentucky/Louisville    America/Rio\_Branco                Asia/Aqtau
-America/Kentucky/Monticello    America/Santarem                   Asia/Aqtobe
-America/La\_Paz                America/Santiago                   Asia/Ashgabat
-America/Lima                   America/Santo\_Domingo             Asia/Baghdad
-America/Los\_Angeles           America/Sao\_Paulo                 Asia/Bahrain
-America/Maceio                 America/Scoresbysund               Asia/Baku
------------------------------- ---------------------------------- ---------------------------
-
-::: {custom-style="NewPageSmall"}
-\
-:::
-
--------------------- ------------------------- ----------------------
-Asia/Bangkok         Asia/Phnom\_Penh          Australia/Eucla
-Asia/Beirut          Asia/Pontianak            Australia/Hobart
-Asia/Bishkek         Asia/Pyongyang            Australia/Lindeman
-Asia/Brunei          Asia/Qatar                Australia/Lord\_Howe
-Asia/Choibalsan      Asia/Qyzylorda            Australia/Melbourne
-Asia/Chongqing       Asia/Rangoon              Australia/Perth
-Asia/Colombo         Asia/Riyadh               Australia/Sydney
-Asia/Damascus        Asia/Sakhalin             Europe/Amsterdam
-Asia/Dhaka           Asia/Samarkand            Europe/Andorra
-Asia/Dili            Asia/Seoul                Europe/Athens
-Asia/Dubai           Asia/Shanghai             Europe/Belgrade
-Asia/Dushanbe        Asia/Singapore            Europe/Berlin
-Asia/Gaza            Asia/Taipei               Europe/Bratislava
-Asia/Harbin          Asia/Tashkent             Europe/Brussels
-Asia/Ho\_Chi\_Minh   Asia/Tbilisi              Europe/Bucharest
-Asia/Hong\_Kong      Asia/Tehran               Europe/Budapest
-Asia/Hovd            Asia/Thimphu              Europe/Chisinau
-Asia/Irkutsk         Asia/Tokyo                Europe/Copenhagen
-Asia/Jakarta         Asia/Ulaanbaatar          Europe/Dublin
-Asia/Jayapura        Asia/Urumqi               Europe/Gibraltar
-Asia/Jerusalem       Asia/Vientiane            Europe/Guernsey
-Asia/Kabul           Asia/Vladivostok          Europe/Helsinki
-Asia/Kamchatka       Asia/Yakutsk              Europe/Isle\_of\_Man
-Asia/Karachi         Asia/Yekaterinburg        Europe/Istanbul
-Asia/Kashgar         Asia/Yerevan              Europe/Jersey
-Asia/Katmandu        Atlantic/Azores           Europe/Kaliningrad
-Asia/Kolkata         Atlantic/Bermuda          Europe/Kiev
-Asia/Krasnoyarsk     Atlantic/Canary           Europe/Lisbon
-Asia/Kuala\_Lumpur   Atlantic/Cape\_Verde      Europe/Ljubljana
-Asia/Kuching         Atlantic/Faroe            Europe/London
-Asia/Kuwait          Atlantic/Madeira          Europe/Luxembourg
-Asia/Macau           Atlantic/Reykjavik        Europe/Madrid
-Asia/Magadan         Atlantic/South\_Georgia   Europe/Malta
-Asia/Makassar        Atlantic/St\_Helena       Europe/Mariehamn
-Asia/Manila          Atlantic/Stanley          Europe/Minsk
-Asia/Muscat          Australia/Adelaide        Europe/Monaco
-Asia/Nicosia         Australia/Brisbane        Europe/Moscow
-Asia/Novosibirsk     Australia/Broken\_Hill    Europe/Oslo
-Asia/Omsk            Australia/Currie          Europe/Paris
-Asia/Oral            Australia/Darwin          Europe/Podgorica
--------------------- ------------------------- ----------------------
-
-::: {custom-style="NewPageSmall"}
-\
-:::
-
---------------------- --------------------- -----------------------
-Europe/Prague         Indian/Mauritius      Pacific/Pitcairn
-Europe/Riga           Indian/Mayotte        Pacific/Ponape
-Europe/Rome           Indian/Reunion        Pacific/Port\_Moresby
-Europe/Samara         Pacific/Apia          Pacific/Rarotonga
-Europe/San\_Marino    Pacific/Auckland      Pacific/Saipan
-Europe/Sarajevo       Pacific/Chatham       Pacific/Tahiti
-Europe/Simferopol     Pacific/Easter        Pacific/Tarawa
-Europe/Skopje         Pacific/Efate         Pacific/Tongatapu
-Europe/Sofia          Pacific/Enderbury     Pacific/Truk
-Europe/Stockholm      Pacific/Fakaofo       Pacific/Wake
-Europe/Tallinn        Pacific/Fiji          Pacific/Wallis
-Europe/Tirane         Pacific/Funafuti      
-Europe/Uzhgorod       Pacific/Galapagos     
-Europe/Vaduz          Pacific/Gambier       
-Europe/Vatican        Pacific/Guadalcanal   
-Europe/Vienna         Pacific/Guam          
-Europe/Vilnius        Pacific/Honolulu      
-Europe/Volgograd      Pacific/Johnston      
-Europe/Warsaw         Pacific/Kiritimati    
-Europe/Zagreb         Pacific/Kosrae        
-Europe/Zaporozhye     Pacific/Kwajalein     
-Europe/Zurich         Pacific/Majuro        
-Indian/Antananarivo   Pacific/Marquesas     
-Indian/Chagos         Pacific/Midway        
-Indian/Christmas      Pacific/Nauru         
-Indian/Cocos          Pacific/Niue          
-Indian/Comoro         Pacific/Norfolk       
-Indian/Kerguelen      Pacific/Noumea        
-Indian/Mahe           Pacific/Pago\_Pago    
-Indian/Maldives       Pacific/Palau         
---------------------- --------------------- -----------------------
+The valid values of attributes of the type LocalMktTz can be found at [IANA](https://www.iana.org/time-zones). In the FIXatdl schema a simple type, LocalMktTz_t, has
+been defined as a string which is restricted to the zone names of the TZ environment variable.

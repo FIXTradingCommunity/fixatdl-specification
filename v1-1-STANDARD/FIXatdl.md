@@ -441,7 +441,7 @@ have an associated Parameter. These controls are typically defined in
 order to affect the state of other controls via the use of a StateRule.
 
 The following listing describes four parameters and the layout of their
-four associated controls. (Key identifiers have been highlighted.)[HANNO: to be removed/revised, automatic syntax highlighting] If we
+four associated controls. If we
 examine the code we'll notice that the controls are enclosed in two
 StrategyPanels, one entitled "Time Parameters" and the other entitled
 "Advanced". These two panels are nested horizontally into the top-level
@@ -537,9 +537,9 @@ it describes is true. This differs from validation rules, where the
 action of "raising an error" occurs when the condition is false.
 
 To illustrate the description of a Flow-control rule consider the
-following code snippet. (Note how the highlighted Control/@ID attribute
-matches the highlighted Edit/@field attribute and how the highlighted
-enumID attribute matches the highlighted value attribute):[HANNO: to be removed/revised, automatic syntax highlighting]
+following code snippet. (Note how the Control/@ID attribute
+"c_AlphaMode" matches the Edit/@field attribute "c_AlphaMode" and how the
+enumID attribute "e_Custom" matches the value attribute "e_Custom"):
 
 ```xml
 <Parameter name="AlphaMode" xsi:type="Int_t" fixTag="8300" use="required">
@@ -944,7 +944,7 @@ their description.
 
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
 | **Attribute**                       | **Type**                                   | **Req'd** | **Description**                            |
-+=====================================+============================================+===========+============================================+
++=====================================+============================================+:=========:+============================================+
 | Control/\@checkedEnumRef            | StringID                                   | N         | Refers to an enumID defined in the         |
 |                                     |                                            |           | definition of the Parameter referred by    |
 |                                     |                                            |           | Control/\@parameterRef. This enumID is the |
