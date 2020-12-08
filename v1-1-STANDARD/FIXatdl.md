@@ -360,8 +360,7 @@ cancel/replace messages) may also be used to create Boolean expressions.
 For example:
 
 ```xml
-<StrategyEdit errorMessage="For IOC orders Participation Rate must
-be between 1 and 25">
+<StrategyEdit errorMessage="For IOC orders Participation Rate must be between 1 and 25">
     <Edit logicOperator="OR">
         <Edit field="FIX_TimeInForce" operator="NX"/>
             <Edit field="FIX_TimeInForce" operator="NE" value="3"/>
