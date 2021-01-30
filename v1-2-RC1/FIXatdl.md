@@ -142,7 +142,7 @@ a user-defined field for this purpose.) For example to indicate that tag
 written as
 
 ```xml
-<Strategies strategyIdentifierTag="5009"/>
+<Strategies strategyIdentifierTag="25009"/>
 ```
 \
 Parameters for each strategy are defined via Parameter elements.
@@ -225,7 +225,7 @@ vs. required). For example, the following code snippet describes an
 integer type parameter:
 
 ```xml
-<Parameter name="SampleRate" xsi:type="Int_t" fixTag="8000"
+<Parameter name="SampleRate" xsi:type="Int_t" fixTag="28000"
 use="optional" minValue="1" maxValue="9"/>
 ```
 \
@@ -246,7 +246,7 @@ elements to the Parameter element. Each EnumPair represents one of the
 enumerated values expected to be transmitted over the wire. For example:
 
 ```xml
-<Parameter name="Aggression" xsi:type="Char_t" fixTag="8001" use="required">
+<Parameter name="Aggression" xsi:type="Char_t" fixTag="28001" use="required">
     <EnumPair enumID="low" wireValue="L"/>
     <EnumPair enumID="medium" wireValue="M"/>
     <EnumPair enumID="high" wireValue="H"/>
@@ -263,7 +263,7 @@ If a user of an order-entry system were to submit an order with
 recipient would expect to receive a FIX message containing a substring
 similar to:
 
-`...35=D|11=0001|55=AXP|44=77.25| ... 8000=5|8001=H ...`
+`...35=D|11=0001|55=AXP|44=77.25| ... 28000=5|28001=H ...`
 
 ## Validation Rules
 
@@ -290,8 +290,8 @@ StartTime and EndTime. Their description and a rule guaranteeing that
 StartTime precedes EndTime can be described by the following statements:
 
 ```xml
-<Parameter name="StartTime" xsi:type="UTCTimestamp_t" fixTag="8005" use="required">
-<Parameter name="EndTime" xsi:type="UTCTimestamp_t" fixTag="8006" use="required">
+<Parameter name="StartTime" xsi:type="UTCTimestamp_t" fixTag="28005" use="required">
+<Parameter name="EndTime" xsi:type="UTCTimestamp_t" fixTag="28006" use="required">
 <StrategyEdit errorMessage="Start Time must precede End Time.">
     <Edit field="StartTime" operator="LT" field2="EndTime"/>
 </StrategyEdit>
@@ -312,7 +312,7 @@ Edit elements organized in an expression tree using logical operators
 AND, OR, XOR and NOT. For example consider these declarations:
 
 ```xml
-<Parameter name="ParticipationRate" xsi:type="Float_t" fixTag="8008" use="optional"/>
+<Parameter name="ParticipationRate" xsi:type="Float_t" fixTag="28008" use="optional"/>
 <StrategyEdit errorMessage="If Participation Rate is entered it must be between 1 and 50">
     <Edit logicOperator="OR">
         <Edit field="ParticipationRate" operator="NX"/>
@@ -448,10 +448,10 @@ StrategyPanels, one entitled "Time Parameters" and the other entitled
 StrategyPanel of the StrategyLayout element.
 
 ```xml
-<Parameter name="StartTime" xsi:type="UTCTimestamp_t" fixTag="8005" use="required"/>
-<Parameter name="EndTime" xsi:type="UTCTimestamp_t" fixTag="8006" use="required"/>
-<Parameter name="ParticipationRate" xsi:type="Float_t" fixTag="8007" use="optional"/>
-<Parameter name="Aggression" xsi:type="Char_t" fixTag="8001" use="required">
+<Parameter name="StartTime" xsi:type="UTCTimestamp_t" fixTag="28005" use="required"/>
+<Parameter name="EndTime" xsi:type="UTCTimestamp_t" fixTag="28006" use="required"/>
+<Parameter name="ParticipationRate" xsi:type="Float_t" fixTag="28007" use="optional"/>
+<Parameter name="Aggression" xsi:type="Char_t" fixTag="28001" use="required">
     <EnumPair enumID="e_low" wireValue="L"/>
     <EnumPair enumID="e_med" wireValue="M"/>
     <EnumPair enumID="e_high" wireValue="H"/>
@@ -542,12 +542,12 @@ following code snippet. (Note how the Control/@ID attribute
 enumID attribute "e_Custom" matches the value attribute "e_Custom"):
 
 ```xml
-<Parameter name="AlphaMode" xsi:type="Int_t" fixTag="8300" use="required">
+<Parameter name="AlphaMode" xsi:type="Int_t" fixTag="28300" use="required">
     <EnumPair enumID="e_Annual" wireValue="1"/>
     <EnumPair enumID="e_Daily" wireValue="2"/>
     <EnumPair enumID="e_Custom" wireValue="3"/>
 </Parameter>
-<Parameter name="CustomValue" xsi:type="Float_t" fixTag="8301" use="optional"/>
+<Parameter name="CustomValue" xsi:type="Float_t" fixTag="28301" use="optional"/>
 <StrategyLayout>
     <StrategyPanel orientation="HORIZONTAL">
         <Control ID="c_AlphaMode" xsi:type="DropDownList" label="Alpha Benchmark" parameterRef="AlphaMode">
@@ -674,7 +674,7 @@ element, constValue, is used to indicate that the parameter is a
 constant and provides the value, as in the following listing.
 
 ```xml
-<Parameter name="ExecService" xsi:type="Char_t" fixTag="9050" constValue="A"/>
+<Parameter name="ExecService" xsi:type="Char_t" fixTag="29050" constValue="A"/>
 ```
 \
 Based on this description of "ExecService" the order recipient would
@@ -719,10 +719,10 @@ transport methods.
 To illustrate, consider the following listing:
 
 ```xml
-<Strategies strategyIdentifierTag="7000" versionIdentifierTag="7001" tag957Support="true">
+<Strategies strategyIdentifierTag="27000" versionIdentifierTag="27001" tag957Support="true">
     <Strategy name="POV" uiRep="POV" wireValue="v" version="1" fixMsgType="D">
-        <Parameter name="PctVol" xsi:type="Percentage_t" fixTag="7002" use="required"/>
-        <Parameter name="FC" xsi:type="Boolean_t" fixTag="7003" use="required"/>
+        <Parameter name="PctVol" xsi:type="Percentage_t" fixTag="27002" use="required"/>
+        <Parameter name="FC" xsi:type="Boolean_t" fixTag="27003" use="required"/>
         <StrategyLayout>
             <StrategyPanel>
                 <Control ID="c_PctVol" xsi:type="SingleSpinner_t" label="Pct of Volume" parameterRef="PctVol"/>
@@ -736,19 +736,19 @@ To illustrate, consider the following listing:
 This document instance describes an algorithm with two parameters,
 PctVol and ForceCompletion. The algorithm provider has also indicated
 that it supports receipt of these parameters via StrategyParametersGrp
-and via the custom tags 7002 and 7003. So an E/OMS would be free to
+and via the UDFs 27002 and 27003. So an E/OMS would be free to
 choose between the two methods when it transmits the parameters. If this
 were to be rendered by an E/OMS and a user was to enter a PctVol value
 of 0.15 and check the Force Completion checkbox, then the order
 generated may contain a substring similar to:
 
-`. . 35=D|11=1234|55=AXP|. . |7000=v|7001=1|957=2|958=PctVol|959=11|960=0.15|958=FC|959=13|960=Y`
+`. . 35=D|11=1234|55=AXP|. . |27000=v|27001=1|957=2|958=PctVol|959=11|960=0.15|958=FC|959=13|960=Y`
 
 In this case the E/OMS has decided to use the StrategyParametersGrp
 repeating group. If tag957Support were set to false then the E/OMS
-would be forced to use the UDFs, 7002 and 7003, as in:
+would be forced to use the UDFs, 27002 and 27003, as in:
 
-`. . 35=D|11=1234|55=AXP|. . |7000=v|7001=1|7002=0.15|7003=Y`
+`. . 35=D|11=1234|55=AXP|. . |27000=v|27001=1|27002=0.15|27003=Y`
 
 The general rule for determining which method to use is as follows.
 
@@ -1034,7 +1034,7 @@ their description.
 |                                     |                                            |           | of the tag specified in initFixField. If   |
 |                                     |                                            |           | the value is equal to "UseFixField" and    |
 |                                     |                                            |           | it is not possible to access the value of  |
-|                                     |                                            |           | the specified fix tag then revert to using |
+|                                     |                                            |           | the specified FIX tag then revert to using |
 |                                     |                                            |           | initValue. If the value is equal to        |
 |                                     |                                            |           | "UseFixField", the field is not            |
 |                                     |                                            |           | accessible, and initValue is not defined,  |
@@ -2442,7 +2442,7 @@ For example in the following code snippet an algorithmic parameter,
 MktOnCloseFlag, is defined as being a Boolean_t type.
 
 ```xml
-<Parameter name="MktOnCloseFlag" xsi:type="Boolean_t" fixTag="8001" use="required" trueWireValue="T" falseWireValue="F"/>
+<Parameter name="MktOnCloseFlag" xsi:type="Boolean_t" fixTag="28001" use="required" trueWireValue="T" falseWireValue="F"/>
 ```
 \
 Notice that by setting xsi:type of this parameter to "Boolean_t" we can
@@ -2457,7 +2457,7 @@ elements are used.]
 In this next snippet a quantity parameter is defined.
 
 ```xml
-<Parameter name="CrossQty" xsi:type="Qty_t" fixTag="8002" use="required" minValue="100"/>
+<Parameter name="CrossQty" xsi:type="Qty_t" fixTag="28002" use="required" minValue="100"/>
 ```
 \
 By setting xsi:type to Qty_t we can now provide a value for minValue.
@@ -2634,8 +2634,8 @@ vertically aligned. Three validation rules are provided.
     xmlns:flow="http://www.fixprotocol.org/FIXatdl-1-2/Flow"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.fixprotocol.org/FIXatdl-1-2/Core fixatdl-core-1-2.xsd"
-    strategyIdentifierTag="7620"
-    versionIdentifierTag="7621"
+    strategyIdentifierTag="27620"
+    versionIdentifierTag="27621"
 >
 
     <Strategy name="Tazer1" uiRep="Tazer" wireValue="Tazer" version="1" fixMsgType="D"
@@ -2680,18 +2680,18 @@ vertically aligned. Three validation rules are provided.
             values outside the range [0.01, 0.50]; and DisplayQty(7645)
             values less than 0.
         -->
-        <Parameter name="StartTime" xsi:type="UTCTimestamp_t" fixTag="7602" use="required"/>
-        <Parameter name="EndTime" xsi:type="UTCTimestamp_t" fixTag="7603" use="required"
+        <Parameter name="StartTime" xsi:type="UTCTimestamp_t" fixTag="27602" use="required"/>
+        <Parameter name="EndTime" xsi:type="UTCTimestamp_t" fixTag="27603" use="required"
           maxValue="16:00:00" localMktTz="America/New_York "/>
-        <Parameter name="DisplayQty" xsi:type="Int_t" fixTag="7645" use="optional"
+        <Parameter name="DisplayQty" xsi:type="Int_t" fixTag="27645" use="optional"
           minValue="0"/>
-        <Parameter name="SweepDistribution" xsi:type="Char_t" fixTag="7640" use="required">
+        <Parameter name="SweepDistribution" xsi:type="Char_t" fixTag="27640" use="required">
             <EnumPair enumID="e_Uniform" wireValue="U"/>
             <EnumPair enumID="e_Gaussian" wireValue="G"/>
         </Parameter>
-        <Parameter name="Variance" xsi:type="Float_t" fixTag="7641" use="optional"
+        <Parameter name="Variance" xsi:type="Float_t" fixTag="27641" use="optional"
           minValue="0.01" maxValue="0.50"/>
-        <Parameter name="AllowDarkPoolExec" xsi:type="Char_t" fixTag="7642" use="required">
+        <Parameter name="AllowDarkPoolExec" xsi:type="Char_t" fixTag="27642" use="required">
             <EnumPair enumID="e_True" wireValue="T"/>
             <EnumPair enumID="e_False" wireValue="F"/>
         </Parameter>
