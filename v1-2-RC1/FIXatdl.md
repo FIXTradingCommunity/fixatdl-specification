@@ -1894,11 +1894,11 @@ their description.
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Valid values: 555 (NoLegs) and 68          |
 |                                     |                                            |           | (TotNoOrders). In the case where           |
-|                                     |                                            |           | fixTag=68, either multiple NewOrder-List   |
+|                                     |                                            |           | fixTag=68, either multiple NewOrderList(35=E)   |
 |                                     |                                            |           | messages may be sent where the total       |
 |                                     |                                            |           | number of orders over the entire list must |
 |                                     |                                            |           | be equal to Strategy/@totalOrders, or      |
-|                                     |                                            |           | multiple NewOrder-Single messages may be   |
+|                                     |                                            |           | multiple NewOrderSingle(35=D) messages may be   |
 |                                     |                                            |           | sent where total number of orders must be  |
 |                                     |                                            |           | equal to Strategy/@totalOrders.            |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
@@ -1909,11 +1909,11 @@ their description.
 | RepeatingGroup/@name                | string                                     | N         | FIX Field name of the repeating group.     |
 |                                     |                                            |           | Must refer to a FIX field of NumInGroup    |
 |                                     |                                            |           | type. Valid values: "TotNoOrders"          |
-|                                     |                                            |           | (when NewOrder-List messages are           |
+|                                     |                                            |           | (when NewOrderList(35=E) messages are      |
 |                                     |                                            |           | expected), "NoLegs" (when                  |
-|                                     |                                            |           | NewOrder-Multileg messages are expected).  |
+|                                     |                                            |           | NewOrderMultileg(35=AB) messages are expected).  |
 |                                     |                                            |           | This field should be omitted when          |
-|                                     |                                            |           | NewOrder-Single message are expected.      |
+|                                     |                                            |           | NewOrderSingle(35=D) message are expected.      |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
 | SecurityType/@inclusion             | string                                     | Y         | Indicates whether this security type       |
 |                                     |                                            |           | should be included or excluded from        |
@@ -2073,8 +2073,8 @@ their description.
 |                                     |                                            |           | of repeating legs.                         |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
 | Strategy/@totalOrders               | non-neg int                                | N         | Used to denote number of repeating orders  |
-|                                     |                                            |           | in a NewOrder-List message or a basket of  |
-|                                     |                                            |           | NewOrder-Single messages.                  |
+|                                     |                                            |           | in a NewOrderList(35=E) message or a basket of  |
+|                                     |                                            |           | NewOrderSingle(35=D) messages.             |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
 | Strategy/@totalOrdersTag            | non-neg int                                | N         | In basket trading, used to denote where to |
 |                                     |                                            |           | place the total number of orders of a      |
