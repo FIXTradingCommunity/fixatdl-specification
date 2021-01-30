@@ -5,8 +5,8 @@ Definition Language (FIXatdl), a markup language that works in
 conjunction with the FIX Protocol. FIXatdl is used to define the FIX
 interface of algorithmic order types. An algorithmic order interface
 description consists of: a description of tags that are to be included
-in FIX New Order Single, Order Cancel Request and Order Cancel/Replace
-Request messages that are to be sent to an order recipient; rules for
+in FIX NewOrderSingle(35=D), OrderCancelRequest(35=F), and OrderCancelReplaceRequest(35=G)
+messages that are to be sent to an order recipient; rules for
 validating the data entered into an order form by a user; suggestions on
 how to render GUI controls within an order entry form; and rules
 affecting the visual state of the GUI controls as information is being
@@ -29,7 +29,7 @@ parameters.
 transmitted.
 
 - Create and transmit a FIX order message with the appropriate standard
-and/or user-defined fields populated.
+and/or user-defined fields (UDFs) populated.
 
 These capabilities are achievable without the need for custom software
 development or subsequent product deployment.
@@ -206,8 +206,8 @@ messages, the required, optional and user-defined fields of those
 messages, and user-defined restrictions on the range of values for
 particular fields. In general, when we speak of the parameters of an
 algorithmic order we are, in fact, referring to the user-defined fields
-of a New Order Single, Order Cancel Request or Order Cancel/Replace
-Request. (In some cases a parameter may also refer to a standard FIX
+of a NewOrderSingle(35=D), OrderCancelRequest(35=F), and OrderCancelReplaceRequest(35=G)
+message. (In some cases a parameter may also refer to a standard FIX
 field, one with a tag number in the range 1-5000, that broker-dealers
 commonly included in their algorithmic interface specifications, such as
 EffectiveTime(168) and ExpireTime(128).)
@@ -608,8 +608,8 @@ the behavior of the controls, the following conventions are applied:
 
 Note that due to (iv), when a StateRule condition becomes false it may
 cause the control to become un-initialized. When this occurs the control
-will have no value. Should a New Order Single, Order Cancel Request or
-Order Cancel/Replace Request message be generated while the control is
+will have no value. Should a NewOrderSingle(35=D), OrderCancelRequest(35=F) or
+OrderCancelReplaceRequest(35=G) message be generated while the control is
 in this condition, the associated parameter will not be included in that
 message.
 
@@ -622,8 +622,8 @@ control's value. To clarify this, we must adhere to another convention:
    a particular parameter, if the control is un-initialized or has
    been set to the value of "{NULL}" then the associated parameter
    will not have a "wire-value" and will not have its tag-value pair
-   included in a New Order Single, Order Cancel Request or Order
-   Cancel/Replace Request message.
+   included in a NewOrderSingle(35=D), OrderCancelRequest(35=F) or
+   OrderCancelReplaceRequest(35=G) message.
 
 In other words, if a user enters a value into a control and subsequently
 the control becomes disabled then the value that was entered would cause
@@ -877,8 +877,8 @@ table.
 |                  |                                                 |                                                               |
 |                  |                                                 | Parameters contained within a RepeatingGroup element are      |
 |                  |                                                 | intended to have their tag=value pairs populated in either    |
-|                  |                                                 | the ListOrdGrp repeating group of a New Order List message or |
-|                  |                                                 | the LegOrdGrp repeating group of a New Order Multileg         |
+|                  |                                                 | the ListOrdGrp repeating group of a NewOrderList(35=E) message or |
+|                  |                                                 | the LegOrdGrp repeating group of a NewOrderMultileg(35=AB)    |
 |                  |                                                 | message.                                                      |
 |                  |                                                 |                                                               |
 |                  |                                                 | Parameters not contained within a RepeatingGroup element have |
@@ -1742,8 +1742,8 @@ their description.
 |                                     |                                            |           | of a percentage.**                         |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
 | Parameter/@mutableOnCxlRpl          | boolean                                    | N         | Indication of whether the parameter's      |
-|                                     |                                            |           | value can be modified by an Order          |
-|                                     |                                            |           | Cancel/Replace Request message.            |
+|                                     |                                            |           | value can be modified by an                |
+|                                     |                                            |           | OrderCancelReplaceRequest(35=G) message.   |
 |                                     |                                            |           |                                            |
 |                                     |                                            |           | Default value: true                        |
 +-------------------------------------+--------------------------------------------+-----------+--------------------------------------------+
