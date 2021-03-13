@@ -2942,18 +2942,18 @@ compliant.
 +----+-------------------+-------------------------+------------------------------------------------------------------------------------------------+
 | ID | Affected Elements | Affected Attributes     | Description                                                                                    |
 +====+===================+=========================+================================================================================================+
-| 1  | Edit              | logicOperator, operator | Within an edit element, the attributes "operator" and" logicOperator" are mutually exclusive.  |
+| 1  | Edit              | logicOperator, operator | Within an Edit element, the attributes operator and logicOperator are mutually exclusive.      |
 +----+-------------------+-------------------------+------------------------------------------------------------------------------------------------+
-| 2  | Edit              | field2, value           | Within an edit element, the attributes "field2" and "value" are mutually exclusive.            |
+| 2  | Edit              | field2, value           | Within an Edit element, the attributes field2 and value are mutually exclusive.                |
 +----+-------------------+-------------------------+------------------------------------------------------------------------------------------------+
-| 3  | StrategyPanel     |                         | A strategyPanel cannot have as child elements both Control elements and StrategyPanel          |
+| 3  | StrategyPanel     |                         | A StrategyPanel element cannot have as child elements both Control elements and StrategyPanel  |
 |    |                   |                         | elements.                                                                                      |
 +----+-------------------+-------------------------+------------------------------------------------------------------------------------------------+
-| 4  | Edit              | field, field2           | Within an edit element the attributes field and field2 must refer to either a pre-declared     |
+| 4  | Edit              | field, field2           | Within an Edit element the attributes field and field2 must refer to either a pre-declared     |
 |    |                   |                         | parameter name or a standard FIX field name (taken from the FIX specification) pre-pended with |
 |    |                   |                         | the string "FIX\_".                                                                            |
 +----+-------------------+-------------------------+------------------------------------------------------------------------------------------------+
-| 5  | Edit              | value                   | Within an edit element, the type of the value attribute must safely match with the type of     |
+| 5  | Edit              | value                   | Within an Edit element, the type of the value attribute must safely match with the type of     |
 |    |                   |                         | parameter specified by the field attribute.                                                    |
 +----+-------------------+-------------------------+------------------------------------------------------------------------------------------------+
 | 6  | Edit              | logicOperator, operator | If an Edit element is a child of another Edit element then the parent Edit element must have   |
@@ -2963,18 +2963,18 @@ compliant.
 |    |                   |                         | the same type or be able to be converted in such a way so that the resulting converted types   |
 |    |                   |                         | are the same.                                                                                  |
 +----+-------------------+-------------------------+------------------------------------------------------------------------------------------------+
-| 8  | Control           | parameterRef            | If Control/@parameterRef is defined it must be equal to the "name" attribute of one of the     |
+| 8  | Control           | parameterRef            | If Control/@parameterRef is defined it must be equal to the name attribute of one of the       |
 |    |                   |                         | defined Parameter elements.                                                                    |
 +----+-------------------+-------------------------+------------------------------------------------------------------------------------------------+
 | 9  | EnumPair          | enumID                  | If a Control is linked to a Parameter via use of Control/@parameterRef, and the Control        |
 |    |                   |                         | contains ListItem elements, then the Parameter must contain EnumPair elements. Furthermore,    |
-|    | ListItem          |                         | each of the Control's ListItem/@enumID values must match one and only one of the Parameter's   |
-|    |                   |                         | EnumPair/@enumID values.                                                                       |
+|    | ListItem          |                         | each of the Control's ListItem/@enumID values must match one and only one of the Parameter     |
+|    |                   |                         | element's EnumPair/@enumID values.                                                             |
 +----+-------------------+-------------------------+------------------------------------------------------------------------------------------------+
 | 10 | Control           | checkedEnumRef          | If values for Control/@checkedEnumRef or Control/@uncheckedEnumRef are provided then           |
 |    |                   |                         | Control/@parameterRef must also be provided. Furthermore, the values of                        |
 |    |                   | uncheckedEnumRef        | Control/@checkedEnumRef and Control/@uncheckedEnumRef each must be equal to one of the         |
-|    |                   |                         | EnumPair/@enumID values of the Parameter referred to by Control/@parameterRef.                 |
+|    |                   |                         | EnumPair/@enumID values of the Parameter element referred to by Control/@parameterRef.         |
 +----+-------------------+-------------------------+------------------------------------------------------------------------------------------------+
 
 # A Sample FIXatdl&reg; Document
