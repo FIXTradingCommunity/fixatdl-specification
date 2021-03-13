@@ -1,8 +1,8 @@
 # Introduction
 
 This document serves as a specification of the FIX Algorithmic Trading
-Definition Language (FIXatdl), a markup language that works in
-conjunction with the FIX Protocol. FIXatdl is used to define the FIX
+Definition Language (FIXatdl&reg;), a markup language that works in
+conjunction with the FIX Protocol. FIXatdl&reg; is used to define the FIX
 interface of algorithmic order types. An algorithmic order interface
 description consists of: a description of tags that are to be included
 in FIX NewOrderSingle(35=D), OrderCancelRequest(35=F), and OrderCancelReplaceRequest(35=G)
@@ -13,12 +13,12 @@ affecting the visual state of the GUI controls as information is being
 entered into the order form.
 
 Rather than describing interfaces in a natural language, such as
-English, which can be subject to differing interpretations, FIXatdl
+English, which can be subject to differing interpretations, FIXatdl&reg;
 standardizes the way algorithmic interfaces are described thus reducing
 interpretation errors and allowing for the creation of documents in a
 machine-readable format. It is envisioned that applications supporting
 this standard would be able to receive an XML document conforming to
-FIXatdl and, based on the information within this document, be able to:
+FIXatdl&reg; and, based on the information within this document, be able to:
 
 - Dynamically display an order ticket containing algorithmic order
 parameters.
@@ -38,14 +38,14 @@ development or subsequent product deployment.
 
 This specification is intended for those interested in either: (1)
 developing applications with FIX order entry capabilities supporting
-order type definition via FIXatdl; or (2) algorithmic order providers
-who wish to describe the interface to their algorithms in FIXatdl.
+order type definition via FIXatdl&reg;; or (2) algorithmic order providers
+who wish to describe the interface to their algorithms in FIXatdl&reg;.
 
-# FIXatdl Schema Files
+# FIXatdl&reg; Schema Files
 
 A set of XML Schema files has been created to describe the structure
-of a FIXatdl document instance. These files can be used with
-commercial XML parsing software to validate a FIXatdl document
+of a FIXatdl&reg; document instance. These files can be used with
+commercial XML parsing software to validate a FIXatdl&reg; document
 instance. They can also be used with XML data binding utilities to
 generate source code which maps classes to XML representations. The
 files are grouped into two functional categories:
@@ -67,12 +67,12 @@ contract.
 
 The constructs of the schema files have been categorized this way to
 ensure that the data contract is de-coupled from the GUI. This
-provides some flexibility for E/OMS vendors in how FIXatdl is applied.
+provides some flexibility for E/OMS vendors in how FIXatdl&reg; is applied.
 For example, data contract functions, such as parameter validation,
 may be performed in an application downstream from the E/OMS without
 the need for the XML that describes the GUI.
 
-The FIXatdl language definition is contained within six XML
+The FIXatdl&reg; language definition is contained within six XML
 Schema files:
 
 +---------------------------------------------------+-----------------------------------------------------------------------------------------------+
@@ -108,16 +108,16 @@ Schema files:
 
 ## Element Hierarchy
 
-The FIXatdl schema provides a set of XML elements that are used to
-create a conforming FIXatdl document. These elements are described later
+The FIXatdl&reg; schema provides a set of XML elements that are used to
+create a conforming FIXatdl&reg; document. These elements are described later
 in this section. The attributes of each of these elements are described
 in latter in this document.
 
-In a FIXatdl document an algorithm provider can define any number of
-algorithmic order interfaces by using multiple Strategy elements. Each
+In a FIXatdl&reg; document an algorithm provider can define any number of
+algorithmic order interfaces by using multiple `Strategy` elements. Each
 strategy is identified by a unique name that must be provided in the XML
-of each of the Strategy elements. Instances of documents begin with the
-root element, Strategies, and follow the hierarchy:
+of each of the `Strategy` elements. Instances of documents begin with the
+root element `Strategies` and follow the hierarchy:
 
 ```xml
 <Strategies>
@@ -138,19 +138,19 @@ At the root level, the algorithm provider must specify which tag to use
 to identify the individual strategies. (At one time TargetStrategy(847) was
 intended to carry this information. However, most providers use
 a user-defined field for this purpose.) For example to indicate that tag
-5009 will be used to identify strategies the Strategies element would be
+5009 will be used to identify strategies the `Strategies` element would be
 written as
 
 ```xml
 <Strategies strategyIdentifierTag="25009"/>
 ```
 \
-Parameters for each strategy are defined via Parameter elements.
-Validation rules are defined via StrategyEdit elements. Each strategy
+Parameters for each strategy are defined via `Parameter` elements.
+Validation rules are defined via `StrategyEdit` elements. Each strategy
 can have any number of parameters or validation rules. An algorithm can
 have only one section where the layout of the controls is defined. A
-layout is defined via the StrategyLayout element. So if we look deeper
-into the strategy definition we'll see that it follows the hierarchy:
+layout is defined via the `StrategyLayout` element. So when looking deeper
+into the strategy definition, one can see that it follows the hierarchy:
 
 ```xml
 <Strategy>
@@ -167,33 +167,35 @@ into the strategy definition we'll see that it follows the hierarchy:
 ```
 \
 The following figure shows the hierarchy of elements in tree form
-starting from the root element, Strategies. The XML Schema values
+starting from the root element, `Strategies`. The XML Schema values
 minOccurs and maxOccurs are given for each branch of the tree. Elements
 with optional or required child elements are indicated by double-line
 borders. Elements with no children (leaf nodes) have single-line
 borders. Abstract elements, ones which require the use of a substitution
-group, are shaded. The elements, Parameter, StrategyLayout and
-StrategyEdit are somewhat complex; the hierarchy of their children is
+group, are shaded. The elements `Parameter`, `StrategyLayout`, and
+`StrategyEdit` are somewhat complex; the hierarchy of their children is
 shown in figures 2 through 4.
+
+Note that the figures that follow are intended to give a generalized structure of the schema and do not necessarily show all the child elements.  Please refer to the FIXatdl&reg; XML Schema files for a complete list and definition of the FIXatdl&reg; elements.
 
 ![Root Element Hierarchy](media/Strategies.png)
 
 The following figure gives the hierarchy of elements descending from the
-Parameter element.
+`Parameter` element.
 
 ![Parameter Hierarchy](media/Parameter.png)
 
 The following figure gives the hierarchy of elements descending from the
-StrategyLayout element. This element is responsible for binding GUI
+`StrategyLayout` element. This element is responsible for binding GUI
 controls to parameters and describing their arrangement on the
 order-entry screen.
 
 ![StrategyLayout Hierarchy](media/StrategyLayout.png)
 
-The following figure shows the StrategyEdit hierarchy. This element is
+The following figure shows the `StrategyEdit` hierarchy. This element is
 used to describe validation rules which are applied to the values of a
-strategy's parameters at order-generation time. Each StrategyEdit must
-contain a single Edit element (may contain further nested Edit rules)
+strategy's parameters at order-generation time. Each `StrategyEdit` element must
+contain a single `Edit` element (may contain further nested `Edit` rules)
 which is used to describe a particular condition that must be met in
 order to pass validation.
 
@@ -204,18 +206,18 @@ order to pass validation.
 The interface of an algorithmic order type is described by a set of FIX
 messages, the required, optional and user-defined fields of those
 messages, and user-defined restrictions on the range of values for
-particular fields. In general, when we speak of the parameters of an
-algorithmic order we are, in fact, referring to the user-defined fields
+particular fields. In general, when speaking of the parameters of an
+algorithmic order one is, in fact, referring to the user-defined fields
 of a NewOrderSingle(35=D), OrderCancelRequest(35=F), and OrderCancelReplaceRequest(35=G)
 message. (In some cases a parameter may also refer to a standard FIX
 field, one with a tag number in the range 1-5000, that broker-dealers
 commonly included in their algorithmic interface specifications, such as
 EffectiveTime(168) and ExpireTime(128).)
 
-Parameters are strictly described in FIXatdl by the target firm who will
+Parameters are strictly described in FIXatdl&reg; by the target firm who will
 receive them (*order recipients*), and are communicated via an XML file
 to various senders (*order initiators*). To describe these parameters,
-FIXatdl provides the Parameter element. Parameter elements are
+FIXatdl&reg; provides the `Parameter` element. `Parameter` elements are
 identified by their "name" attribute. There is no limit to the number of
 parameters a strategy may have as long as each is uniquely identified at
 the strategy level. Besides a parameter's name, other parameter
@@ -235,14 +237,14 @@ optionally be populated in tag 8000 of an order message. The attributes
 the recipient of an order message is expecting. Orders with SampleRate
 values outside that range may be rejected. The attribute "xsi:type"
 describes the parameter's type which must be one of the datatypes
-specified by the FIX Protocol. FIXatdl provides enumeration values for
+specified by the FIX Protocol. FIXatdl&reg; provides enumeration values for
 xsi:type that map directly to the FIX datatypes. (An explanation of
 xsi:type can be found in this document in the section entitled "Abstract
 Element Extensions".)
 
 For certain parameters it may be appropriate to limit the legal values
-to a set of enumerated values. This is done by adding child EnumPair
-elements to the Parameter element. Each EnumPair represents one of the
+to a set of enumerated values. This is done by adding child `EnumPair`
+elements to the `Parameter` element. Each `EnumPair` represents one of the
 enumerated values expected to be transmitted over the wire. For example:
 
 ```xml
@@ -255,8 +257,8 @@ enumerated values expected to be transmitted over the wire. For example:
 \
 This describes the "Aggression" parameter. An order recipient would
 expect to receive one of the values, "L", "M" or "H" in tag 8001 of an
-order message. The attribute EnumPair/@enumID is a unique identifier of
-EnumPair elements.
+order message. The attribute `EnumPair/@enumID` is a unique identifier of
+`EnumPair` elements.
 
 If a user of an order-entry system were to submit an order with
 "SampleRate" set to 5 and "Aggression" set to "high", the order
@@ -267,7 +269,7 @@ similar to:
 
 ## Validation Rules
 
-Validation rules are defined by use of the StrategyEdit element. This
+Validation rules are defined by use of the `StrategyEdit` element. This
 XML element enables the creation of complex and conditional rules which
 can be applied to the orders generated by an E/OMS. The goal of a
 validation rule is to process the
@@ -281,13 +283,13 @@ validation conditions are much like assertions. When an assertion has
 failed an error has occurred.
 
 The conditions described within a validation rule are defined by use of
-the Edit element. An Edit element defines a Boolean expression where
+the `Edit` element. An `Edit` element defines a Boolean expression where
 values of parameters can be compared to one another or to constant
 values.
 
 To illustrate, consider the most common parameters of all algorithms,
-StartTime and EndTime. Their description and a rule guaranteeing that
-StartTime precedes EndTime can be described by the following statements:
+`StartTime` and `EndTime`. Their description and a rule guaranteeing that
+`StartTime` precedes `EndTime` can be described by the following statements:
 
 ```xml
 <Parameter name="StartTime" xsi:type="UTCTimestamp_t" fixTag="28005" use="required">
@@ -297,18 +299,18 @@ StartTime precedes EndTime can be described by the following statements:
 </StrategyEdit>
 ```
 \
-Here we have defined both StartTime and EndTime as UTCTimestamp
-parameters. At validation time, the rule described in StrategyEdit
+Here both `StartTime` and `EndTime` are defined as UTCTimestamp
+parameters. At validation time, the rule described in the `StrategyEdit` element
 instructs the E/OMS to perform an evaluation of the Boolean expression
-provided by the Edit element. In this case a comparison of StartTime and
-EndTime will be made using the "LT" (less than) operator. If StartTime
-is less than EndTime then the parameter values are deemed to be valid.
-However, if StartTime is greater than or equal to EndTime then the
+provided by the `Edit` element. In this case a comparison of `StartTime` and
+`EndTime` will be made using the "LT" (less than) operator. If `StartTime`
+is less than `EndTime` then the parameter values are deemed to be valid.
+However, if `StartTime` is greater than or equal to `EndTime` then the
 parameter values are invalid and the E/OMS can inform the user by
 displaying the error message in a dialog box.
 
 For more complex rules, Boolean expression may be formed by multiple
-Edit elements organized in an expression tree using logical operators
+`Edit` elements organized in an expression tree using logical operators
 AND, OR, XOR and NOT. For example consider these declarations:
 
 ```xml
@@ -324,8 +326,8 @@ AND, OR, XOR and NOT. For example consider these declarations:
 </StrategyEdit>
 ```
 \
-Here we see a tree of Edit elements. The root Edit element is describing
-a logical "OR" condition asserting that either ParticipationRate was not
+This is a tree of `Edit` elements. The root `Edit` element is describing
+a logical "OR" condition asserting that either "ParticipationRate" was not
 provided or its value is in the range from 1 to 50. Note how in the
 "AND" expression a parameter value is compared not to another parameter
 but to a constant value.
@@ -342,21 +344,22 @@ quite possible that the user does not provide a value for
 statement will terminate after it is established that its first operand,
 `<Edit field="ParticipationRate" operator="NX"/>`, is true. The "AND"
 statement that follows is never evaluated -- which is a good result
-since, if we had attempted to evaluate it, it is quite possible that a "Null Reference"
+since, if one attempts to evaluate it, it is quite possible that a "Null Reference"
 error would occur.) That being the case, it is important
 that XML parsing or binding libraries maintain the order of the elements
 as they appear; otherwise unexpected results may occur.
 
 The logical operator XOR can also have more than two operands. As a
-convention we define XOR as "one and only one", which means
+convention, XOR is defined as "one and only one", which means
 it evaluates to "true" when one and only one of its operands is true. If
 none or more than one of its operands is true then XOR is false.
 Short-circuit evaluation cannot be applied to XOR.
 
-The "field" attribute of an Edit element is not restricted to strategy
-parameters. Standard order tags (those not described in a FIXatdl
+The "field" attribute of an `Edit` element is not restricted to strategy
+parameters. Standard order tags (those not described in a FIXatdl&reg;
 instance but nevertheless are required tags of order, cancel and
 cancel/replace messages) may also be used to create Boolean expressions.
+
 For example:
 
 ```xml
@@ -379,11 +382,11 @@ are those that are sent over the wire. For example, TimeInForce(59) is an
 enumeration of char values ranging from "0" to "9" and "A" to "C" (FIX Latest as of EP264). So care must be
 taken to assure the corresponding operand, "value", is of a similar
 type. Support for these types of expressions is highly dependent on a
-vendor's implementation of FIXatdl. Not all standard tags may be
+vendor's implementation of FIXatdl&reg;. Not all standard tags may be
 available.
 
 In cases where the field attribute is not recognized or not supported,
-the rule containing the offending Edit element should be skipped-over by
+the rule containing the offending `Edit` element should be skipped over by
 a vendor's application and should not cause a validation error. The
 end-result will be the same as if the condition of the rule were true.
 
@@ -401,16 +404,16 @@ arrange them on the screen. By using the elements and attributes of the
 Layout Schema, an algorithm provider can describe the GUI controls to
 use and describe how they should be arranged on the screen.
 
-FIXatdl does not attempt to dictate user-interface style or
+FIXatdl&reg; does not attempt to dictate user-interface style or
 look-and-feel. It is designed to be platform neutral. The components
 that are provided are those typically found in .Net, Java and Web
 environments.
 
 The layout schema allows GUI controls to be arranged by adding them to a
-container define by the StrategyPanel element. Controls within a panel
-may be arranged either vertically or horizontally. Panel themselves may
+container define by the `StrategyPanel` element. Controls within a panel
+may be arranged either vertically or horizontally. Panels themselves may
 be nested and arranged either vertically or horizontally as well. The
-attributes of the StrategyPanel element include
+attributes of the `StrategyPanel` element include
 
 - **Title** -- a string representing the panel title which may or may
 not be displayed
@@ -421,17 +424,17 @@ collapsed.
 - **Collapsed** -- a Boolean value indicating the panel's initial state.
 
 - **Orientation** -- defines whether the panel's components should be
-vertically or horizontally aligned.
+vertically, horizontally or grid aligned.
 
 An important aspect of the GUI description is that it is platform
 neutral. The algorithm provider describes GUI controls without knowing
 how an E/OMS has been implemented or knowledge of the widget toolkit
-that it uses. The controls provided by FIXatdl are those typically found
+that it uses. The controls provided by FIXatdl&reg; are those typically found
 in .Net, Java or Web environments. (The initial intention was to adopt a
 standard such as XAML or XUL. However, it was believed that this would
 put an excessive constraint on the E/OMS vendors. So a conscious
 decision was made not to adopt any one of these languages. Instead
-FIXatdl presents its own with the understanding that a vendor may extend
+FIXatdl&reg; presents its own with the understanding that a vendor may extend
 or transform it to be aligned with their architecture and internal data
 structures.)
 
@@ -445,7 +448,7 @@ four associated controls. If we
 examine the code we'll notice that the controls are enclosed in two
 StrategyPanels, one entitled "Time Parameters" and the other entitled
 "Advanced". These two panels are nested horizontally into the top-level
-StrategyPanel of the StrategyLayout element.
+StrategyPanel of the `StrategyLayout` element.
 
 ```xml
 <Parameter name="StartTime" xsi:type="UTCTimestamp_t" fixTag="28005" use="required"/>
@@ -476,10 +479,10 @@ StrategyPanel of the StrategyLayout element.
 </StrategyLayout>
 ```
 \
-Notice how the Parameter/@name attributes match with the
-Control/@parameterRef attributes. This creates the binding between
-parameters and controls. Also note how the EnumPair/@EnumID attributes
-match with the ListItem/@EnumID attributes. This creates the binding
+Notice how the `Parameter/@name` attributes match with the
+`Control/@parameterRef` attributes. This creates the binding between
+parameters and controls. Also note how the `EnumPair/@EnumID` attributes
+match with the `ListItem/@EnumID` attributes. This creates the binding
 between the enumeration values of the parameter and the items of a
 drop-down list.
 
@@ -494,6 +497,360 @@ following image:
 
 ![GUI Layout Example](media/SampleLayout.png)
 
+### Enable/Disable Clock Controls
+
+Clock controls are the GUI component rendered in an OMS/EMS that allows a user to enter a time of day value. For example, the most common parameters to an algorithmic order, "Start Time" and "End Time" will be rendered via a clock control. A common use case involving a clock control is one where the user enters an order without specifying a time in the control, thus keeping a value from going out over the wire in the order message. The receiving broker in this case will apply a default value or default behavior based on the non-presence of this field. To do this, two helper controls are used. They are either check boxes or radio buttons and affect the value of the Clock control by use of a `StateRule`.
+
+For example:
+
+```xml
+<lay:StrategyPanel orientation="VERTICAL" title="Start Time">
+    <lay:StrategyPanel orientation="HORIZONTAL">
+	      <lay:Control ID="c_NoStartTime" xsi:type="lay:RadioButton_t"
+                        label="Now" initValue="true" radioGroup="StartTimeRB">
+	      </lay:Control>
+    </lay:StrategyPanel>
+    <lay:StrategyPanel orientation="HORIZONTAL">
+        <lay:Control ID="c_EnableStartTime" xsi:type="lay:RadioButton_t" label=""
+                      radioGroup="StartTimeRB">
+	      </lay:Control>
+	      <lay:Control ID="StartTimeClock" xsi:type="lay:Clock_t" label=""
+                        parameterRef="StartTime">
+		        <flow:StateRule enabled="false" value="{NULL}">
+			           <val:Edit field="c_EnableStartTime" operator="EQ" value="false"/>
+		        </flow:StateRule>
+	      </lay:Control>
+    </lay:StrategyPanel>
+</lay:StrategyPanel>
+```
+\
+Here is how it might be rendered:
+
+![Clock Control Example 1](media/ClockControl1.png)
+
+The value of the Clock control depends on which radio button is selected. If the first is selected, then the state rule defined within the Clock control will set the value of the Clock to null. If the Control is null, then the Parameter bound to the Control is null, and the parameter / FIX Tag is not populated when the order message goes out on the wire. If the second button is selected, then the value of the parameter that goes out on the wire is taken directly from the value the user entered.
+The same can be done using a dropdown (combo box) with two items instead:
+
+```xml
+<lay:StrategyPanel orientation="VERTICAL" title="Start Time">
+    <lay:StrategyPanel orientation="HORIZONTAL">
+	     <lay:Control ID="c_StartTimeOption" xsi:type="lay:DropDownList_t" label="">
+		       <lay:ListItem enumID="e_now" uiRep="Now"/>
+		       <lay:ListItem enumID="e_custom" uiRep="Custom"/>
+	     </lay:Control>
+    </lay:StrategyPanel>
+    <lay:StrategyPanel orientation="HORIZONTAL">
+	      <lay:Control ID="c_StartTimeClock" xsi:type="lay:Clock_t" label=""
+                        parameterRef="StartTime">
+		        <flow:StateRule enabled="false" value="{NULL}">
+			           <val:Edit field="c_StartTimeOption" operator="EQ" value="e_now"/>
+		        </flow:StateRule>
+	      </lay:Control>
+    </lay:StrategyPanel>
+</lay:StrategyPanel>
+```
+\
+
+Rendering the following:
+
+![Clock Control Example 2](media/ClockControl2.png)
+
+Here the "Custom" item has been selected from the dropdown list. If the user had selected "Now" then the time below the dropdown would be greyed out.
+
+The following set of Clock control attributes allows this behavior to be supported without the need of helper controls or state rules. To do so, an OMS would need to implement a compound GUI control (a GUI control with at least two underlying controls: a datetime picker and a check box / radio button). To achieve this goal, the following attributes are available for the Clock control:
+
++----------------------+------------------------------------------+-------+---------------------------------------------------------------+
+| Attribute            | Type                                     | Req'd | Description                                                   |
++======================+==========================================+:=====:+===============================================================+
+| enablingControlType  | String. Valid values are restricted to   | N     | Description of the GUI control to be rendered which directs   |
+|                      | "CheckBox", "RadioButton" or "DropDown". |       | the OMS to enable the clock and allow it to accept user input.|
+|                      |                                          |       |                                                               |
+|                      |                                          |       | If an OMS supports this feature and enablingControlType is    |
+|                      |                                          |       | provided, then the OMS may render a GUI control of this type  |
+|                      |                                          |       | next to the GUI control intended to accept datetime values    |
+|                      |                                          |       | from the user.                                                |
++----------------------+------------------------------------------+-------+---------------------------------------------------------------+
+| disablingControlType | String. Valid values are restricted to   | N     | Description of the GUI control to be rendered which directs   |
+|                      | "CheckBox", "RadioButton" or "DropDown". |       | the OMS to disable the clock (greyed-out with null value) and |
+|                      |                                          |       | block users from providing input.                             |
++----------------------+------------------------------------------+-------+---------------------------------------------------------------+
+| disablingControlText | String                                   | N     | Text to display next to the disabling GUI control. Intended   |
+|                      |                                          |       | to describe the effective result of explicitly disabling the  |
+|                      |                                          |       | clock via its disabling control.                              |
++----------------------+------------------------------------------+-------+---------------------------------------------------------------+
+
+Using these attributes, the previous FIXatdl&reg; sample could be written as follows:
+
+```xml
+<lay:StrategyPanel orientation="VERTICAL" title="Start Time">
+    <lay:Control ID="StartTimeClock" xsi:type="lay:Clock_t" label=""
+                  disablingControlType="RadioButton"
+                  disablingControlLabel="Now"
+                  enablingControlType="RadionButton"
+                  parameterRef="StartTime">
+    </lay:Control>
+</lay:StrategyPanel>
+```
+\
+
+The rendering would remain as before:
+
+![Clock Control Example 1](media/ClockControl1.png)
+
+If an explicit GUI control used to disable user input is not desired, then the `disablingControlType` attribute can be omitted:
+
+```xml
+<lay:StrategyPanel orientation="VERTICAL" title="Start Time">
+    <lay:Control ID="StartTimeClock" xsi:type="lay:Clock_t" label=""
+                  enablingControlType="RadionButton"
+                  parameterRef="StartTime">
+    </lay:Control>
+</lay:StrategyPanel>
+```
+\
+
+An OMS may choose to render this clock control as follows:
+
+![Clock Control Example 3](media/ClockControl3.png)
+
+As with previous examples, if the radio button is selected then the value that goes on the wire is derived from what the user had entered. If the radio button is not selected, then no value goes on the wire.
+
+###	Duration as an Alternative to Expiration Time
+
+While it is the best practice to receive the effective time of an order through use of FIX fields EffectiveTime(168) and ExpireTime(126), some algorithm providers employ a user-defined tag to receive a duration rather than an expiration time. The following example shows the layout of GUI controls that will collect a start time and end time:
+
+```xml
+<StrategyPanel orientation="HORIZONTAL">
+    <StrategyPanel orientation="VERTICAL" title="Start Time">
+        <StrategyPanel orientation="HORIZONTAL">
+	           <Control ID="c_NoStartTime" xsi:type="RadioButton_t"
+                      label="Now" initValue="true" radioGroup="StartTimeRB">
+	           </Control>
+        </StrategyPanel>
+        <StrategyPanel orientation="HORIZONTAL">
+	          <Control ID="c_EnableStartTime" xsi:type="RadioButton_t" label=""
+                     radioGroup="StartTinmeRB">
+	          </Control>
+	          <Control ID="StartTimeClock" xsi:type="Clock_t" label=""
+                     parameterRef="StartTime">
+		            <flow:StateRule enabled="false" value="{NULL}">
+			               <val:Edit field="c_EnableStartTime" operator="EQ" value="false"/>
+		            </flow:StateRule>
+	          </Control>
+        </StrategyPanel>
+    </StrategyPanel>
+    <StrategyPanel orientation="VERTICAL" title="End Time">
+        <StrategyPanel orientation="HORIZONTAL">
+	          <Control ID="c_NoEndTime" xsi:type="RadioButton_t"
+                     label="Mkt Close" initValue="true" radioGroup="EndTimeRB">
+	          </Control>
+        </StrategyPanel>
+        <StrategyPanel orientation="HORIZONTAL">
+	          <Control ID="c_EnableEndTime" xsi:type="RadioButton_t" label=""
+                     radioGroup="EndTimeRB">
+	          </Control>
+	          <Control ID="EndTimeClock" xsi:type="Clock_t" label=""
+                     parameterRef="EndTime">
+		            <flow:StateRule enabled="false" value="{NULL}">
+			              <val:Edit field="c_EnableEndTime" operator="EQ" value="false"/>
+		            </flow:StateRule>
+	          </Control>
+        </StrategyPanel>
+    </StrategyPanel>
+</StrategyPanel>
+```
+\
+
+Rendering:
+
+![Duration Example 1](media/Duration1.png)
+
+A Duration control represents a time span rather than a point in time. Replacing the EndTime control in the previous example with a Duration control results in:
+
+```xml
+<StrategyPanel orientation="HORIZONTAL">
+    <StrategyPanel orientation="VERTICAL" title="Start Time">
+        <StrategyPanel orientation="HORIZONTAL">
+	          <Control ID="c_NoStartTime" xsi:type="RadioButton_t"
+                     label="Now" initValue="true" radioGroup="StartTimeRB">
+	          </Control>
+        </StrategyPanel>
+        <StrategyPanel orientation="HORIZONTAL">
+	          <Control ID="c_EnableStartTime" xsi:type="RadioButton_t" label=""
+                     radioGroup="StartTinmeRB">
+	          </Control>
+	          <Control ID="StartTimeClock" xsi:type="Clock_t" label=""
+                     parameterRef="StartTime">
+		            <flow:StateRule enabled="false" value="{NULL}">
+			              <val:Edit field="c_EnableStartTime" operator="EQ" value="false"/>
+		            </flow:StateRule>
+	          </Control>
+        </StrategyPanel>
+    </StrategyPanel>
+    <StrategyPanel orientation="VERTICAL" title="Duration">
+        <StrategyPanel orientation="HORIZONTAL">
+	          <Control ID="c_NoDuration" xsi:type="RadioButton_t"
+                     label="Until the close" initValue="true" radioGroup="DurationRB">
+	         </Control>
+        </StrategyPanel>
+        <StrategyPanel orientation="HORIZONTAL">
+	          <Control ID="c_EnableDuration" xsi:type="RadioButton_t" label=""
+                     radioGroup="DurationRB">
+	          </Control>
+	          <Control ID="c_Duration" xsi:type="Duration_t" label="" parameterRef="Duration">
+                <flow:StateRule enabled="false" value="{NULL}">
+			              <val:Edit field="c_EnableDuration" operator="EQ" value="false"/>
+		            </flow:StateRule>
+	          </Control>
+        </StrategyPanel>
+    </StrategyPanel>
+</StrategyPanel>
+```
+\
+
+Rendering:
+
+![Duration Example 2](media/Duration2.png)
+
+The parameter "Duration" can be defined as a UTCTimeOnly field, as in the following statement:
+
+```xml
+<parameter name="Duration" xsi:type="UTCTimeOnly_t" fixTag="29003" uiRep="Duration" use="optional"/>
+```
+
+It will be the responsibility of the OMS to correctly populate the Duration parameter on the wire (an integer or a time-related type) from the value returned by the Duration GUI control.
+
+### Grid Layout for Strategy Panels
+To better support the ability of FIXatdl&reg; to describe how GUI controls should be oriented when presented to an OMS user, a feature is available that allows controls to be arranged in grid. Specifically, the value of "GRID" is available for the type "PanelOrientation_t". The XML schema definition is now:
+
+```xml
+<xs:simpleType name="PanelOrientation_t">
+	  <xs:restriction base="xs:string">
+		    <xs:enumeration value="HORIZONTAL"/>
+		    <xs:enumeration value="VERTICAL"/>
+		    <xs:enumeration value="GRID"/>
+	  </xs:restriction>
+</xs:simpleType>
+```
+
+As before, `StrategyPanel` elements define their orientation by setting their orientation attribute to one of these values which can now include "GRID". For example:
+
+```xml
+<StrategyPanel orientation="GRID">
+```
+\
+
+This will allow for all the elements contained in the panel, whether they are controls or other panels, to be arranged by rows and columns. Any item contained within a grid may declare a row, column, row span or column span value to explicitly guide its placement in the grid. However, explicitly declaring the placement of an item in the grid is optional. If row and column values are not provided, then the items are expected to be arranged in row-major or column-major order. A new attribute, fillOrder, will indicate which to use. If row or column span values are not provided, then the item is assumed to take up one row or column.
+
+The following attributes may be specified in any `Control` or `StrategyPanel` elements which are child elements of a grid-oriented `StrategyPanel` element.
+
+Attribute       Type                     Req'd  Description
+--------------- ----------------------- ------- --------------------------------------------------------------------------
+row             Non-negative integer    N       Row in which this item is to appear in a grid-oriented panel.
+col	            Non-negative integer    N	      Column in which this item is to appear in a grid-oriented panel.
+rowSpan	        Non-negative integer    N	      Number of rows an item is to span in a grid-oriented panel. (Default 1.)
+colSpan	        Non-negative integer    N	      Number of colums an item is to span in a grid-oriented panel. (Default 1.)
+
+The following attributes may be specified in any grid-oriented `StrategyPanel` element.
+
+---------------------------------------------------------------------------------------------------------------------------
+Attribute       Type                                Req'd  Description
+--------------- ---------------------------------- ------- ----------------------------------------------------------------
+numRows	        Non-negative integer               N	     Number of rows. Applicable for grid-oriented panels.
+
+numCols	        Non-negative integer               N	     Number of columns. Applicable for grid-oriented panels.
+
+fillOrder	      String. Valid values are 	         N	     Describes how the grid items are to be arranged. Applicable
+                "COL-MAJOR" and "ROW-MAJOR".               for grid-oriented panels. (Default: "COL-MAJOR".)
+---------------------------------------------------------------------------------------------------------------------------
+
+In the following three code samples a panel is created with two rows and two columns. The rendering from each sample is identical. In the first, the controls, which are contained within the panel, each explicitly declare a row and column number.
+
+```xml
+<lay:StrategyPanel orientation="GRID" numRows="2" numCols="2">
+    <lay:Control ID="control1" label="control1" row="0" col="0"/>
+    <lay:Control ID="control2" label="control2" row="1" col="0"/>
+    <lay:Control ID="control3" label="control3" row="0" col="1"/>
+    <lay:Control ID="control4" label="control4" row="1" col="1"/>
+</lay:StrategyPanel>
+```
+\
+
+Next, the `StrategyPanel` attributes `numRows` and `numCols` are left out. One can still determine how to render the controls based on the row and col attributes of each control.
+
+```xml
+<lay:StrategyPanel orientation="GRID">
+    <lay:Control ID="control1" label="control1" row="0" col="0"/>
+    <lay:Control ID="control2" label="control2" row="1" col="0"/>
+    <lay:Control ID="control3" label="control3" row="0" col="1"/>
+    <lay:Control ID="control4" label="control4" row="1" col="1"/>
+</lay:StrategyPanel>
+```
+\
+
+Finally, an implicit declaration of each item's placement is supported by not specifying their row and column attributes. Given the number of rows and columns and the fill order, the arrangement of the controls is easily determined.
+
+```xml
+<lay:StrategyPanel orientation="GRID" numRows="2" numCols="2" fillOrder="COL-MAJOR">
+    <lay:Control ID="control1" label="control1"/>
+    <lay:Control ID="control2" label="control2"/>
+    <lay:Control ID="control3" label="control3"/>
+    <lay:Control ID="control4" label="control4"/>
+</lay:StrategyPanel>
+```
+\
+
+Each of the previous three samples will result in the same arrangement of the GUI controls:
+
+![GUI Controls Example 1](media/GUIControls1.png)
+
+Note that when switching from column-major to row-major order, as in
+
+```xml
+<lay:StrategyPanel orientation="GRID" numRows="2" numCols="2" fillOrder="ROW-MAJOR">
+```
+
+the controls are rendered as follows:
+
+![GUI Controls Example 2](media/GUIControls2.png)
+
+When it makes sense for a control (or panel) to span multiple columns or rows, the `colSpan` and `rowSpan` attributes can be used. They provide the same functionality as "merge cell" in spreadsheet programs like Excel. The value of either attribute must be a positive integer and specifies the number of columns or rows that the control (or panel) fills. For example,
+
+```xml
+<lay:StrategyPanel orientation="GRID" numRows="2" numCols="2" fillOrder="ROW-MAJOR">
+    <lay:Control ID="control1" label="control1"/>
+    <lay:Control ID="control2" label="control2"/>
+    <lay:Control ID="control3" label="control3" colSpan="2"/>
+</lay:StrategyPanel>
+```
+
+will render the following:
+
+![GUI Controls Example 3](media/GUIControls3.png)
+
+#### Error Conditions
+
+Since the attributes `row`, `col`, `numRows`, `numCols`, `rowSpan`, and `colSpan` are optional, their use may be prone to error. One must be rather careful not to define their values in such a way as to make their arrangement ambiguous or to be in conflict. With that in mind, guidance is provided for the following error conditions:
+
+-------------------------------------------------------------------------------------------------------------------
+Error                  Scenario                               Resolution
+---------------------- -------------------------------------- -----------------------------------------------------
+Row/col conflicts.     Two or more items in a grid 	          Ignore all row/col attributes of all grid items and
+                       specify the same row and col values.   render as if they had not been specified.
+
+Row or col values	     The numRows and numCols attributes of  Override the numRows or numCols attribute of the
+are out-of-range.      a `StrategyPanel` element are defined  `StrategyPanel` element with a value large enough to
+                       as N and M, but a child control's row  accommodate the child control's row or col attribute.
+                       attribute b is >= N or its col
+                       attribute is >= M.
+
+Mismatch in 	         Grid attributes are defined on a 	    The grid attributes of the control are ignored.
+parent-child           control whose parent is not a grid.
+orientation.
+--------------------------------------------------------------------------------------------------------------------
+
+This list is not definitive and is expected to grow as issues are raised and identified by those implementing FIXatdl&reg;.
+
 ## Flow Control Rules
 
 Interdependencies among standard FIX tags affecting their applicability
@@ -505,8 +862,8 @@ parameters. These rules are often listed in algorithmic order
 specifications in the comments column of tables that describe the
 parameters of the algorithm.
 
-In order to standardize the way these rules are described we have
-provided a sub-schema which contains elements and attributes used to
+In order to standardize the way these rules are described,
+a sub-schema is provided, which contains elements and attributes used to
 define rules that can be applied to the visual state of GUI Controls.
 This capability is a means to direct the user's workflow and this is why
 it has been called "flow control". When creating flow-control rules the
@@ -515,8 +872,8 @@ has changed. Based on the outcome of the evaluations, certain GUI
 controls may become grayed-out or hidden as the user enters values into
 text fields or selects items from drop-down lists.
 
-Flow-control rules can be described via the StateRule element. A
-StateRule will consist of a Boolean expression and an action to take
+Flow-control rules can be described via the `StateRule` element. A
+`StateRule` element will consist of a Boolean expression and an action to take
 when the Boolean expression is true. There are three actions that are
 supported: (1) change the "enabled" state of a control to either True or
 False; (2) change the "visible" state of a control to either True or
@@ -524,11 +881,11 @@ False; and (3) change the current value of the control to a supplied
 value. (Supplied values may be a constant string value, an enumID, or
 the special token {NULL}.)
 
-As with validation rules, flow-control rules employ the Edit element to
-describe the condition (or Boolean expression). However, when an Edit is
+As with validation rules, flow-control rules employ the `Edit` element to
+describe the condition (or Boolean expression). However, when an `Edit` element is
 used in a Flow-control rule, it will not make comparisons of parameter
 values; rather it will compare the values returned by the controls. For
-example, the attributes Edit/@field and Edit/@field2 will refer to
+example, the attributes `Edit/@field` and `Edit/@field2` will refer to
 either control values or constant values.
 
 Another difference between validation rules and flow-control rules is
@@ -537,9 +894,9 @@ it describes is true. This differs from validation rules, where the
 action of "raising an error" occurs when the condition is false.
 
 To illustrate the description of a Flow-control rule consider the
-following code snippet. (Note how the Control/@ID attribute
-"c_AlphaMode" matches the Edit/@field attribute "c_AlphaMode" and how the
-enumID attribute "e_Custom" matches the value attribute "e_Custom"):
+following code snippet. (Note how the `Control/@ID` attribute
+"c_AlphaMode" matches the `Edit/@field` attribute "c_AlphaMode" and how the
+`enumID` attribute "e_Custom" matches the value attribute "e_Custom"):
 
 ```xml
 <Parameter name="AlphaMode" xsi:type="Int_t" fixTag="28300" use="required">
@@ -567,9 +924,9 @@ enumID attribute "e_Custom" matches the value attribute "e_Custom"):
 </StrategyLayout>
 ```
 \
-In this listing we have defined two parameters, "AlphaMode" and
-"CustomValue". We have also defined two controls corresponding to the
-parameters. A rule has been supplied to the control identified by
+Two parameters are defined in this listing, "AlphaMode" and
+"CustomValue". Also two controls corresponding to the
+parameters are defined. A rule has been supplied to the control identified by
 "c_CustomValue" governing its visual behavior. The rule should be
 interpreted as: "The control c_CustomValue is enabled only when the
 value of control c_AlphaMode has been set to "Custom". So a user who
@@ -578,35 +935,35 @@ value. Only when "Custom" is selected from the dropdown list would the
 custom Alpha control be able to accept values entered by the user.
 
 While StateRules are explicit in defining the changes to a control when
-the condition, described by its Edit element, makes the transition from
+the condition, described by its `Edit` element, makes the transition from
 being false to being true, it is not clear what changes to make when the
 condition becomes false again (or is initially false). So, to clarify
 the behavior of the controls, the following conventions are applied:
 
-1. A StateRule that changes the "enabled" property of a control to X
+1. A `StateRule` element that changes the "enabled" property of a control to X
    when its condition becomes true, will implicitly cause the
    "enabled" property of the control to change to NOT(X) when its
-   condition becomes false, where X is Boolean. (The \"enabled\"
+   condition becomes false, where X is Boolean. (The "enabled"
    property simply controls whether or not the value within the
    control can be changed (is read-only) and is not a determining
-   factor in whether or not the control\'s value is to be included in
+   factor in whether or not the control's value is to be included in
    the message transmitted over the wire.)
 
-2. A StateRule that changes the "visible" property of a control to X
+2. A `StateRule` element that changes the "visible" property of a control to X
    when its condition becomes true, will implicitly cause the
    "visible" property of the control to change to NOT(X) when its
    condition becomes false, where X is Boolean.
 
-3. A StateRule that changes the value of a control when its condition
+3. A `StateRule` element that changes the value of a control when its condition
    becomes true will cause no action to take place when its
    condition becomes false. Provided the vale expressed in the
-   StateRule element is not the special token "{NULL}".
+   `StateRule` element is not the special token "{NULL}".
 
-4. A StateRule that changes the value of a control to "{NULL}" when its
+4. A `StateRule` element that changes the value of a control to "{NULL}" when its
    condition becomes true will cause the control's value to revert
    back to its previous non-{NULL} value or its initial value.
 
-Note that due to (iv), when a StateRule condition becomes false it may
+Note that due to point 4 above, when a `StateRule` element condition becomes false it may
 cause the control to become un-initialized. When this occurs the control
 will have no value. Should a NewOrderSingle(35=D), OrderCancelRequest(35=F) or
 OrderCancelReplaceRequest(35=G) message be generated while the control is
@@ -616,7 +973,7 @@ message.
 Also note that the state of a control's enabled property or visible
 property does not influence whether the control's associated parameter
 is sent on the wire or not. This behavior is governed entirely by the
-control's value. To clarify this, we must adhere to another convention:
+control's value. To clarify this, one must adhere to another convention:
 
 5. To the extent that a control's value determines the "wire-value" of
    a particular parameter, if the control is un-initialized or has
@@ -629,7 +986,7 @@ In other words, if a user enters a value into a control and subsequently
 the control becomes disabled then the value that was entered would cause
 a tag to be populated in the generated FIX message and the value would
 go out over the wire. This is why, in the previous listing, a second
-StateRule was required:
+`StateRule` element was required:
 
 ```xml
 <StateRule value="{NULL}">
@@ -637,7 +994,7 @@ StateRule was required:
 </StateRule>
 ```
 \
-If this rule had not been provided, a "CustomValue" parameter (tag 8301)
+If this rule had not been provided, a "CustomValue" parameter (tag 28301)
 would be transmitted on the wire if the user had entered a value into
 the spinner and then selected "Daily" or "Annual" from the drop-down
 list.
@@ -648,9 +1005,9 @@ In order for an E/OMS to generate an order message it must iterate
 through all the parameters, find the associated controls, retrieve the
 control values and determine appropriate values with which to populate
 the custom FIX tags of the order message. In order for this to be
-accomplished FIXatdl provides a means for relating controls to
-parameters, mainly, the parameterRef attribute of the Control element.
-This attribute is set to the value of a Parameter's name attribute, thus
+accomplished FIXatdl&reg; provides a means for relating controls to
+parameters, mainly, the `parameterRef` attribute of the `Control` element.
+This attribute is set to the value of a `Parameter` element's name attribute, thus
 providing a binding between the two.
 
 Bindings of controls to parameters may be either one-to-one, where one
@@ -669,8 +1026,8 @@ Not all parameters need an associated control. Some parameters are
 intended to act as constants and have no GUI control representation. The
 FIX tags of the parameters are expected to be populated with the same
 value in every order message regardless of the values of other
-parameters. When this is the case, an attribute of the Parameter
-element, constValue, is used to indicate that the parameter is a
+parameters. When this is the case, an attribute of the `Parameter`
+element, `constValue`, is used to indicate that the parameter is a
 constant and provides the value, as in the following listing.
 
 ```xml
@@ -678,10 +1035,10 @@ constant and provides the value, as in the following listing.
 ```
 \
 Based on this description of "ExecService" the order recipient would
-expect to receive a FIX message containing the substring "9050=A".
+expect to receive a FIX message containing the substring "29050=A".
 
 Conversely, it is also the case that not all control need to be bound to
-a parameter. Controls with no declared parameterRef attribute are
+a parameter. Controls with no declared `parameterRef` attribute are
 considered helper controls. They are used to manage the state of other
 controls via the use of flow-control rules. For example, the following
 listing describes two controls -- a helper control and a control bound
@@ -697,23 +1054,23 @@ to some integer parameter named "CrossQty".
 ```
 \
 For a strategy rendered from this description, the user would not be
-able to enter a value into the CrossQty spinner control unless the
-EnableCross checkbox is checked.
+able to enter a value into the "CrossQty" spinner control unless the
+"EnableCross" checkbox is checked.
 
 ## Transport of Strategy Parameters
 
 The FIX Protocol allows algorithmic order parameters to be transported
 between parties either by use of the StrategyParametersGrp repeating
 group or by use of user-defined tags mutually agreed upon by the order
-originator and order recipient. FIXatdl provides a means for the order
+originator and order recipient. FIXatdl&reg; provides a means for the order
 recipient to inform the order originator which of these methods to use.
 
 An algorithmic order provider indicates that it can receive parameters
 through the StrategyParametersGrp component (tags 957-960) by
-setting the attribute of the Strategies element, tag957Support, to true.
+setting the attribute of the `Strategies` element, `tag957Support`, to true.
 The recipient can also indicate that it is able to receive parameters
-via user-defined tags by proving values for the fixTag attributes of
-each Parameter element. An algorithmic order provider may support both
+via user-defined tags by proving values for the `fixTag` attributes of
+each `Parameter` element. An algorithmic order provider may support both
 transport methods.
 
 To illustrate, consider the following listing:
@@ -738,14 +1095,14 @@ PctVol and ForceCompletion. The algorithm provider has also indicated
 that it supports receipt of these parameters via StrategyParametersGrp
 and via the UDFs 27002 and 27003. So an E/OMS would be free to
 choose between the two methods when it transmits the parameters. If this
-were to be rendered by an E/OMS and a user was to enter a PctVol value
+were to be rendered by an E/OMS and a user was to enter a "PctVol" value
 of 0.15 and check the Force Completion checkbox, then the order
 generated may contain a substring similar to:
 
 `. . 35=D|11=1234|55=AXP|. . |27000=v|27001=1|957=2|958=PctVol|959=11|960=0.15|958=FC|959=13|960=Y`
 
 In this case the E/OMS has decided to use the StrategyParametersGrp
-repeating group. If tag957Support were set to false then the E/OMS
+repeating group. If the `tag957Support` attribute were set to false then the E/OMS
 would be forced to use the UDFs, 27002 and 27003, as in:
 
 `. . 35=D|11=1234|55=AXP|. . |27000=v|27001=1|27002=0.15|27003=Y`
@@ -907,7 +1264,7 @@ table.
 |                  |                                                 | child Edit element is false.                                  |
 +------------------+-------------------------------------------------+---------------------------------------------------------------+
 | Strategies       | [n/a]                                           | Container for all strategy elements. It is the root element   |
-|                  |                                                 | of all FIXatdl conforming documents.                          |
+|                  |                                                 | of all FIXatdl&reg; conforming documents.                          |
 +------------------+-------------------------------------------------+---------------------------------------------------------------+
 | Strategy         | Strategies                                      | Root level of a strategy definition.                          |
 +------------------+-------------------------------------------------+---------------------------------------------------------------+
@@ -930,13 +1287,13 @@ table.
 
 # Attribute Definitions
 
-The following table describes the attributes of all the FIXatdl XML
+The following table describes the attributes of all the FIXatdl&reg; XML
 elements. The format of the attribute name is
 
-`<element name>/@<attribute>` where the element is one of the XML elements defined by FIXatdl.
+`<element name>/@<attribute>` where the element is one of the XML elements defined by FIXatdl&reg;.
 
 Since some of the attributes are overloaded due to the way the
-Parameter and Control elements can be extended, types of certain
+`Parameter` and `Control` elements can be extended, types of certain
 attributes will depend on the type of the element. For these
 attributes, the conditions determining their type will be listed in
 their description.
@@ -950,7 +1307,8 @@ their description.
 |                                     |                                            |           | output from this control if it is          |
 |                                     |                                            |           | checked/selected.                          |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | **(See the section [A Sample FIXatdl Document](#a-sample-fixatdl-document) |
+|                                     |                                            |           | **(See the section [A Sample FIXatdl&reg;  |
+|                                     |                                            |           | Document](#a-sample-fixatdl-document)      |
 |                                     |                                            |           | in this document for an example.           |
 |                                     |                                            |           | Examine the Parameter "AllowDarkPoolExec"  |
 |                                     |                                            |           | and Control "DPOption" for details.)**     |
@@ -1257,7 +1615,7 @@ their description.
 |                                     |                                            |           | output from this control if it is          |
 |                                     |                                            |           | unchecked/unselected.                      |
 |                                     |                                            |           |                                            |
-|                                     |                                            |           | **(See the section [A Sample FIXatdl Document](#a-sample-fixatdl-document) |
+|                                     |                                            |           | **(See the section [A Sample FIXatdl&reg; Document](#a-sample-fixatdl-document) |
 |                                     |                                            |           | in this document for an example.           |
 |                                     |                                            |           | Examine the Parameter "AllowDarkPoolExec"  |
 |                                     |                                            |           | and Control "DPOption" for details.)**     |
@@ -1538,7 +1896,7 @@ their description.
 |                                     |                                            |           | parameters checkedEnumRef and              |
 |                                     |                                            |           | uncheckedEnumRef to refer to the enumIDs   |
 |                                     |                                            |           | of the parameter. (See the section         |
-|                                     |                                            |           | [A Sample FIXatdl Document](#a-sample-fixatdl-document) in this document  |
+|                                     |                                            |           | [A Sample FIXatdl&reg; Document](#a-sample-fixatdl-document) in this document |
 |                                     |                                            |           | for an example. Examine the Parameter      |
 |                                     |                                            |           | "AllowDarkPoolExec" and Control "DPOption" |
 |                                     |                                            |           | for details.)**                            |
@@ -1808,7 +2166,7 @@ their description.
 |                                     |                                            |           | parameters checkedEnumRef and              |
 |                                     |                                            |           | uncheckedEnumRef to refer to the enumIDs   |
 |                                     |                                            |           | of the parameter. (See the section         |
-|                                     |                                            |           | [A Sample FIXatdl Document](#a-sample-fixatdl-document) in this document for an  |
+|                                     |                                            |           | [A Sample FIXatdl&reg; Document](#a-sample-fixatdl-document) in this document for an |
 |                                     |                                            |           | example. Examine the Parameter             |
 |                                     |                                            |           | "AllowDarkPoolExec" and Control "DPOption" |
 |                                     |                                            |           | for details.)**                            |
@@ -2151,144 +2509,144 @@ The types of the attribute listed in the previous table are defined
 here. Many of these datatypes have been leveraged from the FIXML
 schema file fixml-datatypes-5-0-SP2.xsd. Some come from the XML Schema
 namespace [http://www.w3.org/2001/XMLSchema](http://www.w3.org/2001/XMLSchema)
-All others have been defined explicitly within the FIXatdl schema files.
+All others have been defined explicitly within the FIXatdl&reg; schema files.
 
-+--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| Type Name                | Source     | Description                                                                                              |
-+==========================+============+==========================================================================================================+
-| MonthYear                | FIXML      | String field representing month of a year. An optional day of the month can be appended or an optional   |
-|                          |            | week code. Valid formats: YYYYMM YYYYMMDD YYYYMMWW YYYY = 0000-9999, MM = 01-12, DD = 01-31, WW = w1,    |
-|                          |            | w2, w3, w4, w5.                                                                                          |
-+--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| MultipleCharValue        | FIXML      | String field containing one or more space delimited char values.                                         |
-+--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| MultipleStringValue      | FIXML      | String field containing one or more space delimited string values.                                       |
-+--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| Orientation              | FIXatdl    | Enumerated type describing the orientation of a group of GUI components or controls. Valid values:       |
-|                          |            | "HORIZONTAL", "VERTICAL".                                                                                |
-+--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| Percentage               | FIXML      | Float value representing a percentage (e.g. .05 represents 5% and .9525 represents 95.25%). Note the     |
-|                          |            | number of decimal places may vary.                                                                       |
-+--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| positiveInteger (posint) | XML Schema | An integer greater than or equal to 0.                                                                   |
-+--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| Price                    | FIXML      | Float value representing a price. Note the number of decimal places may vary. For certain asset classes, |
-|                          |            | prices may be negative values. For example, prices for options strategies can be negative under certain  |
-|                          |            | market conditions.                                                                                       |
-+--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| PriceOffset              | FIXML      | Float value representing a price offset, which can be mathematically added to a "Price". Note the        |
-|                          |            | number of decimal places may vary and some fields such as LastForwardPoints may be negative.             |
-+--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| Qty                      | FIXML      | float value capable of storing either a whole number (no decimal places) of "shares" (securities         |
-|                          |            | denominated in whole units) or a decimal value containing decimal places for non-share quantity asset    |
-|                          |            | classes (securities denominated in fractional units).                                                    |
-+--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| SeqNum                   | FIXML      | Int representing a message sequence number. Value must be positive.                                      |
-+--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| string                   | XML Schema | The string datatype represents character strings in XML.                                                 |
-+--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| StringID                 | FIXatdl    | String with pattern restriction "[A-Za-z][A-za-z0-9_]{0,255}".                                           |
-+--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| time                     | XML Schema | Time specified in the format "hh:mm[:ss]" or "hh:mm[:ss]{+,-}hh:mm". In the later format the offset      |
-|                          |            | from UTC is provided.                                                                                    |
-+--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| date                     | XML Schema | The date data type is used to specify a date. The date is specified in the following form "YYYY-MM-DD"   |
-|                          |            | where:                                                                                                   |
-|                          |            |                                                                                                          |
-|                          |            | -   YYYY indicates the year                                                                              |
-|                          |            |                                                                                                          |
-|                          |            | -   MM indicates the month                                                                               |
-|                          |            |                                                                                                          |
-|                          |            | -   DD indicates the day                                                                                 |
-+--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| TZTimestamp              | FIXML      | String field representing a time/date combination representing local time with an offset to UTC to allow |
-|                          |            | identification of local time and timezone offset of that time. The representation is based on ISO 8601.  |
-|                          |            |                                                                                                          |
-|                          |            | Format is YYYYMMDD-HH:MM:SS[Z | [ + | - hh[:mm]]] where YYYY = 0000 to 9999, MM = 01-12, DD =            |
-|                          |            | 01-31 HH = 00-23 hours, MM = 00-59 minutes, SS = 00-59 seconds, hh = 01-12 offset hours, mm = 00-59      |
-|                          |            | offset minutes                                                                                           |
-|                          |            |                                                                                                          |
-|                          |            | Example: 20060901-07:39Z is 07:39 UTC on 1st of September 2006                                           |
-|                          |            |                                                                                                          |
-|                          |            | Example: 20060901-02:39-05 is five hours behind UTC, thus Eastern Time on 1st of September 2006          |
-|                          |            |                                                                                                          |
-|                          |            | Example: 20060901-15:39+08 is eight hours ahead of UTC, Hong Kong/Singapore time on 1st of September     |
-|                          |            | 2006                                                                                                     |
-|                          |            |                                                                                                          |
-|                          |            | Example: 20060901-13:09+05:30 is 5.5 hours ahead of UTC, India time on 1st of September 2006.            |
-+--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| TZTimeOnly               | FIXML      | String field representing the time represented based on ISO 8601. This is the time with a UTC offset to  |
-|                          |            | allow identification of local time and timezone of that time.                                            |
-|                          |            |                                                                                                          |
-|                          |            | Format is HH:MM[:SS][Z | [ + | - hh[:mm]]] where HH = 00-23 hours, MM = 00-59 minutes, SS =              |
-|                          |            | 00-59 seconds, hh = 01-12 offset hours, mm = 00-59 offset minutes.                                       |
-|                          |            |                                                                                                          |
-|                          |            | Example: 07:39Z is 07:39 UTC                                                                             |
-|                          |            |                                                                                                          |
-|                          |            | Example: 02:39-05 is five hours behind UTC, thus Eastern Time                                            |
-|                          |            |                                                                                                          |
-|                          |            | Example: 15:39+08 is eight hours ahead of UTC, Hong Kong/Singapore time                                  |
-|                          |            |                                                                                                          |
-|                          |            | Example: 13:09+05:30 is 5.5 hours ahead of UTC, India time.                                              |
-+--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| Tenor                    | FIXML      | Pattern used to allow the expression of FX standard tenors in addition to the base valid enumerations    |
-|                          |            | defined for the field that uses this pattern data type. This pattern data type is defined as follows:    |
-|                          |            |                                                                                                          |
-|                          |            | Dx = tenor expression for "days", e.g. "D5", where "x" is any integer > 0                                |
-|                          |            |                                                                                                          |
-|                          |            | Mx = tenor expression for "months", e.g. "M3", where "x" is any integer > 0                              |
-|                          |            |                                                                                                          |
-|                          |            | Wx = tenor expression for "weeks", e.g. "W13", where "x" is any integer > 0                              |
-|                          |            |                                                                                                          |
-|                          |            | Yx = tenor expression for "years", e.g. "Y1", where "x" is any integer > 0                               |
-+--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| UTCDateOnly              | FIXML      | String Date represented in UTC (Universal Time Coordinated, also known as "GMT") in YYYYMMDD format.     |
-|                          |            | This special-purpose field is paired with UTCTimeOnly to form a proper UTCTimestamp for                  |
-|                          |            | bandwidth-sensitive messages.                                                                            |
-|                          |            |                                                                                                          |
-|                          |            | Valid values:                                                                                            |
-|                          |            |                                                                                                          |
-|                          |            | YYYY = 0000-9999, MM = 01-12, DD = 01-31.                                                                |
-+--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| UTCTimeOnly              | FIXML      | String Time-only represented in UTC (Universal Time Coordinated, also known as "GMT") in either          |
-|                          |            | HH:MM:SS (whole seconds) or HH:MM:SS.sss (milliseconds) format, colons, and period required. This        |
-|                          |            | special-purpose field is paired with UTCDateOnly to form a proper UTCTimestamp for bandwidth-sensitive   |
-|                          |            | messages.                                                                                                |
-|                          |            |                                                                                                          |
-|                          |            | Valid values:                                                                                            |
-|                          |            |                                                                                                          |
-|                          |            | HH = 00-23, MM = 00-60 (60 only if UTC leap second), SS = 00-59. (without milliseconds)                  |
-|                          |            |                                                                                                          |
-|                          |            | HH = 00-23, MM = 00-59, SS = 00-60 (60 only if UTC leap second), sss=000-999 (indicating milliseconds).  |
-+--------------------------+------------+----------------------------------------------------------------------------------------------------------+
-| UTCTimestamp             | FIXML      | String representing Time/date combination represented in UTC (Universal Time Coordinated, also known as  |
-|                          |            | "GMT") in either YYYYMMDD-HH:MM:SS (whole seconds) or YYYYMMDD-HH:MM:SS.sss (milliseconds) format,       |
-|                          |            | colons, dash, and period required.                                                                       |
-|                          |            |                                                                                                          |
-|                          |            | Valid values:                                                                                            |
-|                          |            |                                                                                                          |
-|                          |            | YYYY = 0000-9999, MM = 01-12, DD = 01-31, HH = 00-23, MM = 00-59, SS = 00-60 (60 only if UTC leap        |
-|                          |            | second) (without milliseconds).                                                                          |
-|                          |            |                                                                                                          |
-|                          |            | YYYY = 0000-9999, MM = 01-12, DD = 01-31, HH = 00-23, MM = 00-59, SS = 00-60 (60 only if UTC leap        |
-|                          |            | second), sss=000-999 (indicating milliseconds).                                                          |
-|                          |            |                                                                                                          |
-|                          |            | Leap Seconds: Note that UTC includes corrections for leap seconds, which are inserted to account for     |
-|                          |            | slowing of the rotation of the earth. Leap second insertion is declared by the International Earth       |
-|                          |            | Rotation Service (IERS) and has, since 1972, only occurred on the night of Dec. 31 or Jun 30. The IERS   |
-|                          |            | considers March 31 and September 30 as secondary dates for leap second insertion, but has never utilized |
-|                          |            | these dates. During a leap second insertion, a UTCTimestamp field may read "19981231-23:59:59",          |
-|                          |            | "19981231-23:59:60", "19990101-00:00:00"                                                                 |
-|                          |            | (see [http://tycho.usno.navy.mil/leapsec.html](http://tycho.usno.navy.mil/leapsec.html).)                |
++--------------------------+--------------+----------------------------------------------------------------------------------------------------------+
+| Type Name                | Source       | Description                                                                                              |
++==========================+==============+==========================================================================================================+
+| MonthYear                | FIXML        | String field representing month of a year. An optional day of the month can be appended or an optional   |
+|                          |              | week code. Valid formats: YYYYMM YYYYMMDD YYYYMMWW YYYY = 0000-9999, MM = 01-12, DD = 01-31, WW = w1,    |
+|                          |              | w2, w3, w4, w5.                                                                                          |
++--------------------------+--------------+----------------------------------------------------------------------------------------------------------+
+| MultipleCharValue        | FIXML        | String field containing one or more space delimited char values.                                         |
++--------------------------+--------------+----------------------------------------------------------------------------------------------------------+
+| MultipleStringValue      | FIXML        | String field containing one or more space delimited string values.                                       |
++--------------------------+--------------+----------------------------------------------------------------------------------------------------------+
+| Orientation              | FIXatdl&reg; | Enumerated type describing the orientation of a group of GUI components or controls. Valid values:       |
+|                          |              | "HORIZONTAL", "VERTICAL".                                                                                |
++--------------------------+--------------+----------------------------------------------------------------------------------------------------------+
+| Percentage               | FIXML        | Float value representing a percentage (e.g. .05 represents 5% and .9525 represents 95.25%). Note the     |
+|                          |              | number of decimal places may vary.                                                                       |
++--------------------------+--------------+----------------------------------------------------------------------------------------------------------+
+| positiveInteger (posint) | XML Schema   | An integer greater than or equal to 0.                                                                   |
++--------------------------+--------------+----------------------------------------------------------------------------------------------------------+
+| Price                    | FIXML        | Float value representing a price. Note the number of decimal places may vary. For certain asset classes, |
+|                          |              | prices may be negative values. For example, prices for options strategies can be negative under certain  |
+|                          |              | market conditions.                                                                                       |
++--------------------------+--------------+----------------------------------------------------------------------------------------------------------+
+| PriceOffset              | FIXML        | Float value representing a price offset, which can be mathematically added to a "Price". Note the        |
+|                          |              | number of decimal places may vary and some fields such as LastForwardPoints may be negative.             |
++--------------------------+--------------+----------------------------------------------------------------------------------------------------------+
+| Qty                      | FIXML        | float value capable of storing either a whole number (no decimal places) of "shares" (securities         |
+|                          |              | denominated in whole units) or a decimal value containing decimal places for non-share quantity asset    |
+|                          |              | classes (securities denominated in fractional units).                                                    |
++--------------------------+--------------+----------------------------------------------------------------------------------------------------------+
+| SeqNum                   | FIXML        | Int representing a message sequence number. Value must be positive.                                      |
++--------------------------+--------------+----------------------------------------------------------------------------------------------------------+
+| string                   | XML Schema   | The string datatype represents character strings in XML.                                                 |
++--------------------------+--------------+----------------------------------------------------------------------------------------------------------+
+| StringID                 | FIXatdl&reg; | String with pattern restriction "[A-Za-z][A-za-z0-9_]{0,255}".                                           |
++--------------------------+--------------+----------------------------------------------------------------------------------------------------------+
+| time                     | XML Schema   | Time specified in the format "hh:mm[:ss]" or "hh:mm[:ss]{+,-}hh:mm". In the later format the offset      |
+|                          |              | from UTC is provided.                                                                                    |
++--------------------------+--------------+----------------------------------------------------------------------------------------------------------+
+| date                     | XML Schema   | The date data type is used to specify a date. The date is specified in the following form "YYYY-MM-DD"   |
+|                          |              | where:                                                                                                   |
+|                          |              |                                                                                                          |
+|                          |              | -   YYYY indicates the year                                                                              |
+|                          |              |                                                                                                          |
+|                          |              | -   MM indicates the month                                                                               |
+|                          |              |                                                                                                          |
+|                          |              | -   DD indicates the day                                                                                 |
++--------------------------+--------------+----------------------------------------------------------------------------------------------------------+
+| TZTimestamp              | FIXML        | String field representing a time/date combination representing local time with an offset to UTC to allow |
+|                          |              | identification of local time and timezone offset of that time. The representation is based on ISO 8601.  |
+|                          |              |                                                                                                          |
+|                          |              | Format is YYYYMMDD-HH:MM:SS[Z | [ + | - hh[:mm]]] where YYYY = 0000 to 9999, MM = 01-12, DD =            |
+|                          |              | 01-31 HH = 00-23 hours, MM = 00-59 minutes, SS = 00-59 seconds, hh = 01-12 offset hours, mm = 00-59      |
+|                          |              | offset minutes                                                                                           |
+|                          |              |                                                                                                          |
+|                          |              | Example: 20060901-07:39Z is 07:39 UTC on 1st of September 2006                                           |
+|                          |              |                                                                                                          |
+|                          |              | Example: 20060901-02:39-05 is five hours behind UTC, thus Eastern Time on 1st of September 2006          |
+|                          |              |                                                                                                          |
+|                          |              | Example: 20060901-15:39+08 is eight hours ahead of UTC, Hong Kong/Singapore time on 1st of September     |
+|                          |              | 2006                                                                                                     |
+|                          |              |                                                                                                          |
+|                          |              | Example: 20060901-13:09+05:30 is 5.5 hours ahead of UTC, India time on 1st of September 2006.            |
++--------------------------+--------------+----------------------------------------------------------------------------------------------------------+
+| TZTimeOnly               | FIXML        | String field representing the time represented based on ISO 8601. This is the time with a UTC offset to  |
+|                          |              | allow identification of local time and timezone of that time.                                            |
+|                          |              |                                                                                                          |
+|                          |              | Format is HH:MM[:SS][Z | [ + | - hh[:mm]]] where HH = 00-23 hours, MM = 00-59 minutes, SS =              |
+|                          |              | 00-59 seconds, hh = 01-12 offset hours, mm = 00-59 offset minutes.                                       |
+|                          |              |                                                                                                          |
+|                          |              | Example: 07:39Z is 07:39 UTC                                                                             |
+|                          |              |                                                                                                          |
+|                          |              | Example: 02:39-05 is five hours behind UTC, thus Eastern Time                                            |
+|                          |              |                                                                                                          |
+|                          |              | Example: 15:39+08 is eight hours ahead of UTC, Hong Kong/Singapore time                                  |
+|                          |              |                                                                                                          |
+|                          |              | Example: 13:09+05:30 is 5.5 hours ahead of UTC, India time.                                              |
++--------------------------+----------------+----------------------------------------------------------------------------------------------------------+
+| Tenor                    | FIXML        | Pattern used to allow the expression of FX standard tenors in addition to the base valid enumerations    |
+|                          |              | defined for the field that uses this pattern data type. This pattern data type is defined as follows:    |
+|                          |              |                                                                                                          |
+|                          |              | Dx = tenor expression for "days", e.g. "D5", where "x" is any integer > 0                                |
+|                          |              |                                                                                                          |
+|                          |              | Mx = tenor expression for "months", e.g. "M3", where "x" is any integer > 0                              |
+|                          |              |                                                                                                          |
+|                          |              | Wx = tenor expression for "weeks", e.g. "W13", where "x" is any integer > 0                              |
+|                          |              |                                                                                                          |
+|                          |              | Yx = tenor expression for "years", e.g. "Y1", where "x" is any integer > 0                               |
++--------------------------+--------------+----------------------------------------------------------------------------------------------------------+
+| UTCDateOnly              | FIXML        | String Date represented in UTC (Universal Time Coordinated, also known as "GMT") in YYYYMMDD format.     |
+|                          |              | This special-purpose field is paired with UTCTimeOnly to form a proper UTCTimestamp for                  |
+|                          |              | bandwidth-sensitive messages.                                                                            |
+|                          |              |                                                                                                          |
+|                          |              | Valid values:                                                                                            |
+|                          |              |                                                                                                          |
+|                          |              | YYYY = 0000-9999, MM = 01-12, DD = 01-31.                                                                |
++--------------------------+--------------+----------------------------------------------------------------------------------------------------------+
+| UTCTimeOnly              | FIXML        | String Time-only represented in UTC (Universal Time Coordinated, also known as "GMT") in either          |
+|                          |              | HH:MM:SS (whole seconds) or HH:MM:SS.sss (milliseconds) format, colons, and period required. This        |
+|                          |              | special-purpose field is paired with UTCDateOnly to form a proper UTCTimestamp for bandwidth-sensitive   |
+|                          |              | messages.                                                                                                |
+|                          |              |                                                                                                          |
+|                          |              | Valid values:                                                                                            |
+|                          |              |                                                                                                          |
+|                          |              | HH = 00-23, MM = 00-60 (60 only if UTC leap second), SS = 00-59. (without milliseconds)                  |
+|                          |              |                                                                                                          |
+|                          |              | HH = 00-23, MM = 00-59, SS = 00-60 (60 only if UTC leap second), sss=000-999 (indicating milliseconds).  |
++--------------------------+--------------+----------------------------------------------------------------------------------------------------------+
+| UTCTimestamp             | FIXML        | String representing Time/date combination represented in UTC (Universal Time Coordinated, also known as  |
+|                          |              | "GMT") in either YYYYMMDD-HH:MM:SS (whole seconds) or YYYYMMDD-HH:MM:SS.sss (milliseconds) format,       |
+|                          |              | colons, dash, and period required.                                                                       |
+|                          |              |                                                                                                          |
+|                          |              | Valid values:                                                                                            |
+|                          |              |                                                                                                          |
+|                          |              | YYYY = 0000-9999, MM = 01-12, DD = 01-31, HH = 00-23, MM = 00-59, SS = 00-60 (60 only if UTC leap        |
+|                          |              | second) (without milliseconds).                                                                          |
+|                          |              |                                                                                                          |
+|                          |              | YYYY = 0000-9999, MM = 01-12, DD = 01-31, HH = 00-23, MM = 00-59, SS = 00-60 (60 only if UTC leap        |
+|                          |              | second), sss=000-999 (indicating milliseconds).                                                          |
+|                          |              |                                                                                                          |
+|                          |              | Leap Seconds: Note that UTC includes corrections for leap seconds, which are inserted to account for     |
+|                          |              | slowing of the rotation of the earth. Leap second insertion is declared by the International Earth       |
+|                          |              | Rotation Service (IERS) and has, since 1972, only occurred on the night of Dec. 31 or Jun 30. The IERS   |
+|                          |              | considers March 31 and September 30 as secondary dates for leap second insertion, but has never utilized |
+|                          |              | these dates. During a leap second insertion, a UTCTimestamp field may read "19981231-23:59:59",          |
+|                          |              | "19981231-23:59:60", "19990101-00:00:00"                                                                 |
+|                          |              | (see [http://tycho.usno.navy.mil/leapsec.html](http://tycho.usno.navy.mil/leapsec.html).)                |
 +--------------------------+------------+----------------------------------------------------------------------------------------------------------+
 
 # Abstract Element Extensions
 
 There are two elements in the schema that are defined as abstract. For
-example, they cannot be included in an ATDL document without being
+example, they cannot be included in a FIXatdl&reg; document without being
 extended by another element via the XML Schema extension element. All
 instances of these elements must indicate a derived type that is not
-abstract via use of the attribute xsi:type defined in the namespace
+abstract via use of the attribute `xsi:type` defined in the namespace
 [http://www.w3.org/2001/XMLSchema-instance](http://www.w3.org/2001/XMLSchema-instance).
 
 ## Parameter Element Extension
@@ -2297,32 +2655,32 @@ Custom parameters received by an algorithmic order recipient must be of
 a type known to the recipient. For example, if the recipient is
 expecting a floating point number in a particular tag then the order
 sender must make certain that an actual floating point number goes in
-that tag. FIXatdl requires that any custom parameter to an algorithm
+that tag. FIXatdl&reg; requires that any custom parameter to an algorithm
 must be of a type defined by the FIX Protocol. So the schema provides a
-set of complex types that are used to extend the Parameter element.
+set of complex types that are used to extend the `Parameter` element.
 These complex types directly correspond to the enumeration type
 description of StrategyParameterType(959) in the [FIX Latest specification](https://www.fixtrading.org/online-specification/).
 
-It is required that each Parameter element be extended by setting the
-attribute xsi:type equal to the name of one of the FIXatdl parameter
-extension types. An abstract Parameter element has the following
-attributes (which are described in the section "Attribute Definitions"):
+It is required that each `Parameter` element be extended by setting the
+attribute `xsi:type` equal to the name of one of the FIXatdl&reg; parameter
+extension types. An abstract `Parameter` element has the following
+attributes (which are described in the section [*Attribute Definitions*](#attribute-definitions)):
 
-- name
-- fixTag
-- use
-- mutableOnCxlRpl
-- revertOnCxlRpl
-- definedByFIX
-- xsi:type
+- `name`
+- `fixTag`
+- `use`
+- `mutableOnCxlRpl`
+- `revertOnCxlRpl`
+- `definedByFIX`
+- `xsi:type`
 
-When the Parameter element is extended it gains several more attributes
+When the `Parameter` element is extended it gains several more attributes
 depending on the element to which it is extended.
 
 The types of these attributes are also dependent on the extended element
-and may vary from one Parameter to another.
+and may vary from one `Parameter` element to another.
 
-The following table presents the xsi:type names, the expected data type
+The following table presents the `xsi:type` names, the expected data type
 of the wire-value and the extended attributes that apply only to the
 specific parameter extension type.
 
@@ -2439,19 +2797,19 @@ TZTimeOnly_t             TZTimeOnly                       minValue\             
 [^3]: Deprecated
 
 For example in the following code snippet an algorithmic parameter,
-MktOnCloseFlag, is defined as being a Boolean_t type.
+"MktOnCloseFlag", is defined as being a "Boolean_t" type.
 
 ```xml
 <Parameter name="MktOnCloseFlag" xsi:type="Boolean_t" fixTag="28001" use="required" trueWireValue="T" falseWireValue="F"/>
 ```
 \
-Notice that by setting xsi:type of this parameter to "Boolean_t" we can
-now use the attributes, "trueWireValue" and "falseWireValue", which are
-members of the derived element and accept standard XML string values.
+Notice that by setting `xsi:type` of this parameter to "Boolean_t",
+the attributes `trueWireValue` and `falseWireValue`, which are
+members of the derived element and accept standard XML string values, can now be used.
 
 [Please note that the previous example shows two attributes which have
-been deprecated, Parameter/@trueWireValue and
-Parameter/@falseWireValue. The intention was to illustrate how extended
+been deprecated, `Parameter/@trueWireValue` and
+`Parameter/@falseWireValue`. The intention was to illustrate how extended
 elements are used.]
 
 In this next snippet a quantity parameter is defined.
@@ -2460,33 +2818,33 @@ In this next snippet a quantity parameter is defined.
 <Parameter name="CrossQty" xsi:type="Qty_t" fixTag="28002" use="required" minValue="100"/>
 ```
 \
-By setting xsi:type to Qty_t we can now provide a value for minValue.
+By setting `xsi:type` to "Qty_t", a value for `minValue` can be provided.
 
 ## Control Element Extension
 
-As with extensions to Parameter, ATDL provides a set of elements that
-are derived from Control. Each of these elements inherits the attributes
-of Control. They also have their own distinct attributes.
+As with extensions to the `Parameter` element, FIXatdl&reg; provides a set of elements that
+are derived from the `Control` element. Each of these elements inherits the attributes
+of the `Control` element. They also have their own distinct attributes.
 
-An abstract Control element has the following attributes (which are
-described in the section "Attribute Definitions"):
+An abstract `Control` element has the following attributes (which are
+described in the section [*Attribute Definitions*](#attribute-definitions)):
 
-- ID
-- parameterRef
-- label
-- initFixField
-- initPolicy
-- tooltip
-- disableForTemplate
-- xsi:type
+- `ID`
+- `parameterRef`
+- `label`
+- `initFixField`
+- `initPolicy`
+- `tooltip`
+- `disableForTemplate`
+- `xsi:type`
 
-When the Control element is extended it gains several more attributes
+When the `Control` element is extended it gains several more attributes
 depending on the element to which it is extended.
 
 The types of these attributes are also dependent on the extended element
-and may vary from one Control to another.
+and may vary from one `Control` element to another.
 
-The following types are used to extend the Control element:
+The following types are used to extend the `Control` element:
 
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
 | Control xsi:type        | Description of desired control                  | Attribute Name[^1]                  | Attribute Type[^1]  |
@@ -2559,10 +2917,10 @@ The following types are used to extend the Control element:
 |                         | updated through the execution of a StateRule.   |                                     |                     |
 +-------------------------+-------------------------------------------------+-------------------------------------+---------------------+
 
-[^1]: Attributes specific to xsi:type.
+[^1]: Attributes specific to `xsi:type`.
 
-For example in the following code snippet a control, StartTimeCntl, is
-defined as being a Clock_t. An initial value of 09:30 has been
+For example in the following code snippet a control, "StartTimeCntl", is
+defined as being a "Clock_t". An initial value of "09:30" has been
 specified.
 
 ```xml
@@ -2578,7 +2936,7 @@ optional. Furthermore, there is no way to specify more complex
 constraints between attributes or between attributes or elements.
 
 With this in mind the following table presents further constraints to
-which XML document instances must conform if they are to be FIXatdl
+which XML document instances must conform if they are to be FIXatdl&reg;
 compliant.
 
 +----+-------------------+-------------------------+------------------------------------------------------------------------------------------------+
@@ -2619,9 +2977,9 @@ compliant.
 |    |                   |                         | EnumPair/@enumID values of the Parameter referred to by Control/@parameterRef.                 |
 +----+-------------------+-------------------------+------------------------------------------------------------------------------------------------+
 
-# A Sample FIXatdl Document
+# A Sample FIXatdl&reg; Document
 
-The following listing shows a FIXatdl instance document describing one
+The following listing shows a FIXatdl&reg; instance document describing one
 strategy with six parameters. The associated controls to be rendered are
 aligned horizontally within two panels which are, in turn, are
 vertically aligned. Three validation rules are provided.
@@ -2635,8 +2993,7 @@ vertically aligned. Three validation rules are provided.
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.fixprotocol.org/FIXatdl-1-2/Core fixatdl-core-1-2.xsd"
     strategyIdentifierTag="27620"
-    versionIdentifierTag="27621"
->
+    versionIdentifierTag="27621">
 
     <Strategy name="Tazer1" uiRep="Tazer" wireValue="Tazer" version="1" fixMsgType="D"
       providerID="ABC">
@@ -2830,5 +3187,4 @@ vertically aligned. Three validation rules are provided.
 Appendix 1 - LocalMktTz Type
 :::
 
-The valid values of attributes of the type LocalMktTz can be found at [IANA](https://www.iana.org/time-zones). In the FIXatdl schema a simple type, LocalMktTz_t, has
-been defined as a string which is restricted to the zone names of the TZ environment variable.
+The valid values of attributes of the type LocalMktTz can be found at [IANA](https://www.iana.org/time-zones). In the FIXatdl&reg; schema a simple type, "LocalMktTz_t", has been defined as a string which is restricted to the zone names of the TZ environment variable.
