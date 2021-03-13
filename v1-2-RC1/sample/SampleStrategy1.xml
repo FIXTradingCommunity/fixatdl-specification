@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	- - - - - - - - - - - - - - - - - - - - - - - - - -
+    FIXatdl Sample document instance for FIXatdl Schema Version 1.2 Release Candidate 1
+    (C) 2021 FIX Protocol Limited. All use of the FIXatdl Schema is subject to
+    the disclaimer which is printed on one of the initial pages of the written specification
+    for the FIXatdl Schema and is included in the zip file which you downloaded to
+    obtain the Schema.
+    Comments and errors should be posted in GitHub
+    (https://github.com/FIXTradingCommunity/fixatdl-specification)
+	- - - - - - - - - - - - - - - - - - - - - - - - - -
+-->
+<Strategies xmlns="http://www.fixprotocol.org/FIXatdl-1-2/Core"
+            xmlns:val="http://www.fixprotocol.org/FIXatdl-1-2/Validation"
+            xmlns:lay="http://www.fixprotocol.org/FIXatdl-1-2/Layout"
+            xmlns:flow="http://www.fixprotocol.org/FIXatdl-1-2/Flow"
+            xmlns:tz="http://www.fixprotocol.org/FIXatdl-1-2/Timezones"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://www.fixprotocol.org/FIXatdl-1-2/Core fixatdl-core-1-2.xsd"
+            strategyIdentifierTag="7620"
+            versionIdentifierTag="7621">
+
+  <Parameter name="p_StartTime" xsi:type="UTCTimestamp_t" fixTag="7602" localMktTz="America/New_York">
+    <Description>Strategy Start Time</Description>
+  </Parameter>
+
+  <Parameter name="p_EndTime" xsi:type="UTCTimestamp_t" fixTag="7603" localMktTz="America/New_York">
+    <Description>Strategy End Time</Description>
+  </Parameter>
+
+  <Parameter name="p_SweepDistribution" xsi:type="Char_t" fixTag="7640">
+    <EnumPair enumID="e_Uniform" wireValue="U">
+      <Description>The 'Uniform' setting for Sweep Distribution</Description>
+    </EnumPair>
+    <EnumPair enumID="e_Gaussian" wireValue="G">
+      <Description>The 'Gaussian' setting for Sweep Distribution</Description>
+    </EnumPair>
+  </Parameter>
+
+  <Control ID="c_SweepDistribution" xsi:type="lay:DropDownList_t" label="Sweep Distribution" parameterRef="p_SweepDistribution" initValue="e_Uniform">
+    <lay:ListItem enumID="e_Uniform" uiRep="Uniform"/>
+    <lay:ListItem enumID="e_Gaussian" uiRep="Gaussian"/>
+  </Control>
+
+  <StrategyPanel id="sp_StartTime" collapsible="false" orientation="HORIZONTAL">
+    <lay:Control ID="c_EnableStartTime" xsi:type="lay:CheckBox_t" label="Start Time" initValue="false"/>
+    <lay:Control ID="c_StartTime" xsi:type="lay:Clock_t" label="" parameterRef="p_StartTime">
+      <flow:StateRule enabled="false" value="{NULL}">
+        <val:Edit field="c_EnableStartTime" operator="EQ" value="false"/>
+      </flow:StateRule>
+    </lay:Control>
+  </StrategyPanel>
+
+  <StrategyPanel id="sp_EndTime" collapsible="false" orientation="HORIZONTAL">
+    <lay:Control ID="c_EnableEndTime" xsi:type="lay:CheckBox_t" label="End Time" initValue="false"/>
+    <lay:Control ID="c_EndTime" xsi:type="lay:Clock_t" label="" initValue="16:00:00" localMktTz="America/New_York" parameterRef="p_EndTime">
+      <flow:StateRule enabled="false" value="{NULL}">
+        <val:Edit field="c_EnableEndTime" operator="EQ" value="false"/>
+      </flow:StateRule>
+    </lay:Control>
+  </StrategyPanel>
+
+  <!--
+  Sample 1 - Applying global definitions.
+  Here we find several global defintions put to use. The parameters p_StartTime, p_EndTime
+  and p_SweepDistribution are declared using the <ParameterRef> element, the control c_SweepDistribution
+  is declared with the <ControlRef> element, and the panels sp_StratTime and sp_EndTime are decalred
+  using the <StrategyPanelRef> elements.
+  -->
+  <Strategy name="Strategy1" uiRep="Strategy1" wireValue="Strategy1" version="1" fixMsgType="D" providerID="ABC">
+    <ParameterRef id="p_StartTime" use="required"/>
+		<ParameterRef id="p_EndTime" use="optional"/>
+    <ParameterRef id="p_SweepDistribution" use="required"/>
+    <Parameter name="p_Variance" xsi:type="Float_t" fixTag="7641" use="optional" minValue="0.01" maxValue="0.50"/>
+		<lay:StrategyLayout>
+			<lay:StrategyPanel orientation="VERTICAL">
+				<lay:StrategyPanel orientation="HORIZONTAL">
+          <lay:StrategyPanelRef id="sp_StartTime"/>
+          <lay:StrategyPanelRef id="sp_EndTime"/>
+        </lay:StrategyPanel>
+        <lay:StrategyPanel orientation="HORIZONTAL">
+          <lay:ControlRef id="c_SweepDistribution"/>
+					<lay:Control xsi:type="lay:TextField_t" ID="Variance" label="Variance" parameterRef="p_Variance">
+						<flow:StateRule enabled="false" value="{NULL}">
+							<val:Edit field="c_SweepDistribution" operator="EQ" value="e_Uniform"/>
+						</flow:StateRule>
+					</lay:Control>
+        </lay:StrategyPanel>
+			</lay:StrategyPanel>
+		</lay:StrategyLayout>
+		<val:StrategyEdit errorMessage="End Time should be later than Start Time">
+			<val:Edit field="p_EndTime" operator="GT" field2="p_StartTime"/>
+		</val:StrategyEdit>
+		<val:StrategyEdit errorMessage="Variance is required when Sweep Distribution is Gaussian.">
+			<val:Edit logicOperator="OR">
+				<val:Edit field="p_SweepDistribution" operator="NE" value="G"/>
+				<val:Edit logicOperator="AND">
+					<val:Edit field="p_SweepDistribution" operator="EQ" value="G"/>
+					<val:Edit field="p_Variance" operator="EX"/>
+				</val:Edit>
+			</val:Edit>
+		</val:StrategyEdit>
+		<val:StrategyEdit errorMessage="Variance must be between 0 and 2.0">
+			<val:Edit logicOperator="OR">
+				<val:Edit field="p_SweepDistribution" operator="NE" value="G"/>
+				<val:Edit logicOperator="AND">
+					<val:Edit field="p_SweepDistribution" operator="EQ" value="G"/>
+					<val:Edit field="p_Variance" operator="EX"/>
+					<val:Edit field="p_Variance" operator="GT" value="0.0"/>
+					<val:Edit field="p_Variance" operator="LT" value="2.0"/>
+				</val:Edit>
+			</val:Edit>
+		</val:StrategyEdit>
+	</Strategy>
+
+</Strategies>

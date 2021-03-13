@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	- - - - - - - - - - - - - - - - - - - - - - - - - -
+    FIXatdl Sample document instance for FIXatdl Schema Version 1.2 Release Candidate 1
+    (C) 2010 FIX Protocol Limited. All use of the FIXatdl Schema is subject to
+    the disclaimer which is printed on one of the initial pages of the written specification
+    for the FIXatdl Schema and is included in the zip file which you downloaded to
+    obtain the Schema.
+    Comments and errors should be posted in GitHub
+    (https://github.com/FIXTradingCommunity/fixatdl-specification)
+	- - - - - - - - - - - - - - - - - - - - - - - - - -
+-->
+<Strategies xmlns="http://www.fixprotocol.org/FIXatdl-1-2/Core"
+            xmlns:val="http://www.fixprotocol.org/FIXatdl-1-2/Validation"
+            xmlns:lay="http://www.fixprotocol.org/FIXatdl-1-2/Layout"
+            xmlns:flow="http://www.fixprotocol.org/FIXatdl-1-2/Flow"
+            xmlns:tz="http://www.fixprotocol.org/FIXatdl-1-2/Timezones"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://www.fixprotocol.org/FIXatdl-1-2/Core fixatdl-core-1-2.xsd"
+            strategyIdentifierTag="7620"
+            versionIdentifierTag="7621">
+
+  <Parameter name="p_StartTime" xsi:type="UTCTimestamp_t" fixTag="7602" localMktTz="America/New_York">
+    <Description>Strategy Start Time</Description>
+  </Parameter>
+
+  <Parameter name="p_EndTime" xsi:type="UTCTimestamp_t" fixTag="7603" localMktTz="America/New_York">
+    <Description>Strategy End Time</Description>
+  </Parameter>
+
+  <Parameter name="p_SweepDistribution" xsi:type="Char_t" fixTag="7640">
+    <EnumPair enumID="e_Uniform" wireValue="U">
+      <Description>The 'Uniform' setting for Sweep Distribution</Description>
+    </EnumPair>
+    <EnumPair enumID="e_Gaussian" wireValue="G">
+      <Description>The 'Gaussian' setting for Sweep Distribution</Description>
+    </EnumPair>
+  </Parameter>
+
+  <Control ID="c_SweepDistribution" xsi:type="lay:DropDownList_t" label="Sweep Distribution" parameterRef="p_SweepDistribution" initValue="e_Uniform">
+    <lay:ListItem enumID="e_Uniform" uiRep="Uniform"/>
+    <lay:ListItem enumID="e_Gaussian" uiRep="Gaussian"/>
+  </Control>
+
+  <StrategyPanel id="sp_StartTime" collapsible="false" orientation="HORIZONTAL">
+    <lay:Control ID="c_EnableStartTime" xsi:type="lay:CheckBox_t" label="Start Time" initValue="false"/>
+    <lay:Control ID="c_StartTime" xsi:type="lay:Clock_t" label="" parameterRef="p_StartTime">
+      <flow:StateRule enabled="false" value="{NULL}">
+        <val:Edit field="c_EnableStartTime" operator="EQ" value="false"/>
+      </flow:StateRule>
+    </lay:Control>
+  </StrategyPanel>
+
+  <StrategyPanel id="sp_EndTime" collapsible="false" orientation="HORIZONTAL">
+    <lay:Control ID="c_EnableEndTime" xsi:type="lay:CheckBox_t" label="End Time" initValue="false"/>
+    <lay:Control ID="c_EndTime" xsi:type="lay:Clock_t" label="" initValue="16:00:00" localMktTz="America/New_York" parameterRef="p_EndTime">
+      <flow:StateRule enabled="false" value="{NULL}">
+        <val:Edit field="c_EnableEndTime" operator="EQ" value="false"/>
+      </flow:StateRule>
+    </lay:Control>
+  </StrategyPanel>
+
+  <!--
+  Sample 5 - Grid layout.
+  Here we take the same definition from sample 1 and use panels in a grid orientations to
+  acheive the same arrangement of controls and panels.
+  -->
+  <Strategy name="Strategy5" uiRep="Strategy5" wireValue="Strategy5" version="1" fixMsgType="D" providerID="ABC">
+    <ParameterRef id="p_StartTime" use="required"/>
+		<ParameterRef id="p_EndTime" use="optional"/>
+    <ParameterRef id="p_SweepDistribution" use="required"/>
+    <Parameter name="p_Variance" xsi:type="Float_t" fixTag="7641" use="optional" minValue="0.01" maxValue="0.50"/>
+		<lay:StrategyLayout>
+      <lay:StrategyPanel orientation="GRID" numRows="2" numCols="2">
+        <lay:StrategyPanelRef id="sp_StartTime" row="0" col="0"/>
+        <lay:StrategyPanelRef id="sp_EndTime" row="0" col="1"/>
+        <lay:ControlRef id="c_SweepDistribution" row="1" col="0"/>
+        <lay:Control xsi:type="lay:TextField_t" ID="Variance" label="Variance" parameterRef="p_Variance" row="1" col="1">
+				  <flow:StateRule enabled="false" value="{NULL}">
+					  <val:Edit field="c_SweepDistribution" operator="EQ" value="e_Uniform"/>
+				  </flow:StateRule>
+			  </lay:Control>
+      </lay:StrategyPanel>
+		</lay:StrategyLayout>
+	</Strategy>
+
+  <!--
+  Sample 6 - Grid layout without specifying numRows and numCols.
+  Next, we leave out the <StrategyPanel> attributes, numRows and numCols, and can still
+  determine how to render the controls based on the row and col attributes of each control.
+  -->
+  <Strategy name="Strategy6" uiRep="Strategy6" wireValue="Strategy6" version="1" fixMsgType="D" providerID="ABC">
+    <ParameterRef id="p_StartTime" use="required"/>
+		<ParameterRef id="p_EndTime" use="optional"/>
+    <ParameterRef id="p_SweepDistribution" use="required"/>
+    <Parameter name="p_Variance" xsi:type="Float_t" fixTag="7641" use="optional" minValue="0.01" maxValue="0.50"/>
+		<lay:StrategyLayout>
+      <lay:StrategyPanel orientation="GRID">
+        <lay:StrategyPanelRef id="sp_StartTime" row="0" col="0"/>
+        <lay:StrategyPanelRef id="sp_EndTime" row="0" col="1"/>
+        <lay:ControlRef id="c_SweepDistribution" row="1" col="0"/>
+        <lay:Control xsi:type="lay:TextField_t" ID="Variance" label="Variance" parameterRef="p_Variance" row="1" col="1">
+				  <flow:StateRule enabled="false" value="{NULL}">
+					  <val:Edit field="c_SweepDistribution" operator="EQ" value="e_Uniform"/>
+				  </flow:StateRule>
+			  </lay:Control>
+      </lay:StrategyPanel>
+		</lay:StrategyLayout>
+	</Strategy>
+
+  <!--
+  Sample 7 - Grid layout without specifying row and col.
+  Now we allow an implicit declaration of each item’s placement by not specifying their
+  row and column attributes. Given the number of rows and columns and the fill order,
+  the arrangement of the controls is easily determined.
+  -->
+  <Strategy name="Strategy7" uiRep="Strategy7" wireValue="Strategy7" version="1" fixMsgType="D" providerID="ABC">
+    <ParameterRef id="p_StartTime" use="required"/>
+		<ParameterRef id="p_EndTime" use="optional"/>
+    <ParameterRef id="p_SweepDistribution" use="required"/>
+    <Parameter name="p_Variance" xsi:type="Float_t" fixTag="7641" use="optional" minValue="0.01" maxValue="0.50"/>
+		<lay:StrategyLayout>
+      <lay:StrategyPanel orientation="GRID" numRows="2" numCols="2" fillOrder="COL-MAJOR">
+        <lay:StrategyPanelRef id="sp_StartTime"/>
+        <lay:StrategyPanelRef id="sp_EndTime"/>
+        <lay:ControlRef id="c_SweepDistribution"/>
+        <lay:Control xsi:type="lay:TextField_t" ID="Variance" label="Variance" parameterRef="p_Variance">
+				  <flow:StateRule enabled="false" value="{NULL}">
+					  <val:Edit field="c_SweepDistribution" operator="EQ" value="e_Uniform"/>
+				  </flow:StateRule>
+			  </lay:Control>
+      </lay:StrategyPanel>
+		</lay:StrategyLayout>
+	</Strategy>
+
+</Strategies>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	- - - - - - - - - - - - - - - - - - - - - - - - - -
+    FIXatdl Sample document instance for FIXatdl Schema Version 1.2 Release Candidate 1
+    (C) 2021 FIX Protocol Limited. All use of the FIXatdl Schema is subject to
+    the disclaimer which is printed on one of the initial pages of the written specification
+    for the FIXatdl Schema and is included in the zip file which you downloaded to
+    obtain the Schema.
+    Comments and errors should be posted in GitHub
+    (https://github.com/FIXTradingCommunity/fixatdl-specification)
+	- - - - - - - - - - - - - - - - - - - - - - - - - -
+-->
+<Strategies
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:tz="http://www.fixprotocol.org/FIXatdl-1-2-Timezones"
+  xmlns:lay="http://www.fixprotocol.org/FIXatdl-1-2-Layout"
+  xmlns:val="http://www.fixprotocol.org/FIXatdl-1-2-Validation"
+  xmlns:flow="http://www.fixprotocol.org/FIXatdl-1-2-Flow"
+  strategyIdentifierTag="7620">
+
+  <!--
+  Sample 8 - Declaration of leg parameters.
+  In the following sample, the order tpye is accessable to the user if the following
+  conditions are met:
+  The OMS can send this type of order in either a NewOrderSingle or NewOrder-Multileg
+  message.
+  The OMS is able to send custom tags in individual leg components when sending this
+  type of order in a NewOrder-Multileg message.
+  Tis strategy highlights the scope of the parameters of order parameters vs leg parameters.
+  -->
+  <Strategy
+        name="Pairs-Sample-1"
+        uiRep="Pairs"
+        version="2.0"
+        wireValue="46"
+        requiredNumberOfLegs="2"
+        objective="PAIRS"
+        commonIDTag="7066"
+        legSequenceTag="7067"
+        totalLegsTag="7068"
+        legAreSeverable="true"
+   >
+    <VendorConfig legParameters="true"/>
+    <DeliveryMethods>
+      <FixMsg msgType="NewOrderSingle"/>
+      <FixMsg msgType="NewOrderMultiLeg"/>
+    </DeliveryMethods>
+    <Parameter name="p_OrdParamA" xsi:type="Int_t" fixTag="5000"/>
+    <Parameter name="p_OrdParamB" xsi:type="Int_t" fixTag="5001"/>
+    <Leg>
+      <Parameter name="p_LegParamA" xsi:type="Int_t" fixTag="6001"/>
+      <Parameter name="p_LegParamB" xsi:type="Int_t" fixTag="6002"/>
+    </Leg>
+    <lay:StrategyLayout>
+      <lay:StrategyPanel collapsible="false" orientation="VERTICAL">
+        <lay:Control ID="c_OrdParam1" label="Ord Param A" parameterRef="p_OrdParamA" xsi:type="lay:SingleSpinner_t"/>
+        <lay:Control ID="c_OrdParam2" label="Ord Param B" parameterRef="p_OrdParamB" xsi:type="lay:SingleSpinner_t"/>
+      </lay:StrategyPanel>
+      <lay:LegPanel collapsible="false" orientation="VERTICAL">
+        <lay:Control ID="c_LegParamA" label="Leg Param A" parameterRef="p_LegParamA" xsi:type="lay:SingleSpinner_t"/>
+        <lay:Control ID="c_LegParamB" label="Leg Param B" parameterRef="p_LegParamB" xsi:type="lay:SingleSpinner_t">
+          <StateRule enabled="false" value="{NULL}">
+            <Edit field="FIX_Side" operator="EQ" value="Buy"/>
+          </StateRule>
+        </lay:Control>
+      </lay:LegPanel>
+    </lay:StrategyLayout>
+    <StrategyEdit errorMessage="One leg must be a BUY the other must be a SELL">
+      <val:Edit logicOperator="OR">
+        <val:Edit logicOperator="AND">
+          <val:Edit field="FIX_Side" legNo="1" operator="EQ" field2="1"/>
+          <val:Edit logicOperator="OR">
+            <val:Edit field="FIX_Side" legNo="2" operator="EQ" field2="2"/>
+            <val:Edit field="FIX_Side" legNo="2" operator="EQ" field2="5"/>
+          </val:Edit>
+        </val:Edit>
+        <val:Edit logicOperator="AND">
+          <val:Edit field="FIX_Side" legNo="2" operator="EQ" field2="1"/>
+          <val:Edit logicOperator="OR">
+            <val:Edit field="FIX_Side" legNo="1" operator="EQ" field2="2"/>
+            <val:Edit field="FIX_Side" legNo="1" operator="EQ" field2="5"/>
+          </val:Edit>
+        </val:Edit>
+      </val:Edit>
+    </StrategyEdit>
+  </Strategy>
+
+
+  <!--
+  Sample 9 THERE WILL BE 2 WAYS to do this.
+  We'll now change from legParameter=true to false.
+  This means that the OMS will place ALL leg parameters into each leg. So all leg parameters
+  must have their own unique fix tag.
+  We'll declare Leg parameters in case we want to support both fixMsgType D and AB.
+  No need to declare a LegPanel because all params are entered into Strategy panels.
+  -->
+  <Strategy
+        name="Pairs-Sample-2"
+        uiRep="Pairs"
+        version="2.0"
+        wireValue="46"
+        requiredNumberOfLegs="2"
+        objective="PAIRS"
+        commonIDTag="7066"
+        legSequenceTag="7067"
+        totalLegsTag="7068"
+        resendAllLegsOnModify="true"
+   >
+    <VendorConfig legParameters="false"/>
+    <DeliveryMethods>
+      <FixMsg type="NewOrderSingle"/>
+    </DeliveryMethods>
+    <Regions>
+      <Region inclusion="Include" name="TheAmericas">
+        <Country CountryCode="US" inclusion="Include"/>
+      </Region>
+    </Regions>
+    <Parameter name="p_Ord_ParamA" xsi:type="Int_t" fixTag="5000"/>
+    <Parameter name="p_Ord_ParamB" xsi:type="Int_t" fixTag="5001"/>
+    <Leg>
+      <Parameter name="p_Buy_Leg_ParamA" xsi:type="Int_t" fixTag="6001"/>
+      <Parameter name="p_Buy_Leg_ParamB" xsi:type="Int_t" fixTag="6002"/>
+      <Parameter name="p_Sell_Leg_ParamA" xsi:type="Int_t" fixTag="6003"/>
+      <Parameter name="p_Sell_Leg_ParamB" xsi:type="Int_t" fixTag="6004"/>
+    </Leg>
+    <lay:StrategyLayout>
+      <lay:StrategyPanel collapsible="false" orientation="VERTICAL">
+        <lay:Control ID="c_OrdParamA" label="Ord Param A" parameterRef="p_OrdParamA" xsi:type="lay:SingleSpinner_t"/>
+        <lay:Control ID="c_OrdParamB" label="Ord Param B" parameterRef="p_OrdParamB" xsi:type="lay:SingleSpinner_t"/>
+        <lay:StrategyPanel orientation="HORIZONTAL">
+          <lay:StrategyPanel orientation="VERTICAL">
+            <lay:Control ID="c_BuyLegParamA" label="Leg 1 Param A" parameterRef="p_Buy_Leg_ParamA" xsi:type="lay:SingleSpinner_t"/>
+            <lay:Control ID="c_BuyLegParamB" label="Leg 1 Param B" parameterRef="p_Buy_Leg_ParamB" xsi:type="lay:SingleSpinner_t"/>
+          </lay:StrategyPanel>
+          <lay:StrategyPanel orientation="VERTICAL">
+            <lay:Control ID="c_SellLegParamA" label="Leg 2 Param A" parameterRef="p_Sell_Leg_ParamA" xsi:type="lay:SingleSpinner_t"/>
+            <lay:Control ID="c_SellLegParamB" label="Leg 2 Param B" parameterRef="p_Sell_Leg_ParamB" xsi:type="lay:SingleSpinner_t"/>
+          </lay:StrategyPanel>
+        </lay:StrategyPanel>
+      </lay:StrategyPanel>
+    </lay:StrategyLayout>
+    <val:StrategyEdit errorMessage="One leg must be a BUY the other must be a SELL">
+      <val:Edit logicOperator="OR">
+        <val:Edit logicOperator="AND">
+          <val:Edit field="FIX_Side" legNo="1" operator="EQ" field2="1"/>
+          <val:Edit logicOperator="OR">
+            <val:Edit field="FIX_Side" legNo="2" operator="EQ" field2="2"/>
+            <val:Edit field="FIX_Side" legNo="2" operator="EQ" field2="5"/>
+          </val:Edit>
+        </val:Edit>
+        <val:Edit logicOperator="AND">
+          <val:Edit field="FIX_Side" legNo="2" operator="EQ" field2="1"/>
+          <val:Edit logicOperator="OR">
+            <val:Edit field="FIX_Side" legNo="1" operator="EQ" field2="2"/>
+            <val:Edit field="FIX_Side" legNo="1" operator="EQ" field2="5"/>
+          </val:Edit>
+        </val:Edit>
+      </val:Edit>
+    </val:StrategyEdit>
+  </Strategy>
+
+  <!--
+  Sample 10
+  Basket trading. Here we set the requiredNUmberOfLegs = unbounded. Or rather,
+  we will just not specify it.
+  -->
+  <Strategy
+        name="Basket-Sample"
+        uiRep="Pairs"
+        version="2.0"
+        wireValue="46"
+        requiredNumberOfLegs="unbounded"
+        objective="PORFOLIO"
+        commonIDTag="7066"
+        legSequenceTag="7067"
+        totalLegsTag="7068"
+        resendAllLegsOnModify="true"
+   >
+    <VendorConfig>
+      legParameters="true"
+    </VendorConfig>
+    <DeliveryMethods>
+      <FixMsg type="NewOrderSingle"/>
+      <FixMsg type="NewOrderMultiLeg"/>
+    </DeliveryMethods>
+    <Parameter name="p_OrdParamA" xsi:type="Int_t" fixTag="5000" scope="ORDER"/>
+    <Parameter name="p_OrdParamB" xsi:type="Int_t" fixTag="5001" scope="ORDER"/>
+    <Leg>
+      <Parameter name="p_LegParamA" xsi:type="Int_t" fixTag="6001"/>
+      <Parameter name="p_LegParamB" xsi:type="Int_t" fixTag="6002"/>
+    </Leg>
+    <lay:StrategyLayout>
+      <lay:StrategyPanel collapsible="false" orientation="VERTICAL">
+        <lay:Control ID="c_OrdParam1" label="Ord Param A" parameterRef="p_OrdParamA" xsi:type="lay:SingleSpinner_t"/>
+        <lay:Control ID="c_OrdParam2" label="Ord Param B" parameterRef="p_OrdParamB" xsi:type="lay:SingleSpinner_t"/>
+      </lay:StrategyPanel>
+      <lay:LegPanel collapsible="false" orientation="VERTICAL">
+        <lay:Control ID="c_LegParamA" label="Leg Param A" parameterRef="p_LegParamA" xsi:type="lay:SingleSpinner_t"/>
+        <lay:Control ID="c_LegParamB" label="Leg Param B" parameterRef="p_LegParamB" xsi:type="lay:SingleSpinner_t"/>
+      </lay:LegPanel>
+    </lay:StrategyLayout>
+  </Strategy>
+
+</Strategies>
