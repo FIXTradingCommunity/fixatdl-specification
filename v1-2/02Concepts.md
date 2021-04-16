@@ -128,7 +128,7 @@ use="optional" minValue="1" maxValue="9"/>
 This listing describes a parameter named "SampleRate" which can
 optionally be populated in tag 28000 of an order message. The attributes
 "minValue" and "maxValue" describe the minimum and maximum values that
-the recipient of an order message is expecting. Orders with SampleRate
+the recipient of an order message is expecting. Orders with "SampleRate"
 values outside that range may be rejected. The attribute "xsi:type"
 describes the parameter's type which must be one of the datatypes
 specified by the FIX Protocol. FIXatdl&reg; provides enumeration values for
@@ -1205,7 +1205,7 @@ One of the key features of FIXatdl&reg; is the ability to refer to OMS variables
 ### Validation Rules with References to Standard FIX Fields
 In the FIXatdl&reg; specification, several references are made to standard FIX fields. For example, the specification of the `Edit` element (see section [Validation Rules](#validation-rules)), which is used to build validation or flow rules, states the following:
 
-*The "field" attribute of an Edit element is not restricted to strategy parameters. Standard order tags (those not described in a FIXatdl instance but nevertheless are required tags of order, cancel and cancel/replace messages) may also be used to create Boolean expressions.*
+*The "field" attribute of an Edit element is not restricted to strategy parameters. Standard order tags (those not described in a FIXatdl&reg; instance but nevertheless are required tags of order, cancel and cancel/replace messages) may also be used to create Boolean expressions.*
 
 *For example:*
 
