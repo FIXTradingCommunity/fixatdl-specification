@@ -1159,13 +1159,13 @@ The following two examples show the description of a two-legged order strategy. 
     <DeliveryMethods>
       <FixMsg msgType="NewOrderSingle"/>
     </DeliveryMethods>
-    <Parameter name="p_Ord_ParamA" xsi:type="Int_t" fixTag="5000"/>
-    <Parameter name="p_Ord_ParamB" xsi:type="Int_t" fixTag="5001"/>
+    <Parameter name="p_Ord_ParamA" xsi:type="Int_t" fixTag="25000"/>
+    <Parameter name="p_Ord_ParamB" xsi:type="Int_t" fixTag="25001"/>
     <Leg>
-      <Parameter name="p_Buy_Leg_ParamA" xsi:type="Int_t" fixTag="6001"/>
-      <Parameter name="p_Buy_Leg_ParamB" xsi:type="Int_t" fixTag="6002"/>
-      <Parameter name="p_Sell_Leg_ParamA" xsi:type="Int_t" fixTag="6003"/>
-      <Parameter name="p_Sell_Leg_ParamB" xsi:type="Int_t" fixTag="6004"/>
+      <Parameter name="p_Buy_Leg_ParamA" xsi:type="Int_t" fixTag="26001"/>
+      <Parameter name="p_Buy_Leg_ParamB" xsi:type="Int_t" fixTag="26002"/>
+      <Parameter name="p_Sell_Leg_ParamA" xsi:type="Int_t" fixTag="26003"/>
+      <Parameter name="p_Sell_Leg_ParamB" xsi:type="Int_t" fixTag="26004"/>
     </Leg>
     <lay:StrategyLayout>
         <lay:StrategyPanel collapsible="false" orientation="VERTICAL">
