@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	- - - - - - - - - - - - - - - - - - - - - - - - - -
+    FIXatdl Sample document instance for FIXatdl Schema Version 1.1
+    (C) 2010 FIX Protocol Limited. All use of the FIXatdl Schema is subject to
+    the disclaimer which is printed on one of the initial pages of the written specification
+    for the FIXatdl Schema and is included in the zip file which you downloaded to
+    obtain the Schema.
+    Comments and errors should be posted on the FIX protocol web-site
+    http://www.fixprotocol.org
+	- - - - - - - - - - - - - - - - - - - - - - - - - -
+-->
+<Strategies xmlns="http://www.fixprotocol.org/FIXatdl-1-1/Core" xmlns:val="http://www.fixprotocol.org/FIXatdl-1-1/Validation" xmlns:lay="http://www.fixprotocol.org/FIXatdl-1-1/Layout" xmlns:flow="http://www.fixprotocol.org/FIXatdl-1-1/Flow" xmlns:tz="http://www.fixprotocol.org/FIXatdl-1-1/Timezones" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.fixprotocol.org/FIXatdl-1-1/Core fixatdl-core-1-1.xsd" strategyIdentifierTag="7620" versionIdentifierTag="7621">
+	<!-- ************************ -->
+	<!-- ******* Tazer 1 ********  -->
+	<!-- ************************ -->
+	<Strategy name="Tazer1" uiRep="Tazer" wireValue="Tazer" version="1" fixMsgType="D" providerID="ABC">
+		<!-- US only -->
+		<Regions>
+			<Region name="TheAmericas" inclusion="Include">
+				<Country CountryCode="US" inclusion="Include"/>
+			</Region>
+		</Regions>
+		<!-- Nasdaq only -->
+		<Markets>
+			<Market MICCode="XNAS" inclusion="Include"/>
+		</Markets>
+		<!-- Equities ("CS") only -->
+		<SecurityTypes>
+			<SecurityType name="CS" inclusion="Include"/>
+		</SecurityTypes>
+		<!-- Parameter Section -->
+		<Parameter name="StartTime" xsi:type="UTCTimestamp_t" fixTag="7602" use="required">
+			<Description>Strategy Start Time</Description>
+		</Parameter>
+		<Parameter name="EndTime" xsi:type="UTCTimestamp_t" fixTag="7603" use="required" maxValue="16:00:00" localMktTz="America/New_York">
+			<Description>Strategy End Time</Description>
+		</Parameter>
+		<Parameter name="Text" xsi:type="String_t" fixTag="9999" use="optional"/>
+		<Parameter name="SweepDistribution" xsi:type="Char_t" fixTag="7640" use="required">
+			<EnumPair enumID="e_Uniform" wireValue="U">
+				<Description>The 'Uniform' setting for Sweep Distribution</Description>
+			</EnumPair>
+			<EnumPair enumID="e_Gaussian" wireValue="G">
+				<Description>The 'Gaussian' setting for Sweep Distribution</Description>
+			</EnumPair>
+		</Parameter>
+		<Parameter name="Variance" xsi:type="Float_t" fixTag="7641" use="optional" minValue="0.01" maxValue="0.50"/>
+		<Parameter name="DisplayQty" xsi:type="Int_t" fixTag="7645" use="optional" minValue="0"/>
+		<!-- Layout Section -->
+		<lay:StrategyLayout>
+			<lay:StrategyPanel orientation="VERTICAL" collapsible="false">
+				<lay:StrategyPanel orientation="HORIZONTAL" collapsible="false">
+					<lay:Control xsi:type="lay:Clock_t" ID="StartTimeClock" label="Start Time" parameterRef="StartTime" initValue="09:30:00" initValueMode="1" localMktTz="America/New_York"/>
+					<lay:Control xsi:type="lay:Clock_t" ID="EndTimeClock" label="End Time" parameterRef="EndTime" initValue="16:00:00" localMktTz="America/New_York"/>
+					<lay:Control ID="m_dq" xsi:type="lay:DropDownList_t" label="Display Qty Handling">
+						<lay:ListItem enumID="choice1" uiRep="Send nothing"/>
+						<lay:ListItem enumID="choice2" uiRep="Send 0"/>
+						<lay:ListItem enumID="choice3" uiRep="Send what user enters"/>
+					</lay:Control>
+					<lay:Control xsi:type="lay:TextField_t" ID="DisplayQuantity" label="Display Quantity" parameterRef="DisplayQty">
+						<!-- for "choice1" Control is still displayed however it appears disabled and is set to a null value (will not be transmitted over the wire) -->
+						<!-- for "choice2" Control is set to value "0" and is disabled (read-only) but will be transmitted over the wire -->
+						<flow:StateRule enabled="false">
+							<val:Edit logicOperator="OR">
+								<val:Edit field="m_dq" operator="EQ" value="choice1"/>
+								<val:Edit field="m_dq" operator="EQ" value="choice2"/>
+							</val:Edit>
+						</flow:StateRule>
+						<flow:StateRule visible="false">
+							<val:Edit field="m_dq" operator="EQ" value="choice1"/>
+						</flow:StateRule>
+						<flow:StateRule value="{NULL}">
+							<val:Edit field="m_dq" operator="EQ" value="choice1"/>
+						</flow:StateRule>
+						<flow:StateRule value="0">
+							<Description>Display Quantity should be set to 0 if Display Qty Handling is set to 'choice2'</Description>
+							<val:Edit field="m_dq" operator="EQ" value="choice2"/>
+						</flow:StateRule>
+					</lay:Control>
+				</lay:StrategyPanel>
+				<lay:StrategyPanel orientation="HORIZONTAL" collapsible="false">
+					<lay:Control ID="m_sd" xsi:type="lay:DropDownList_t" label="Sweep Distribution" parameterRef="SweepDistribution" initValue="e_Uniform">
+						<lay:ListItem enumID="e_Uniform" uiRep="Uniform"/>
+						<lay:ListItem enumID="e_Gaussian" uiRep="Gaussian"/>
+					</lay:Control>
+					<lay:Control xsi:type="lay:TextField_t" ID="Variance" label="Variance" parameterRef="Variance">
+						<!-- Control is still displayed however it appears disabled and is set to a null value (will not be transmitted over the wire) -->
+						<flow:StateRule enabled="false" value="{NULL}">
+							<val:Edit field="m_sd" operator="EQ" value="e_Uniform"/>
+						</flow:StateRule>
+					</lay:Control>
+				</lay:StrategyPanel>
+			</lay:StrategyPanel>
+		</lay:StrategyLayout>
+		<!-- Validation Section -->
+		<val:StrategyEdit errorMessage="End Time should be later than Start Time">
+			<val:Edit field="EndTime" operator="GT" field2="StartTime"/>
+		</val:StrategyEdit>
+		<val:StrategyEdit errorMessage="Variance is required when Sweep Distribution is Gaussian.">
+			<val:Edit logicOperator="OR">
+				<val:Edit field="SweepDistribution" operator="NE" value="G"/>
+				<val:Edit logicOperator="AND">
+					<val:Edit field="SweepDistribution" operator="EQ" value="G"/>
+					<val:Edit field="Variance" operator="EX"/>
+				</val:Edit>
+			</val:Edit>
+		</val:StrategyEdit>
+		<val:StrategyEdit errorMessage="Variance must be between 0 and 2.0">
+			<val:Edit logicOperator="OR">
+				<val:Edit field="SweepDistribution" operator="NE" value="G"/>
+				<val:Edit logicOperator="AND">
+					<val:Edit field="SweepDistribution" operator="EQ" value="G"/>
+					<val:Edit field="Variance" operator="EX"/>
+					<val:Edit field="Variance" operator="GT" value="0.0"/>
+					<val:Edit field="Variance" operator="LT" value="2.0"/>
+				</val:Edit>
+			</val:Edit>
+		</val:StrategyEdit>
+	</Strategy>
+	<Strategy name="OPLX" uiRep="Get Done" wireValue="60" version="2.0" fixMsgType="D">
+		<!-- Americas region only -->
+		<Regions>
+			<Region name="TheAmericas" inclusion="Include"/>
+		</Regions>
+		<!-- Security types other than Futures ("FUT") -->
+		<SecurityTypes>
+			<SecurityType name="FUT" inclusion="Exclude"/>
+		</SecurityTypes>		
+		<Parameter name="StartTime" xsi:type="UTCTimestamp_t" fixTag="6168" use="optional"/>
+		<Parameter name="EndTime" xsi:type="UTCTimestamp_t" fixTag="126" use="optional"/>
+		<Parameter name="AgencyOnly" xsi:type="Int_t" fixTag="81" use="required">
+			<EnumPair wireValue="1" enumID="Yes"/>
+			<EnumPair wireValue="0" enumID="No"/>
+		</Parameter>
+		<Parameter name="Aggression" xsi:type="Char_t" fixTag="6408" use="optional">
+			<EnumPair enumID="e_Low" wireValue="L"/>
+			<EnumPair enumID="e_Medium" wireValue="S"/>
+			<EnumPair enumID="e_High" wireValue="H"/>
+		</Parameter>
+		<Parameter name="DisplaySize" xsi:type="Qty_t" fixTag="111" use="optional" minValue="0"/>
+		<lay:StrategyLayout>
+			<lay:StrategyPanel collapsible="false" orientation="HORIZONTAL">
+				<lay:StrategyPanel collapsible="false" orientation="VERTICAL">
+					<lay:Control ID="Aggression" xsi:type="lay:DropDownList_t" label="Aggression" initValue="e_Medium" parameterRef="Aggression">
+						<lay:ListItem enumID="e_Low" uiRep="Low"/>
+						<lay:ListItem enumID="e_Medium" uiRep="Medium"/>
+						<lay:ListItem enumID="e_High" uiRep="High"/>
+					</lay:Control>
+					<!-- Posting is a 'helper control' and not associated with a specific Parameter -->
+					<lay:Control ID="Posting" xsi:type="lay:DropDownList_t" label="Posting/Iceberg" initValue="e_SMART">
+						<lay:ListItem enumID="e_SMART" uiRep="SMART"/>
+						<lay:ListItem enumID="e_NOPOST" uiRep="NOPOST"/>
+						<lay:ListItem enumID="e_Custom" uiRep="Custom"/>
+					</lay:Control>
+					<lay:Control ID="DisplaySize" xsi:type="lay:SingleSpinner_t" label="Display Size" incrementPolicy="LotSize" parameterRef="DisplaySize">
+						<!-- e_SMART will be null (do not transmit over wire) and not visible nor enabled -->
+						<!-- e_NOPOST will be set to 0, visible, and disabled (read-only) - (non-null thus transmitted over the wire) -->
+						<!-- e_Custom will be non-null, visible, and enabled -->
+						<flow:StateRule visible="true">
+							<val:Edit logicOperator="OR">
+								<val:Edit field="Posting" operator="EQ" value="e_Custom"/>
+								<val:Edit field="Posting" operator="EQ" value="e_NOPOST"/>
+							</val:Edit>
+						</flow:StateRule>
+						<flow:StateRule enabled="true">
+							<val:Edit field="Posting" operator="EQ" value="e_Custom"/>
+						</flow:StateRule>
+						<flow:StateRule value="{NULL}">
+							<val:Edit field="Posting" operator="EQ" value="e_SMART"/>
+						</flow:StateRule>
+						<flow:StateRule value="0"> 
+							<val:Edit field="Posting" operator="EQ" value="e_NOPOST"/>
+						</flow:StateRule>						
+					</lay:Control>
+				</lay:StrategyPanel>
+				<lay:StrategyPanel collapsible="false" orientation="VERTICAL">
+					<!-- StartTime and EndTime need a 'helper control' to support the fact that it is optional (also had to warp AgencyOnly with StrategyPanel as a given StrategyPanel can include only Control or StrategyPanel elements, but not both) -->
+					<lay:StrategyPanel collapsible="false" orientation="HORIZONTAL">
+						<lay:Control ID="c_EnableStartTime" xsi:type="lay:CheckBox_t" label="Start Time" initValue="false"/>
+						<lay:Control ID="StartTime" xsi:type="lay:Clock_t" label="" parameterRef="StartTime">
+							<flow:StateRule enabled="false" value="{NULL}">
+								<val:Edit field="c_EnableStartTime" operator="EQ" value="false"/>
+							</flow:StateRule>
+						</lay:Control>
+					</lay:StrategyPanel>
+					<lay:StrategyPanel collapsible="false" orientation="HORIZONTAL">
+						<lay:Control ID="c_EnableEndTime" xsi:type="lay:CheckBox_t" label="End Time" initValue="false"/>
+						<lay:Control ID="EndTime" xsi:type="lay:Clock_t" label="" initValue="16:00:00" localMktTz="America/New_York" parameterRef="EndTime">
+							<flow:StateRule enabled="false" value="{NULL}">
+								<val:Edit field="c_EnableEndTime" operator="EQ" value="false"/>
+							</flow:StateRule>
+						</lay:Control>
+					</lay:StrategyPanel>
+					<lay:StrategyPanel collapsible="false" orientation="HORIZONTAL">
+						<lay:Control ID="AgencyOnly" xsi:type="lay:DropDownList_t" label="Agency Only" initValue="No" parameterRef="AgencyOnly">
+							<lay:ListItem enumID="Yes" uiRep="Yes"/>
+							<lay:ListItem enumID="No" uiRep="No"/>
+						</lay:Control>
+					</lay:StrategyPanel>
+				</lay:StrategyPanel>
+			</lay:StrategyPanel>
+		</lay:StrategyLayout>
+		<val:StrategyEdit errorMessage="Start time must be less than end time.">
+			<!-- Note that "OR" "NX" checks are required as StartTime and EndTime Parameters are marked use="optional" -->
+			<val:Edit logicOperator="OR">
+				<val:Edit field="StartTime" operator="NX"/>
+				<val:Edit field="EndTime" operator="NX"/>
+				<val:Edit field="EndTime" operator="GT" field2="StartTime"/>
+			</val:Edit>
+		</val:StrategyEdit>
+		<val:StrategyEdit errorMessage="Display Size cannot be greater than Order Qty">
+			<val:Edit logicOperator="OR">
+				<val:Edit field="DisplaySize" operator="NX"/>
+				<val:Edit field="DisplaySize" operator="LE" field2="FIX_OrderQty"/>
+			</val:Edit>
+		</val:StrategyEdit>
+	</Strategy>
+</Strategies>
