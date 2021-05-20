@@ -21,7 +21,7 @@ root element `Strategies` and follow the hierarchy:
     <Strategy>
         ... strategy definition ...
     </Strategy>
-        . . .
+        ...
     <Strategy>
         ... strategy definition ...
     </Strategy>
@@ -50,11 +50,11 @@ into the strategy definition, one can see that it follows the hierarchy:
 <Strategy>
     <Parameter>
     <Parameter>
-    . . .
+    ...
     <Parameter>
     <StrategyEdit>
     <StrategyEdit>
-    . . .
+    ...
     <StrategyEdit>
     <StrategyLayout>
 </Strategy>
@@ -273,7 +273,7 @@ be between 1 and 25">
 This rule incorporates the value of TimeInForce(59) which is a standard tag
 found in most order messages. The values associated with standard tags
 are those that are sent over the wire. For example, TimeInForce(59) is an
-enumeration of char values ranging from "0" to "9" and "A" to "C" (FIX Latest as of EP264). So care must be
+enumeration of char values ranging from "0" to "9" and "A" to "C" (FIX Latest as of EP266). So care must be
 taken to assure the corresponding operand, "value", is of a similar
 type. Support for these types of expressions is highly dependent on a
 vendor's implementation of FIXatdl&reg;. Not all standard tags may be
@@ -945,13 +945,13 @@ were to be rendered by an E/OMS and a user was to enter a "PctVol" value
 of 0.15 and check the Force Completion checkbox, then the order
 generated may contain a substring similar to:
 
-`. . 35=D|11=1234|55=AXP|. . |27000=v|27001=1|957=2|958=PctVol|959=11|960=0.15|958=FC|959=13|960=Y`
+`... 35=D|11=1234|55=AXP|... |27000=v|27001=1|957=2|958=PctVol|959=11|960=0.15|958=FC|959=13|960=Y`
 
 In this case the E/OMS has decided to use the StrategyParametersGrp
 repeating group. If the `tag957Support` attribute were set to false then the E/OMS
 would be forced to use the UDFs, 27002 and 27003, as in:
 
-`. . 35=D|11=1234|55=AXP|. . |27000=v|27001=1|27002=0.15|27003=Y`
+`... 35=D|11=1234|55=AXP|... |27000=v|27001=1|27002=0.15|27003=Y`
 
 The general rule for determining which method to use is as follows.
 
@@ -984,15 +984,15 @@ The following examples show the description of a strategy which requires exactly
 
 ```xml
 <Strategy name="two-legged-order"
-    . . .
+    ...
     minLegs="2" maxLegs="2">
-    . . .
+    ...
 </Strategy>
 
 <Strategy name="one-or-more-legged-order"
-    . . .
+    ...
     minLegs="1" maxLegs="unbounded">
-    . . .
+    ...
 </Strategy>
 ```
 
@@ -1004,11 +1004,11 @@ For example, the following strategy requires that linking and sequencing data is
 
 ```xml
 <Strategy
-    . . .
+    ...
     commonIDTag="27066"
     legSequenceTag="27067"
     totalLegsTag="27068">
-    . . .
+    ...
 </Strategy>
 ```
 \
@@ -1169,22 +1169,28 @@ The following two examples show the description of a two-legged order strategy. 
     </Leg>
     <lay:StrategyLayout>
         <lay:StrategyPanel collapsible="false" orientation="VERTICAL">
-            <lay:Control ID="c_OrdParamA" label="Ord Param A" parameterRef="p_OrdParamA"
+            <lay:Control ID="c_OrdParamA" label="Ord Param A"
+                         parameterRef="p_OrdParamA"
                          xsi:type="lay:SingleSpinner_t"/>
-            <lay:Control ID="c_OrdParamB" label="Ord Param B" parameterRef="p_OrdParamB"
+            <lay:Control ID="c_OrdParamB" label="Ord Param B"
+                         parameterRef="p_OrdParamB"
                          xsi:type="lay:SingleSpinner_t"/>
             <lay:StrategyPanel orientation="HORIZONTAL">
                 <lay:StrategyPanel orientation="VERTICAL">
                     <lay:Control ID="c_BuyLegParamA" label="Buy Leg Param A"
-                                 parameterRef="p_Buy_Leg_ParamA" xsi:type="lay:SingleSpinner_t"/>
+                                 parameterRef="p_Buy_Leg_ParamA"
+                                 xsi:type="lay:SingleSpinner_t"/>
                     <lay:Control ID="c_BuyLegParamB" label="Buy Leg Param B"
-                                 parameterRef="p_Buy_Leg_ParamB" xsi:type="lay:SingleSpinner_t"/>
+                                 parameterRef="p_Buy_Leg_ParamB"
+                                 xsi:type="lay:SingleSpinner_t"/>
                 </lay:StrategyPanel>
                 <lay:StrategyPanel orientation="VERTICAL">
                     <lay:Control ID="c_SellLegParamA" label="Sell Leg Param A"
-                                 parameterRef="p_Sell_Leg_ParamA" xsi:type="lay:SingleSpinner_t"/>
+                                 parameterRef="p_Sell_Leg_ParamA"
+                                 xsi:type="lay:SingleSpinner_t"/>
                     <lay:Control ID="c_SellLegParamB" label="Sell Leg Param B"
-                                 parameterRef="p_Sell_Leg_ParamB" xsi:type="lay:SingleSpinner_t"/>
+                                 parameterRef="p_Sell_Leg_ParamB"
+                                 xsi:type="lay:SingleSpinner_t"/>
                 </lay:StrategyPanel>
             </lay:StrategyPanel>
         </lay:StrategyPanel>
@@ -1200,12 +1206,12 @@ FIXatdl&reg; supports the global definition of `Parameter`, `Control`, `Strategy
 
 ## OMS Hooks
 
-One of the key features of FIXatdl&reg; is the ability to refer to OMS variables in the description of order interfaces. In effect a FIXatdl&reg; instance would have a "hook" into the OMS and have access to certain environment variables or order parameters not defined in the XML for use in validation rules or filtering.
+One of the key features of FIXatdl&reg; is the ability to refer to OMS variables in the description of order interfaces. In effect, a FIXatdl&reg; instance would have a "hook" into the OMS and have access to certain environment variables or order parameters not defined in the XML for use in validation rules or filtering.
 
 ### Validation Rules with References to Standard FIX Fields
 In the FIXatdl&reg; specification, several references are made to standard FIX fields. For example, the specification of the `Edit` element (see section [Validation Rules](#validation-rules)), which is used to build validation or flow rules, states the following:
 
-*The "field" attribute of an Edit element is not restricted to strategy parameters. Standard order tags (those not described in a FIXatdl&reg; instance but nevertheless are required tags of order, cancel and cancel/replace messages) may also be used to create Boolean expressions.*
+*The "field" attribute of an `Edit` element is not restricted to strategy parameters. Standard order tags (those not described in a FIXatdl&reg; instance but nevertheless are required tags of order, cancel and cancel/replace messages) may also be used to create Boolean expressions.*
 
 *For example:*
 
@@ -1232,19 +1238,19 @@ This can work for a small number of fields; and in fact, some OMS platforms supp
 
 FIXatdl&reg; seeks to provide clarity concerning the use of standard fields and the fields of an order that an OMS would be expected to make available. The following table lists the fields of an order which may be referenced in a validation rule.
 
-Field Name       Tag Number	  Comments
+Field Name        Tag Number  Comments
 ---------------- ------------ -------------------------------------------
-Symbol	         55
-Side	           54
-OrderQty	       38
-OrdType	         40
-Price	           44
-StopPx           99
-TimeInForce	     59
-HandlInst	       21
-ExecInst	       18	           This is a MultipleCharValue type. Values are space delimited and arranged in alpha-numeric order.
-SecurityType     167
-TargetSubID	     57
+Symbol           55           -
+Side             54           -
+OrderQty         38           -
+OrdType	         40           -
+Price	           44           -
+StopPx           99           -
+TimeInForce	     59           -
+HandlInst	       21           -
+ExecInst         18	          This is a MultipleCharValue type. Values are space delimited and arranged in alpha-numeric order.
+SecurityType     167          -
+TargetSubID	     57           -
 
 ### Filtering according to OMS Environment Values
 

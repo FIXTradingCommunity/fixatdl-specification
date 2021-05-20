@@ -34,6 +34,7 @@ attributes (which are described in the section [*Attribute Definitions*](#attrib
 - `scope`
 - `xsi:type`
 
+\
 When the `Parameter` element is extended it gains several more attributes
 depending on the element to which it is extended.
 
@@ -197,6 +198,7 @@ described in the section [*Attribute Definitions*](#attribute-definitions)):
 - `filter`
 - `xsi:type`
 
+\
 When the `Control` element is extended it gains several more attributes
 depending on the element to which it is extended.
 
