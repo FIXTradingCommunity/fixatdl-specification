@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 	- - - - - - - - - - - - - - - - - - - - - - - - - -
-    FIXatdl Sample document instance for FIXatdl Schema Version 1.1
+    FIXatdl Sample document instance for FIXatdl Schema Version 1.2 Release Candidate 1
     (C) 2010 FIX Protocol Limited. All use of the FIXatdl Schema is subject to
     the disclaimer which is printed on one of the initial pages of the written specification
     for the FIXatdl Schema and is included in the zip file which you downloaded to
@@ -31,10 +31,10 @@
 	<xs:import namespace="http://www.fixprotocol.org/FIXatdl-1-2/Core" schemaLocation="fixatdl-core-1-2.xsd"/>
 	<xs:import namespace="http://www.fixprotocol.org/FIXatdl-1-2/Timezones" schemaLocation="fixatdl-timezones-1-2.xsd"/>
 	<!-- Please email any suggestions or revisions to algotech@fixprotocol.org-->
-	<!-- Please note - Revision history is at the end of this xsd 
-  
+	<!-- Please note - Revision history is at the end of this xsd
+
   User Interface Sub-Schema
-  The intent of the UI sub-schema is to provide an easy, platform-neutral way to specify the layout of components.  
+  The intent of the UI sub-schema is to provide an easy, platform-neutral way to specify the layout of components.
   This schema should be flexible enough to support multiple-platforms (i.e. Java Swing, SWT, or Web).-->
 	<xs:element name="StrategyLayout" type="lay:StrategyLayout_t"/>
 	<xs:complexType name="StrategyLayout_t">
@@ -74,7 +74,7 @@
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-  
+
 	<xs:complexType name="StrategyPanel_t">
     <xs:complexContent>
       <xs:extension base="lay:PanelItem_t">
@@ -130,7 +130,7 @@
       </xs:extension>
     </xs:complexContent>
 	</xs:complexType>
-  
+
 	<xs:complexType name="Control_t" abstract="true">
     <xs:complexContent>
       <xs:extension base="lay:PanelItem_t">
@@ -196,7 +196,7 @@
       </xs:extension>
     </xs:complexContent>
 	</xs:complexType>
-  
+
   <xs:complexType name="Duration_t">
     <xs:complexContent>
       <xs:extension base="lay:Control_t">
@@ -205,7 +205,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  
+
 	<xs:complexType name="Clock_t">
 		<xs:complexContent>
 			<xs:extension base="lay:Control_t">
@@ -270,7 +270,7 @@
     	</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-  
+
 	<xs:complexType name="TextField_t">
 		<xs:complexContent>
 			<xs:extension base="lay:Control_t">
@@ -513,7 +513,7 @@
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-  
+
 	<xs:complexType name="ListItem_t">
 		<xs:sequence>
 			<xs:element ref="flow:StateRule" minOccurs="0" maxOccurs="unbounded"/>
@@ -539,7 +539,7 @@
       </xs:annotation>
     </xs:attribute>
 	</xs:complexType>
-  
+
 	<xs:simpleType name="HelpText_t">
 		<xs:restriction base="xs:string">
 			<xs:whiteSpace value="preserve"/>

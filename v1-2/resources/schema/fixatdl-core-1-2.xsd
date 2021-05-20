@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 	- - - - - - - - - - - - - - - - - - - - - - - - - -
-    FIXatdl Sample document instance for FIXatdl Schema Version 1.1
+    FIXatdl Sample document instance for FIXatdl Schema Version 1.2 Release Candidate 1
     (C) 2010 FIX Protocol Limited. All use of the FIXatdl Schema is subject to
     the disclaimer which is printed on one of the initial pages of the written specification
     for the FIXatdl Schema and is included in the zip file which you downloaded to
@@ -34,16 +34,16 @@
 	<xs:import namespace="http://www.fixprotocol.org/FIXatdl-1-2/Flow" schemaLocation="fixatdl-flow-1-2.xsd"/>
 	<xs:import namespace="http://www.fixprotocol.org/FIXatdl-1-2/Regions" schemaLocation="fixatdl-regions-1-2.xsd"/>
 	<xs:import namespace="http://www.fixprotocol.org/FIXatdl-1-2/Timezones" schemaLocation="fixatdl-timezones-1-2.xsd"/>
-	
+
 	<!-- ************************ Start of the ATDL Elements and Types ************************ -->
-	
+
 	<xs:element name="Strategies" type="core:Strategies_t">
 		<xs:key name="strategyKey">
 			<xs:selector xpath="core:strategy"/>
 			<xs:field xpath="@name"/>
 		</xs:key>
 	</xs:element>
-  
+
 	<xs:complexType name="Strategies_t">
 		<xs:annotation>
 			<xs:documentation> This element is used as a container for strategy elements. The motivation behind this element is to allow an algorithm provider to describe more than one algorithm in a single XML document.     </xs:documentation>
@@ -109,21 +109,21 @@
 			</xs:annotation>
 		</xs:attribute>
 	</xs:complexType>
-  
+
 	<xs:complexType name="Strategy_t">
 		<xs:sequence>
 			<xs:element ref="core:Description" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Description of the Strategy.</xs:documentation>
 				</xs:annotation>
-			</xs:element>    
-      
+			</xs:element>
+
       <xs:element name="VendorConfig" type="core:VendorConfig_t" minOccurs="0" maxOccurs="1">
       </xs:element>
 
       <xs:element name="DeliveryMethods" type="core:DeliveryMethods_t" minOccurs="0" maxOccurs="1">
       </xs:element>
-      
+
 			<xs:element name="Regions" type="core:Regions_t" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>This element defines the globally based regions to which the strategy is applicable. No regions defined implies that the strategy is applicable for *ALL* regions. If a region is defined and has it's 'inclusion' attribute set to 'Include', then it is implied that the strategy is applicable for *ONLY* that region. If a region is defined and is set to 'Exclude', then it is implied that the strategy is applicable for all regions *EXCEPT* that region.
@@ -135,7 +135,7 @@ Regions also contain a child element called "Country" that allows the algo autho
 			</xs:element>
 			<xs:element name="Markets" type="core:Markets_t" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>This element defines the markets/exchanges (by ISO 10383 MIC Code) that the strategy is applicable for. No markets defined implies that the strategy is applicable for *ALL* markets. If a market is defined and has it's 'inclusion' attribute set to "Include", then it is implied that the strategy is applicable for *ONLY* that market.  If a region is defined and is set to "Exclude", then it is implied that the strategy is applicable for all markets *EXCEPT* that market. 
+					<xs:documentation>This element defines the markets/exchanges (by ISO 10383 MIC Code) that the strategy is applicable for. No markets defined implies that the strategy is applicable for *ALL* markets. If a market is defined and has it's 'inclusion' attribute set to "Include", then it is implied that the strategy is applicable for *ONLY* that market.  If a region is defined and is set to "Exclude", then it is implied that the strategy is applicable for all markets *EXCEPT* that market.
 
 Include takes precedence over Exclude - for example, if XNAS is defined and set to "Include" and XLON is defined and set to "Exclude" then all other markets will also be excluded since the "Include" on XNAS takes precedence over the "Exclude" on XLON.  In this example, the definition of XLON as "Exclude" is unecessary.
 
@@ -144,8 +144,8 @@ Markets are used in conjunction with regions and countries to define the scope o
 			</xs:element>
 			<xs:element name="SecurityTypes" type="core:SecurityTypes_t" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>This element defines the security types (by CFI Code) that the strategy is applicable for. No security type defined implies that the strategy is applicable for *ALL* security types supported by ATDL. 
-If a security type is defined and has it's 'inclusion' attribute set to "Include", then it is implied that the strategy is applicable for *ONLY* that security type.  If a secuiryt type is defined and is set to "Exclude", then it is implied that the strategy is applicable for all security types *EXCEPT* that market.  
+					<xs:documentation>This element defines the security types (by CFI Code) that the strategy is applicable for. No security type defined implies that the strategy is applicable for *ALL* security types supported by ATDL.
+If a security type is defined and has it's 'inclusion' attribute set to "Include", then it is implied that the strategy is applicable for *ONLY* that security type.  If a secuiryt type is defined and is set to "Exclude", then it is implied that the strategy is applicable for all security types *EXCEPT* that market.
 
 Include takes precedence over Exclude - for example, if equities is defined and set to "Include" and futures is defined and set to "Exclude" then all other security types will also be excluded since the "Include" on equities takes precedence over the Exclude" on futures.  In this example, the definition of futures as "Exclude" is unecessary.</xs:documentation>
 				</xs:annotation>
@@ -171,7 +171,7 @@ Include takes precedence over Exclude - for example, if equities is defined and 
 			<xs:annotation>
 				<xs:documentation>The name of the strategy as rendered in the UI. If not provided then the "name" attribute should be used.</xs:documentation>
 			</xs:annotation>
-		</xs:attribute>    
+		</xs:attribute>
 		<xs:attribute name="wireValue" type="xs:string" use="required">
 			<xs:annotation>
 				<xs:documentation>The value used to identify the algorithm. The tag referred to by fixTag will be set to this value.</xs:documentation>
@@ -237,7 +237,7 @@ Include takes precedence over Exclude - for example, if equities is defined and 
       <xs:annotation>
         <xs:documentation>Used to denote the tag which will contain the sequence number of an order of a basket or leg of a multi-legged order. Applicable when multi-legged orders are delivered via several NewOrder-Single messages.</xs:documentation>
       </xs:annotation>
-    </xs:attribute> 
+    </xs:attribute>
 		<xs:attribute name="commonIDTag" type="xs:nonNegativeInteger">
 			<xs:annotation>
 				<xs:documentation>Used to denote the tag which must contain a common ID linking all legs of a multi-legged order together. Applicable when multi-legged orders are delivered via several NewOrder-Single messages.</xs:documentation>
@@ -268,7 +268,7 @@ Include takes precedence over Exclude - for example, if equities is defined and 
     </xs:attribute>
     <!-- End Multi-leg support addtions -->
 	</xs:complexType>
-	
+
   <xs:complexType name="Parameter_t" abstract="true">
 		<xs:sequence>
 			<xs:element ref="core:Description" minOccurs="0">
@@ -370,7 +370,7 @@ Include takes precedence over Exclude - for example, if equities is defined and 
 		<xs:attribute name="minSize" type="xs:nonNegativeInteger" use="required"/>
 		<xs:attribute name="maxSize" type="xs:nonNegativeInteger" use="optional"/>
 	</xs:complexType>
-  
+
 	<xs:complexType name="EnumPair_t">
 		<xs:sequence>
 			<xs:element ref="core:Description" minOccurs="0">
@@ -405,7 +405,7 @@ Include takes precedence over Exclude - for example, if equities is defined and 
       </xs:annotation>
     </xs:attribute>
 	</xs:complexType>
-  
+
 	<!-- Start of the Simple Helper Types/Elements -->
 	<!-- ************************************************************************************************************************** -->
 	<xs:element name="Description" type="core:Description_t">
@@ -444,7 +444,7 @@ Include takes precedence over Exclude - for example, if equities is defined and 
     </xs:attribute>
   </xs:complexType>
   -->
-  
+
   <xs:complexType name="VendorConfig_t">
     <xs:attribute name="legParameters" type="xs:boolean" use="optional">
       <xs:annotation>
@@ -474,7 +474,7 @@ Include takes precedence over Exclude - for example, if equities is defined and 
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  
+
 	<xs:complexType name="Regions_t">
 		<xs:annotation>
 			<xs:documentation>List of locations as defined by the provider. Used to declare the regions where the algorithm is supported. The absence of this element implies that the strategy is valid globally.  A region can also contain countries in order to make the classifications more granular. See the regions schema file for the list of country to region mappings.</xs:documentation>
@@ -561,7 +561,7 @@ Include takes precedence over Exclude - for example, if equities is defined and 
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  
+
 	<xs:complexType name="SecurityTypes_t">
 		<xs:annotation>
 			<xs:documentation>The list of security types that the given strategy is valid for.  The absence of any security types implies that the strategy is valid for all markets.</xs:documentation>
@@ -1286,7 +1286,7 @@ Valid values:
 	</xs:simpleType>
 	<xs:simpleType name="UTCTimestamp">
 		<xs:annotation>
-			<xs:documentation>Stringstring field representing Time/date combination represented in UTC (Universal Time Coordinated, also known as "GMT") in either YYYYMMDD-HH:MM:SS (whole seconds) or YYYYMMDD-HH:MM:SS.sss (milliseconds) format, colons, dash, and period required.   
+			<xs:documentation>Stringstring field representing Time/date combination represented in UTC (Universal Time Coordinated, also known as "GMT") in either YYYYMMDD-HH:MM:SS (whole seconds) or YYYYMMDD-HH:MM:SS.sss (milliseconds) format, colons, dash, and period required.
 Valid values:
 	*  YYYY = 0000-9999, MM = 01-12, DD = 01-31, HH = 00-23, MM = 00-59, SS = 00-60 (60 only if UTC leap second) (without milliseconds).
 	*  YYYY = 0000-9999, MM = 01-12, DD = 01-31, HH = 00-23, MM = 00-59, SS = 00-60 (60 only if UTC leap second), sss=000-999 (indicating milliseconds).
@@ -1298,7 +1298,7 @@ Leap Seconds:  Note that UTC includes corrections for leap seconds, which are in
 	<xs:simpleType name="UTCTimeOnly">
 		<xs:annotation>
 			<xs:documentation>Stringstring field representing Time-only represented in UTC (Universal Time Coordinated, also known as "GMT") in either HH:MM:SS (whole seconds) or HH:MM:SS.sss (milliseconds) format, colons, and period required.   This special-purpose field is paired with UTCDateOnly to form a proper UTCTimestamp for bandwidth-sensitive messages.
-Valid values:  
+Valid values:
 	HH = 00-23, MM = 00-60 (60 only if UTC leap second), SS = 00-59.  (without milliseconds)
 	HH = 00-23, MM = 00-59, SS = 00-60 (60 only if UTC leap second), sss=000-999 (indicating milliseconds).
 </xs:documentation>
@@ -1307,8 +1307,8 @@ Valid values:
 	</xs:simpleType>
 	<xs:simpleType name="UTCDateOnly">
 		<xs:annotation>
-			<xs:documentation>Stringstring field representing Date represented in UTC (Universal Time Coordinated, also known as "GMT") in YYYYMMDD format. This special-purpose field is paired with UTCTimeOnly to form a proper UTCTimestamp for bandwidth-sensitive messages. 
-Valid values: 
+			<xs:documentation>Stringstring field representing Date represented in UTC (Universal Time Coordinated, also known as "GMT") in YYYYMMDD format. This special-purpose field is paired with UTCTimeOnly to form a proper UTCTimestamp for bandwidth-sensitive messages.
+Valid values:
 	YYYY = 0000-9999, MM = 01-12, DD = 01-31.
 </xs:documentation>
 		</xs:annotation>
@@ -1317,7 +1317,7 @@ Valid values:
 	<xs:simpleType name="LocalMktDate">
 		<xs:annotation>
 			<xs:documentation>Stringstring field represening a Date of Local Market (as oppose to UTC) in YYYYMMDD format.  This is the "normal" date field used by the FIX Protocol.
-Valid values: 
+Valid values:
 	YYYY = 0000-9999, MM = 01-12, DD = 01-31.
 </xs:documentation>
 		</xs:annotation>
@@ -1325,22 +1325,22 @@ Valid values:
 	</xs:simpleType>
 	<xs:simpleType name="TZTimeOnly">
 		<xs:annotation>
-			<xs:documentation>String field representing the time represented based on ISO 8601. This is the time with a UTC offset to allow identification of local time and timezone of that time. 
-Format is HH:MM[:SS][Z | [ + | - hh[:mm]]] where HH = 00-23 hours, MM = 00-59 minutes, SS = 00-59 seconds, hh = 01-12 offset hours, mm = 00-59 offset minutes. 
-Example: 07:39Z is 07:39 UTC 
-Example: 02:39-05 is five hours behind UTC, thus Eastern Time 
-Example: 15:39+08 is eight hours ahead of UTC, Hong Kong/Singapore time 
+			<xs:documentation>String field representing the time represented based on ISO 8601. This is the time with a UTC offset to allow identification of local time and timezone of that time.
+Format is HH:MM[:SS][Z | [ + | - hh[:mm]]] where HH = 00-23 hours, MM = 00-59 minutes, SS = 00-59 seconds, hh = 01-12 offset hours, mm = 00-59 offset minutes.
+Example: 07:39Z is 07:39 UTC
+Example: 02:39-05 is five hours behind UTC, thus Eastern Time
+Example: 15:39+08 is eight hours ahead of UTC, Hong Kong/Singapore time
 Example: 13:09+05:30 is 5.5 hours ahead of UTC, India time</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:time"/>
 	</xs:simpleType>
 	<xs:simpleType name="TZTimestamp">
 		<xs:annotation>
-			<xs:documentation>String field representing a time/date combination representing local time with an offset to UTC to allow identification of local time and timezone offset of that time. The representation is based on ISO 8601. 
-Format is YYYYMMDD-HH:MM:SS[Z | [ + | - hh[:mm]]] where YYYY = 0000 to 9999, MM = 01-12, DD = 01-31 HH = 00-23 hours, MM = 00-59 minutes, SS = 00-59 seconds, hh = 01-12 offset hours, mm = 00-59 offset minutes 
-Example: 20060901-07:39Z is 07:39 UTC on 1st of September 2006 
-Example: 20060901-02:39-05 is five hours behind UTC, thus Eastern Time on 1st of September 2006 
-Example: 20060901-15:39+08 is eight hours ahead of UTC, Hong Kong/Singapore time on 1st of September 2006 
+			<xs:documentation>String field representing a time/date combination representing local time with an offset to UTC to allow identification of local time and timezone offset of that time. The representation is based on ISO 8601.
+Format is YYYYMMDD-HH:MM:SS[Z | [ + | - hh[:mm]]] where YYYY = 0000 to 9999, MM = 01-12, DD = 01-31 HH = 00-23 hours, MM = 00-59 minutes, SS = 00-59 seconds, hh = 01-12 offset hours, mm = 00-59 offset minutes
+Example: 20060901-07:39Z is 07:39 UTC on 1st of September 2006
+Example: 20060901-02:39-05 is five hours behind UTC, thus Eastern Time on 1st of September 2006
+Example: 20060901-15:39+08 is eight hours ahead of UTC, Hong Kong/Singapore time on 1st of September 2006
 Example: 20060901-13:09+05:30 is 5.5 hours ahead of UTC, India time on 1st of September 2006</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:dateTime"/>
