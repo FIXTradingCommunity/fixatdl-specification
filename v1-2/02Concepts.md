@@ -753,12 +753,14 @@ following code snippet. (Note how the `Control/@ID` attribute value
 <Parameter name="CustomValue" xsi:type="Float_t" fixTag="28301" use="optional"/>
 <StrategyLayout>
     <StrategyPanel orientation="HORIZONTAL">
-        <Control ID="c_AlphaMode" xsi:type="DropDownList" label="Alpha Benchmark" parameterRef="AlphaMode">
+        <Control ID="c_AlphaMode" xsi:type="DropDownList" label="Alpha Benchmark"
+                 parameterRef="AlphaMode">
             <ListItem enumID="e_Annual" uiRep="Annual"/>
             <ListItem enumID="e_Daily" uiRep="Daily"/>
             <ListItem enumID="e_Custom" uiRep="Custom"/>
         </Control>
-        <Control ID="c_CustomValue" xsi:type="SingleSpinner_t" label="Custom Alpha" parameterRef="CustomValue">
+        <Control ID="c_CustomValue" xsi:type="SingleSpinner_t" label="Custom Alpha"
+                 parameterRef="CustomValue">
             <StateRule enabled="true">
                 <Edit field="c_AlphaMode" operator="EQ" value="e_Custom"/>
             </StateRule>
@@ -928,8 +930,10 @@ To illustrate, consider the following listing:
         <Parameter name="FC" xsi:type="Boolean_t" fixTag="27003" use="required"/>
         <StrategyLayout>
             <StrategyPanel>
-                <Control ID="c_PctVol" xsi:type="SingleSpinner_t" label="Pct of Volume" parameterRef="PctVol"/>
-                <Control ID="c_FC" xsi:type="CheckBox_t" label="Force Completion" parameterRef="FC"/>
+                <Control ID="c_PctVol" xsi:type="SingleSpinner_t" label="Pct of Volume"
+                         parameterRef="PctVol"/>
+                <Control ID="c_FC" xsi:type="CheckBox_t" label="Force Completion"
+                         parameterRef="FC"/>
             </StrategyPanel>
         </StrategyLayout>
     </Strategy>

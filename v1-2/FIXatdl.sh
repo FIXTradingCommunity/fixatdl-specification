@@ -10,7 +10,7 @@ STYLE="FIX_TechStd_Style_MASTER.docx"
 TARGET="$SOURCE/target"
 YAML="$SOURCE/FIXatdl.yaml"
 FILES="01Introduction.md 02Concepts.md 03Definitions.md 04Extensions.md 05Sample.md 06Appendix.md"
-WPFOLDER="/wp-content/uploads/2021/04/"
+WPFOLDER="/wp-content/uploads/2021/05/"
 
 # Create FIX document version with disclaimer
 pandoc "$DISCLAIMER" $FILES -o "$TARGET/docx/FIXatdl_V1.2_RC1.docx" --reference-doc="$STYLE" --metadata-file="$YAML" --toc --toc-depth=4

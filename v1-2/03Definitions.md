@@ -210,7 +210,7 @@ A high-level description of the elements is provided in the following table.
 |                  |                                | link together components of a multileg order).                |
 +------------------+--------------------------------+---------------------------------------------------------------+
 
-# Attribute Definitions
+# Attribute Definitions of Elements
 
 The following tables describe the attributes of all the FIXatdl&reg; XML elements. The format of the attribute name is
 
